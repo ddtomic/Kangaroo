@@ -49,6 +49,7 @@
     border-radius: 50px;
     background: white;
     cursor: text;
+    width: 35%;
 }
 
 .search-Box input{
@@ -58,7 +59,7 @@
     outline: 0;
     color: black;
     font-size: 18px;
-    width: 600px;
+    width: 100%;
     cursor: text;
     
 }
@@ -73,6 +74,6 @@
 }
 
 .search-Box img{
-    width: 30px;
+    width: 35px;
     cursor: pointer;
 }

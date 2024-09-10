@@ -1,0 +1,14 @@
+.main-page{
+    display: inline-block; 
+}
+
+.topic{
+    margin-top: 120px; 
+    background-color: green;
+    height: 100%;
+}
+
+.feed{
+    background-color: red;
+    height: 100%;
+}

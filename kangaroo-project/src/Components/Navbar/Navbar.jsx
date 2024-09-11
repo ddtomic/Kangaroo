@@ -4,7 +4,7 @@ import './Navbar.css'
 import searchIcon from '../../assets/search-b.png'
 
 const Navbar = () => {
-  const isAdmin = true; 
+  const isAdmin = false; 
 
   if(isAdmin){
     return (

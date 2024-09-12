@@ -15,6 +15,10 @@ const login = () => {
         setIsActive(false); 
     }
 
+    const test = () => {
+      console.log('hello'); 
+    }
+
    
     
   return (
@@ -26,7 +30,7 @@ const login = () => {
             <input type='text' placeholder='Email...'></input>
             <input type='text' placeholder='Username...'></input>
             <input type='text' placeholder='Password...'></input>
-            <button>Sign Up</button>
+            <button className='signUpBtn'>Sign Up</button>
         </form>
       </div>
 
@@ -35,7 +39,7 @@ const login = () => {
             <h1>Sign In</h1>
             <input type='text' placeholder='Username...'></input>
             <input type='text' placeholder='Password...'></input>
-            <button>Sign In</button>
+            <button className='signInBtn'>Sign In</button>
         </form>
       </div>
 

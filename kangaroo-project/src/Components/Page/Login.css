@@ -1,7 +1,5 @@
 body{
-    margin-top: 5%;
     background-color: rgb(223, 221, 221);
-    background: linear-gradient(to right,rgb(177, 176, 176), rgb(223, 221, 221) );
     display: flex;
     align-items: center;
     justify-content: center;
@@ -52,6 +50,11 @@ body{
 .container button.hidden{
     background-color: transparent;
     border-color: white; 
+}
+
+.container button:hover{
+    background-color: rgb(1, 100, 1); 
+    transition: 0.5s; 
 }
 
 .container form{

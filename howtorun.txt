@@ -21,3 +21,5 @@ to get backend working:
 4.) now that we are in a virtual env and we have installed our requirements we can run the local server by doing, cd kanga
     then, python manage.py runserver
 
+    note: my laptop worked using, py manage.py runserver, so try both
+

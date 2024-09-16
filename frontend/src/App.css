@@ -1,0 +1,124 @@
+body{
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;
+    background-color: lightgrey;
+}
+
+.main{
+    display: flex; 
+    height: 100vh; 
+    
+}
+
+.left-side{
+    background-color: darkgrey; 
+    padding: 50px; 
+    height: 100%; 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.middle{
+    width:50%; 
+}
+
+.login{
+    background-color: white;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px; 
+    width: 100%; 
+}
+
+.sign-up{
+    background-color: white;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px; 
+}
+
+.login, .sign-up, p{
+    font-size: 18px; 
+    margin: 10px 0; 
+}
+
+.login, .sign-up, input{
+    margin: 10px 0;
+    padding: 5px 10px; 
+}
+
+.login, .sign-up, button{
+    padding: 5px 15px; 
+}
+
+.top-box{
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+}
+
+.header{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    margin: 20px; 
+    width: 100%; 
+}
+
+.header p{
+    font-size: 30px; 
+}
+
+.top-links a{
+    margin: 0 20px;
+}
+
+.search-box{
+    border-style:solid; 
+    border-radius: 15px;
+    margin: 0 25px;
+    padding: 10px; 
+    width: 100%; 
+    background-color: white; 
+}
+
+.container{
+    background-color: white;
+    margin: 30px; 
+}
+
+a{
+    text-decoration: none; 
+    color: black;
+    cursor: pointer;
+}
+
+h4{
+    margin: 0; 
+}
+
+.bottom p{
+    margin: 5px 0; 
+}
+
+.bottom{
+    display: flex; 
+}
+
+.time-display{
+    padding-right: 10px; 
+}
+
+.row{
+    padding: 5px 0; 
+
+}

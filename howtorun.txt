@@ -1,0 +1,25 @@
+to get frontend working: 
+1.) you should use the cd command to get to the frontend folder, cd frontend
+
+2.) then install all dependencies from packages.json by typing, npm install
+
+3.) now that you've done that you can now run the local server with, npm start
+
+to get backend working:
+1.) you should use the cd command to get to the backend folder, cd backend
+
+2.) once you are in the backend folder we need to enter the python virtual environment
+    to do this you have to open a command prompt instead of a powershell. At the bottom of your
+    vscode there is a terminal window if you look at the top right of that terminal if it says powershell
+    you need to click the down arrow next to the + sign and select command prompt, once you've done that
+    make sure you are in the backend folder in that command prompt. If you are then you can run this command now, env\Scripts\activate
+    now you should see a (env) at the start of your command line that means you are good to good
+
+3.) now that we are in a virtual env we can return back to the backend folder using, cd ..
+    and we can install our dependencies using, pip install -r requirements.txt
+
+4.) now that we are in a virtual env and we have installed our requirements we can run the local server by doing, cd kanga
+    then, python manage.py runserver
+
+    note: my laptop worked using, py manage.py runserver, so try both
+

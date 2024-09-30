@@ -3,6 +3,8 @@ to get frontend working:
 
 2.) then install all dependencies from packages.json by typing, npm install
 
+3.) next install file router  by typing, npm install react-router-dom
+
 3.) now that you've done that you can now run the local server with, npm start
 
 to get backend working:

@@ -1,0 +1,59 @@
+body{
+    background-color: #5a19bb;
+    display: flex;                   /* Use flexbox to center content */
+    align-items: center;             /* Center items vertically */
+    justify-content: center;         /* Center items horizontally */
+    height: 100vh;                  /* Full viewport height */
+    margin: 0;  
+
+    font-family: "Jacquarda Bastarda 9", serif;
+}
+h4{
+    padding-bottom: 3em;
+}
+#hello{
+    font-weight: lighter;
+
+}
+h1{
+    color: blue;
+    font-weight:bold;
+}
+
+
+.auth-container{
+    height: 30em;
+    width: 50em;
+    background-color: white;
+    display:flex;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+.left-container, .right-container {
+    flex: 1; /* Each child will take up equal space */
+    height: 100%; /* Ensure they take up the full height of the parent */
+}
+
+.right-container{
+    background-image: url('./assets/images/LoginPattern.png'); /* Set your image path here */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+}
+
+.left-container{
+    padding-left: 2em;
+    padding-top: 1em;
+}
+
+input{
+    all: unset; /* Resets all inherited styles */
+    border: 1px solid lightgray;
+    border-bottom: 0.5px;
+    height:3.5em;
+    width: 20em;
+}
+.auth-form{
+    display:flex;
+    flex-direction: column;
+}

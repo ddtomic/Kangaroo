@@ -38,20 +38,20 @@ class AuthPage extends React.Component {
                 <h1 id='hello'>Hello,</h1>
                 <h1>Please Login</h1>
                 <form action="#" method="POST" class = 'auth-form'>
-                    <input 
+                    <input className="username-input"
                         type="text" 
                         name="username" 
-                        placeholder="Username" 
+                        placeholder="Username..." 
                         required 
                     />
-                    <input 
+                    <input className="password-input"
                         type="password" 
                         name="password" 
-                        placeholder="Password" 
+                        placeholder="Password..." 
                         required 
                     />
-                    <button type="submit">Login</button>
-                    <button>Sign Up</button>
+                    <button className="loginBtn" type="submit">Login</button>
+                    <button className="signUpBtn">Sign Up</button>
                     <a href="#">Sign Up</a>
                     <a href="#">Forgot Password?</a>
                 </form>

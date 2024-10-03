@@ -9,7 +9,7 @@ body{
     font-family: "Jacquarda Bastarda 9", serif;
 }
 h4{
-    padding-bottom: 3em;
+    padding-bottom: 1em;
 }
 #hello{
     font-weight: lighter;
@@ -27,6 +27,7 @@ h1{
     background-color: white;
     display:flex;
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    border-radius: 40px; 
 }
 
 .left-container, .right-container {
@@ -39,21 +40,51 @@ h1{
     background-size: cover; /* Cover the entire container */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent the image from repeating */
+    border-radius: 40px;
 }
 
 .left-container{
     padding-left: 2em;
     padding-top: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 input{
     all: unset; /* Resets all inherited styles */
     border: 1px solid lightgray;
     border-bottom: 0.5px;
-    height:3.5em;
+    height:3em;
     width: 20em;
+    border-radius: 50px;
+    margin: 0.5em 0;
+    border-color: black;
+    border-style: solid;
+    padding-left: 1em; 
 }
 .auth-form{
     display:flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
+button{
+    height: 2.5em;
+    width: 10em;
+    border-radius: 40px;
+    margin: 0.5em 0;
+    border-style: none;
+    background-color: #ba92f5;  
+    cursor: pointer;   
+    transition: 1s;   
+}
+
+button:hover{
+    background-color: #8f6dc2;
+}
+
+
+

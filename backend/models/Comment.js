@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const Thread = sequelize.define(
-    "Thread",
+  const Comment = sequelize.define(
+    "Comment",
     {
       userID: {
         type: DataTypes.INTEGER,
@@ -10,15 +10,19 @@ module.exports = (sequelize, DataTypes) => {
           key: "userID",
         },
       },
-      content: {
-        type: DataTypes.STRING(1234),
-        allowNull: false,
-      },
-      title: {
-        type: DataTypes.STRING(100),
-        allowNull: false,
-      },
       threadID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Threads",
+          key: "threadID",
+        },
+      },
+      content: {
+        type: DataTypes.STRING(300),
+        allowNull: false,
+      },
+      commentID: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
@@ -30,5 +34,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  return Thread;
+  return Comment;
 };

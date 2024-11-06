@@ -1,15 +1,14 @@
 import React from "react";
 import AuthPage from "./Pages/AuthPage";
-import Navbar from "./Components/Navbar";
 import MainPage from "./Pages/MainPage";
-
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <Navbar/>
-      <MainPage/>
-    </div>
+    <Routes>
+      <Route path="/home" element={<MainPage />} />
+      <Route path="*" element={<AuthPage />} />
+    </Routes>
   );
 }
 

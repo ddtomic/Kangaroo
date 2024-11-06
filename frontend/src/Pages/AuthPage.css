@@ -70,7 +70,7 @@ input{
     align-items: center;
 }
 
-.loginbtn button{
+.left-container button{
     height: 2.5em;
     width: 10em;
     border-radius: 40px;

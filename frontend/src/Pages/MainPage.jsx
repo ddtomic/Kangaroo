@@ -55,10 +55,19 @@ class MainPage extends React.Component {
             <p>Roo's</p>
             <button className="create-roo">Create Roo</button>
         </div>
+        <div className="roo-catagories">
+          <a href='/'>Most liked</a>
+          <a href='/'>Most Commented</a>
+          <a href='/'>Most Relavent</a>
+        </div>
         <div className="container">
 
             <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
-            <ThreadBox></ThreadBox>
+            <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
+            <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
+            <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
+            <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
+            
             
             <div className="switch-page">
               <button className="backBtn">Back Page</button>

@@ -15,24 +15,32 @@ ThreadBox.propTypes = {
 function ThreadBox(props) {
   return (
     <div> <li className="row">
-    <a href="#">
+    <a href="\">
+      <div className="top">
       <h4 className="username">{props.name}</h4>
-      <h5 className="timestamp">{props.timestamp}</h5>
       <h2 className="title">{props.title}</h2>
+      <h5 className="timestamp">{props.timestamp}</h5>
+      </div>
       <div className="bottom">
-        <p className="comment-count">
-          <img src={message}></img>
-          {props.commentcount}
-        </p>
         <div className="feedback">
-          <div className="left-feedback">
-          <img src={like} alt="like-img"></img>
+          <div className="comment-feedback">
+            <div className="left-comment">
+              <img src={message} alt='message-img'></img>
+            </div>
+            <div className="right-comment">
+              <p>{props.commentcount}</p>
+            </div>
           </div>
-          <div className="middle-feedback">
-            <p>{props.ratingcount}</p>
-          </div>
-          <div className="right-feedback">
-          <img src={dislike} alt="like-img"></img>
+          <div className="like-feedback">
+            <div className="left-feedback">
+            <img src={like} alt="like-img"></img>
+            </div>
+            <div className="middle-feedback">
+              <p>{props.ratingcount}</p>
+            </div>
+            <div className="right-feedback">
+            <img src={dislike} alt="like-img"></img>
+            </div>
           </div>
         </div>
       </div>

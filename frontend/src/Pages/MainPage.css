@@ -109,6 +109,37 @@ img{
     font-weight: bold;
 }
 
+.roo-catagories{
+    width: 125vh;
+    display: flex; 
+    justify-content: start; 
+    align-items: center;
+    margin-bottom: 1.5vh;
+}
+
+.roo-catagories a{
+    position: relative;
+    margin-right: 3vh;
+    color: black;
+    font-weight: normal;
+    font-size: 2.5vh;
+}
+
+.roo-catagories a::before{
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0; 
+    width: 0;
+    height: 2px;
+    background: black;
+    transition: 0.3s;
+}
+
+.roo-catagories a:hover::before{
+    width: 100%;
+}
+
 .create-roo{
     width: 20vh;
     border-radius: 10px;
@@ -131,9 +162,20 @@ img{
     padding: 5vh;
     list-style: none;
     border-radius: 10px;
-    display: flex;
-    flex-direction: column;
     
+}
+
+.row:hover{
+    margin: 1.5vh;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.row a{
+    width: 110vh;
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
 }
 
 h5, h2, h4{
@@ -153,7 +195,7 @@ h5, h2, h4{
 }
 
 .feedback{
-    width: 10vh;
+    width: 20vh;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -167,28 +209,48 @@ h5, h2, h4{
     margin: 0;
     padding: 0;
     height: auto;
-    width: 3vh;
+    width: 4vh;
 }
+
+.feedback img:hover{
+    height: auto;
+    width: 4.5vh;
+    
+}
+
 
 .feedback p{
     font-weight: bolder;
     font-size: 20px;
+    cursor:text;
+}
+
+.comment-feedback{
+    width: 20vh;
+}
+
+.left-comment{
+    margin-top: 0vh;
+}
+
+.right-comment{
+    margin-left: 5vh;
+}
+
+.like-feedback{
+    display: flex; 
+    flex-direction: column;
+
 }
 
 .right-feedback{
-    margin-right: 3vh;
-    margin-bottom: 3vh;
+
+    margin-bottom: 4vh;
 }
 
 .left-feedback{
-    margin-left: 0cqb;
-    margin-right: 3vh;
-    margin-bottom: 3vh;
-}
-.feedback img:hover{
-    height: auto;
-    width: 3.5vh;
-    
+
+    margin-bottom: 4vh;
 }
 
 .switch-page{

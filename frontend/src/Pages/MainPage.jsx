@@ -4,10 +4,9 @@ import './MainPage.css';
 import Navbar from "../Components/Navbar";
 import design from '../assets/images/pngegg.png'
 import search from '../assets/images/icons8-search-50.png'
-import like from '../assets/images/icons8-like-64.png'
 import ThreadBox from "../Components/ThreadBox";
-import up from '../assets/images/up.png'
-import down from '../assets/images/down.png'
+import like from '../assets/images/like.png'
+import dislike from '../assets/images/dislike.png'
 
 class MainPage extends React.Component {
   state = { details: [] };
@@ -58,85 +57,16 @@ class MainPage extends React.Component {
         </div>
         <div className="container">
 
-            <ThreadBox/>
-            <ThreadBox/>
-            <li className="row">
-              <a href="#">
-                <h5 className="username">Dejan</h5>
-                <h2 className="title">Oiled up my teacher</h2>
-                <div className="bottom">
-                  <p className="timestamp">11/5/2024</p>
-                  <p className="comment-count">7 comments</p>
-                  <div className="feedback">
-                  <img src={up} alt="up-img"></img>
-    
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li className="row">
-              <a href="#">
-                <h5 className="username">Josue</h5>
-                <h2 className="title">Got locked in a room with Diddy</h2>
-                <div className="bottom">
-                  <p className="timestamp">11/5/2024</p>
-                  <div className="feedback">
-                    <img src={like} alt="like-img"></img>
-                    <p className="comment-count">3 comments</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li className="row">
-              <a href="#">
-                <h5 className="username">Ayham</h5>
-                <h2 className="title">Crashed out in class so I blew it up</h2>
-                <div className="bottom">
-                  <p className="timestamp">11/5/2024</p>
-                  <div className="feedback">
-                    <img src={like} alt="like-img"></img>
-                    <p className="comment-count">7 comments</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li className="row">
-              <a href="#">
-                <h5 className="username">Drake</h5>
-                <h2 className="title">
-                  Had a diddy party in an elementry school
-                </h2>
-                <div className="bottom">
-                  <p className="timestamp">11/5/2024</p>
-                  <div className="feedback">
-                    <img src={like} alt="like-img"></img>
-                    <p className="comment-count">3 comments</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li className="row">
-              <a href="#">
-                <h5 className="username">Togbe</h5>
-                <h2 className="title">
-                  Sacrificed my student for showing up late to class
-                </h2>
-                <div className="bottom">
-                  <p className="timestamp">11/5/2024</p>
-                  <div className="feedback">
-                    <img src={like} alt="like-img"></img>
-                    <p className="comment-count">7 comments</p>
-                  </div>
-                </div>
-              </a>
-            </li>
+            <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
+            <ThreadBox></ThreadBox>
+            
             <div className="switch-page">
               <button className="backBtn">Back Page</button>
               <button className="nextBtn">Next Page</button>
             </div>
           </div>
         </div>
-        <div className="lower-body">
+        <footer className="lower-body">
           <div className="top-footer">
             <p>About us</p>
             <h1>
@@ -145,7 +75,7 @@ class MainPage extends React.Component {
               our CS 44200 class and we hope you enjoy!
             </h1>
           </div>
-        </div>
+        </footer>
       </div>
     );
   }

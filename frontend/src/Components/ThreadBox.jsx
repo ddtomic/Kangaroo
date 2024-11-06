@@ -1,6 +1,8 @@
 import React from 'react'
-import like from '../assets/images/icons8-like-64.png'
+import like from '../assets/images/like.png'
+import dislike from '../assets/images/dislike.png'
 import propTypes from 'prop-types'
+import message from '../assets/images/message.png'
 
 ThreadBox.propTypes = {
   name: propTypes.string,
@@ -12,17 +14,26 @@ ThreadBox.propTypes = {
 
 function ThreadBox(props) {
   return (
-    <div><li className="row">
-    <a href='/'>
-      <h5 className="username">{props.name}</h5>
-      <h2 className="title">
-          {props.title}
-      </h2>
+    <div> <li className="row">
+    <a href="#">
+      <h4 className="username">{props.name}</h4>
+      <h5 className="timestamp">{props.timestamp}</h5>
+      <h2 className="title">{props.title}</h2>
       <div className="bottom">
-        <p className="timestamp">11/5/2024</p>
+        <p className="comment-count">
+          <img src={message}></img>
+          {props.commentcount}
+        </p>
         <div className="feedback">
-        <img src={like} alt='like-img'></img>
-        <p className="comment-count">{props.commentcount} comments</p>
+          <div className="left-feedback">
+          <img src={like} alt="like-img"></img>
+          </div>
+          <div className="middle-feedback">
+            <p>{props.ratingcount}</p>
+          </div>
+          <div className="right-feedback">
+          <img src={dislike} alt="like-img"></img>
+          </div>
         </div>
       </div>
     </a>

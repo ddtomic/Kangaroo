@@ -31,9 +31,9 @@ img{
 }
 
 .upper-body p{
-    color: black;
+    color: White;
     font-weight: bolder;
-    font-size: 5vh;
+    font-size: 6vh;
     z-index: 999;
 }
 
@@ -136,7 +136,7 @@ img{
     
 }
 
-h5, h2{
+h5, h2, h4{
     color: black;
 }
 .bottom{
@@ -146,24 +146,48 @@ h5, h2{
     align-items: center;
     color: black;
 }
-
-.feedback{
-    display: flex;
-    
-    
-}
-
 .bottom img{
+    float: right; 
     height: auto;
     width: 3vh;
-    margin-left: 10vh;
-    align-items: center;
-    justify-content: center;
 }
 
-.bottom img:hover{
+.feedback{
+    width: 10vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    border-radius: 10px;
+}
+
+
+.feedback img{
+    margin: 0;
+    padding: 0;
     height: auto;
-    width: 4vh;
+    width: 3vh;
+}
+
+.feedback p{
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.right-feedback{
+    margin-right: 3vh;
+    margin-bottom: 3vh;
+}
+
+.left-feedback{
+    margin-left: 0cqb;
+    margin-right: 3vh;
+    margin-bottom: 3vh;
+}
+.feedback img:hover{
+    height: auto;
+    width: 3.5vh;
     
 }
 

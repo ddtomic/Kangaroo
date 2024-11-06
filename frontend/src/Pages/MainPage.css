@@ -33,12 +33,12 @@ img{
 .upper-body p{
     color: black;
     font-weight: bolder;
-    font-size: 50px;
+    font-size: 5vh;
     z-index: 999;
 }
 
 .upper-search{
-    margin: 20px 0px;
+    margin: 2.5vh 0vh;
     text-align: center; 
     display: flex;
     align-items: center;
@@ -57,14 +57,14 @@ img{
     border: 0; 
     outline: 0;
     color: black;
-    font-size: 13px;
+    font-size: 2vh;
     cursor: text;
     width: 100%;
     text-align: left;
 }
 
 .upper-search img{
-    margin-left: 5px;
+    margin-left: 2vh;
     height: auto;
     width: 2.5vh;
     position:relative;
@@ -91,7 +91,7 @@ img{
 
 .middle-p{
     text-align: center;
-    font-size: 30px;
+    font-size: 4.5vh;
     font-weight: normal;
     width: 85vh;
 }
@@ -104,7 +104,7 @@ img{
 }
 
 .roo-header p{
-    font-size: 25px;
+    font-size: 5vh;
     font-weight: bold;
 }
 
@@ -114,8 +114,8 @@ img{
     border-width: thin;
     background-color: #ba92f5;
     color: white;
-    font-size: 15px;
-    padding: 10px;
+    font-size: 2vh;
+    padding: 2vh;
     cursor: pointer;
 }
 
@@ -127,7 +127,7 @@ img{
 .row{
     border-style: solid;
     border-width: thin;
-    padding: 20px;
+    padding: 5vh;
     list-style: none;
     border-radius: 10px;
     display: flex;
@@ -150,7 +150,7 @@ h5, h2{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20%;
+    width: 35vh;
     
 }
 
@@ -177,12 +177,12 @@ h5, h2{
 
 .switch-page button{
     width: 20vh;
-    padding: 10px;
+    padding: 2vh;
     background-color: #ba92f5;
     border-radius: 10px;
     border-width: thin;
     color: white;
-    font-size: 15px;
+    font-size: 2vh;
     cursor: pointer;
 }
 
@@ -201,11 +201,11 @@ h5, h2{
 
 .top-footer p{
     margin-top: 5vh;
-    font-size: 30px;
+    font-size: 5vh;
 }
 
 .top-footer h1{
-    font-size: 15px;
+    font-size: 2vh;
     color: black;
     text-align:center;
     font-weight: normal;

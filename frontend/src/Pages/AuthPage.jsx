@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import './AuthPage.css';
-import LoginPattern from './assets/images/LoginPattern.png';
+
 
 class AuthPage extends React.Component {
   state = { details: [] };

@@ -1,11 +1,10 @@
 body{
-    background-color: #5a19bb;
+   
     display: flex;                   /* Use flexbox to center content */
     align-items: center;             /* Center items vertically */
     justify-content: center;         /* Center items horizontally */
     height: 100vh;                  /* Full viewport height */
     margin: 0;  
-
     font-family: "Jacquarda Bastarda 9", serif;
 }
 h4{
@@ -36,7 +35,7 @@ h1{
 }
 
 .right-container{
-    background-image: url('./assets/images/LoginPattern.png'); /* Set your image path here */
+    background-image: url('../assets/images/LoginPattern.png'); /* Set your image path here */
     background-size: cover; /* Cover the entire container */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent the image from repeating */
@@ -71,7 +70,7 @@ input{
     align-items: center;
 }
 
-button{
+.loginbtn button{
     height: 2.5em;
     width: 10em;
     border-radius: 40px;

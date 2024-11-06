@@ -1,10 +1,14 @@
 import React from "react";
-import AuthPage from "./AuthPage";
+import AuthPage from "./Pages/AuthPage";
+import Navbar from "./Components/Navbar";
+import MainPage from "./Pages/MainPage";
+
 
 function App() {
   return (
     <div>
-      <AuthPage />
+      <Navbar/> 
+      <MainPage/>
     </div>
   );
 }

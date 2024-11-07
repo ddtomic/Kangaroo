@@ -1,10 +1,11 @@
 {
   "development": {
-    "username": "root",
-    "password": "14438136789Az@!",
-    "database": "Kangaroo",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "admin",
+    "password": "password",
+    "database": "kangaroo",
+    "host": "kangaroo.cfokccm0ykmy.us-east-2.rds.amazonaws.com",
+    "dialect": "mysql",
+    "port": "3306"
   },
   "test": {
     "username": "root",

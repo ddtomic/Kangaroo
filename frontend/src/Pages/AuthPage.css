@@ -16,7 +16,7 @@ h4{
 
 }
 h1{
-    color: blue;
+    color: black;
     font-weight:bold;
 }
 
@@ -71,7 +71,9 @@ input{
     align-items: center;
 }
 
-.left-container button{
+.signUpBtn, .logInBtn{
+    color: black;
+    font-weight: normal;
     height: 2.5em;
     width: 10em;
     border-radius: 40px;
@@ -79,10 +81,13 @@ input{
     border-style: none;
     background-color: #ba92f5;  
     cursor: pointer;   
-    transition: 1s;   
+    transition: 0.2s;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-button:hover{
+.signUpBtn:hover, .logInBtn:hover{
     background-color: #8f6dc2;
 }
 

@@ -94,7 +94,7 @@ img{
     font-size: 4.5vh;
     font-weight: normal;
     width: 85vh;
-    margin-top: 4vh;
+    margin-top: 5vh;
 }
 
 .roo-header{
@@ -167,7 +167,7 @@ img{
 }
 
 .row:hover{
-    margin: 1.5vh;
+    background-color: rgb(238, 236, 236);
     cursor: pointer;
     transition: 0.2s;
 }
@@ -271,7 +271,7 @@ h5, h2, h4{
     color: white;
     font-size: 2vh;
     cursor: pointer;
-    margin-bottom: 4vh;
+    margin-bottom: 5vh;
 }
 
 .switch-page button:hover{
@@ -293,11 +293,11 @@ h5, h2, h4{
 
 .top-footer p{
     margin-top: 5vh;
-    font-size: 2.5vh;
+    font-size: 3vh;
 }
 
 .top-footer h1{
-    font-size: 1.5vh;
+    font-size: 2vh;
     color: black;
     text-align:center;
     font-weight: normal;

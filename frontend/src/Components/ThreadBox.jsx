@@ -3,6 +3,8 @@ import like from '../assets/images/like.png'
 import dislike from '../assets/images/dislike.png'
 import propTypes from 'prop-types'
 import message from '../assets/images/message.png'
+import PouchPage from '../Pages/PouchPage'
+import AuthPage from '../Pages/AuthPage'
 
 ThreadBox.propTypes = {
   name: propTypes.string,
@@ -15,7 +17,7 @@ ThreadBox.propTypes = {
 function ThreadBox(props) {
   return (
     <div> <li className="row">
-    <a href="\">
+    <a href="/pouch">
       <div className="top">
       <h4 className="username">{props.name}</h4>
       <h2 className="title">{props.title}</h2>

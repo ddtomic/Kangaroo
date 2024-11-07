@@ -5,8 +5,7 @@ import Navbar from "../Components/Navbar";
 import design from '../assets/images/pngegg.png'
 import search from '../assets/images/icons8-search-50.png'
 import ThreadBox from "../Components/ThreadBox";
-import like from '../assets/images/like.png'
-import dislike from '../assets/images/dislike.png'
+
 
 class MainPage extends React.Component {
   state = { details: [] };
@@ -37,7 +36,7 @@ class MainPage extends React.Component {
   render() {
     return (
       <div className="main">
-        <Navbar />
+        <Navbar/>
         <div className="upper-body">
           <img src={design} alt="background-image"></img>
           <p>Welcome to Kangaroo!</p>

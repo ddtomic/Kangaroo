@@ -27,13 +27,13 @@
 img{
     position: absolute;
     height: auto;
-    width: 85vh; 
+    width: 90vh; 
 }
 
 .upper-body p{
     color: White;
     font-weight: bolder;
-    font-size: 6vh;
+    font-size: 5vh;
     z-index: 999;
 }
 
@@ -94,6 +94,7 @@ img{
     font-size: 4.5vh;
     font-weight: normal;
     width: 85vh;
+    margin-top: 4vh;
 }
 
 .roo-header{
@@ -159,7 +160,7 @@ img{
 .row{
     border-style: solid;
     border-width: thin;
-    padding: 5vh;
+
     list-style: none;
     border-radius: 10px;
     
@@ -176,6 +177,7 @@ img{
     display: flex; 
     align-items: center;
     justify-content: space-between;
+    padding: 5vh;
 }
 
 h5, h2, h4{
@@ -269,6 +271,7 @@ h5, h2, h4{
     color: white;
     font-size: 2vh;
     cursor: pointer;
+    margin-bottom: 4vh;
 }
 
 .switch-page button:hover{

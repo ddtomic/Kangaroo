@@ -6,6 +6,7 @@ body{
     height: 100vh;                  /* Full viewport height */
     margin: 0;  
     font-family: "Jacquarda Bastarda 9", serif;
+    background-color: #8f6dc2;
 }
 h4{
     padding-bottom: 1em;

@@ -63,7 +63,7 @@ class MainPage extends React.Component {
 
             <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
             <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
-            <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
+            <ThreadBox name='Quadspy' title='Ran into a bera in the woods and fought it off with a stic! Also I was' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
             <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
             <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
             

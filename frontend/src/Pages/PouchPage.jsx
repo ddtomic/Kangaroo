@@ -4,8 +4,8 @@ import like from '../assets/images/like.png'
 import dislike from '../assets/images/dislike.png'
 import message from '../assets/images/message.png'
 import './PouchPage.css'
-import PouchReply from '../Components/PouchReply'
-import Pouch from '../Components/Pouch'
+import PouchReply from '../Props/PouchReply'
+import Pouch from '../Props/Pouch'
 
 const PouchPage = () => {
   return (

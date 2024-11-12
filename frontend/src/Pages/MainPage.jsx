@@ -4,7 +4,7 @@ import './MainPage.css';
 import Navbar from "../Components/Navbar";
 import design from '../assets/images/pngegg.png'
 import search from '../assets/images/icons8-search-50.png'
-import ThreadBox from "../Components/ThreadBox";
+import ThreadBox from "../Props/ThreadBox";
 
 
 class MainPage extends React.Component {

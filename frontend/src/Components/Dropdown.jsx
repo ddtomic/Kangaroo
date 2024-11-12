@@ -1,7 +1,7 @@
 import React from 'react'
 import './Dropdown.css'
-import CommentNotification from './CommentNotification'
-import LikeNotification from './LikeNotification'
+import CommentNotification from '../Props/CommentNotification'
+import LikeNotification from '../Props/LikeNotification'
 
 const Dropdown = () => {
   return (

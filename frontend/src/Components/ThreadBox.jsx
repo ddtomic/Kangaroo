@@ -33,16 +33,16 @@ function ThreadBox(props) {
               <p>{props.commentcount}</p>
             </div>
           </div>
-          <div className="like-feedback">
-            <div className="left-feedback">
-            <img src={like} alt="like-img"></img>
-            </div>
-            <div className="middle-feedback">
-              <p>{props.ratingcount}</p>
-            </div>
-            <div className="right-feedback">
-            <img src={dislike} alt="like-img"></img>
-            </div>
+            <div className="like-feedback">
+              <div className="left-feedback">
+              <img src={like} alt="like-img"></img>
+              </div>
+              <div className="middle-feedback">
+                <p>{props.ratingcount}</p>
+              </div>
+              <div className="right-feedback">
+              <img src={dislike} alt="like-img"></img>
+              </div>
           </div>
         </div>
       </div>

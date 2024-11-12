@@ -154,7 +154,13 @@ img{
 
 .container{
     width: 125vh;
-    
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-bottom: 10vh;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 10px;
 }
 
 .row{
@@ -202,12 +208,12 @@ h5, h2, h4{
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-
     border-radius: 10px;
 }
 
 
 .feedback img{
+    position: sticky;
     margin: 0;
     padding: 0;
     height: auto;
@@ -233,9 +239,11 @@ h5, h2, h4{
 
 .left-comment{
     margin-top: 0vh;
+    margin-right: 3vh;
 }
 
 .right-comment{
+    margin-top: 0vh;
     margin-left: 5vh;
 }
 
@@ -247,35 +255,12 @@ h5, h2, h4{
 
 .right-feedback{
 
-    margin-bottom: 4vh;
+    margin-top: 4vh;
 }
 
 .left-feedback{
 
     margin-bottom: 4vh;
-}
-
-.switch-page{
-    margin-top: 2vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.switch-page button{
-    width: 20vh;
-    padding: 2vh;
-    background-color: #ba92f5;
-    border-radius: 10px;
-    border-width: thin;
-    color: white;
-    font-size: 2vh;
-    cursor: pointer;
-    margin-bottom: 5vh;
-}
-
-.switch-page button:hover{
-    background-color: #ad7df7;
 }
 
 

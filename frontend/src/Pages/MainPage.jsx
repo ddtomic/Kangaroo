@@ -68,10 +68,6 @@ class MainPage extends React.Component {
             <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
             
             
-            <div className="switch-page">
-              <button className="backBtn">Back Page</button>
-              <button className="nextBtn">Next Page</button>
-            </div>
           </div>
         </div>
         <footer className="lower-body">

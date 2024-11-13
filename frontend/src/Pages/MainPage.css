@@ -54,6 +54,7 @@ img{
 
 .upper-search input{
     background: transparent;
+    padding: 2vh;
     border: 0; 
     outline: 0;
     color: black;
@@ -154,13 +155,18 @@ img{
 
 .container{
     width: 125vh;
-    height: 100vh;
+    height: auto; 
+    max-height: 100vh;
+
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none; 
     margin-bottom: 10vh;
     border-style: solid;
     border-width: thin;
     border-radius: 10px;
+
 }
 
 .row{
@@ -179,22 +185,41 @@ img{
 }
 
 .row a{
-    width: 110vh;
+    width: 100%;
     display: flex; 
     align-items: center;
     justify-content: space-between;
     padding: 2vh 5vh;
 }
 
-h5, h2, h4{
+.row h5, h4{
+    color: black;
+    font-weight: normal;
+}
+
+.row h5{
+    margin-top: 2vh;
+}
+
+.row h2{
     color: black;
 }
+
+.top{
+    max-width: 75vh;
+    width: auto; 
+    display: flex; 
+    flex-direction: column;
+    margin-bottom: 2vh;
+}
+
 .bottom{
     margin-top: 2vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: black;
+    width: 30vh;
 }
 .bottom img{
     float: right; 
@@ -203,7 +228,7 @@ h5, h2, h4{
 }
 
 .feedback{
-    width: 20vh;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -239,7 +264,7 @@ h5, h2, h4{
 
 .left-comment{
     margin-top: 0vh;
-    margin-right: 3vh;
+    margin-right: 5vh;
 }
 
 .right-comment{

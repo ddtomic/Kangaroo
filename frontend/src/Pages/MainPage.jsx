@@ -5,6 +5,7 @@ import Navbar from "../Components/Navbar";
 import design from '../assets/images/pngegg.png'
 import search from '../assets/images/icons8-search-50.png'
 import ThreadBox from "../Props/ThreadBox";
+import { Link } from 'react-router-dom'
 
 
 class MainPage extends React.Component {
@@ -52,7 +53,7 @@ class MainPage extends React.Component {
           </p>
           <div className="roo-header">
             <p>Roo's</p>
-            <button className="create-roo">Create Roo</button>
+            <Link to="/create"><button className="create-roo">Create Roo</button></Link>
         </div>
         <div className="roo-catagories">
           <a href='/'>Most liked</a>
@@ -63,7 +64,7 @@ class MainPage extends React.Component {
 
             <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
             <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
-            <ThreadBox name='Quadspy' title='Ran into a bera in the woods and fought it off with a stic! Also I was' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
+            <ThreadBox name='Quadspy' title='Ran into a bera in the woods and fought it off with a stic! Also I was at a nar and this dude' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
             <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
             <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
             

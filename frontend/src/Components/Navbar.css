@@ -3,9 +3,9 @@
     margin: 0; 
     padding: 0; 
 }
-img{
-    height: 50px;
-    width: 50px;
+.navbar img{
+    height: auto;
+    width: 5vh;
 }
 .header{
     position: fixed;

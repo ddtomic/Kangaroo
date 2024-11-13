@@ -24,7 +24,7 @@
     justify-content: center;
 }
 
-img{
+.upper-body img{
     position: absolute;
     height: auto;
     width: 90vh; 
@@ -248,9 +248,7 @@ img{
 .feedback img:hover{
     height: auto;
     width: 4.5vh;
-    
 }
-
 
 .feedback p{
     font-weight: bolder;

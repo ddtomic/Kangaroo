@@ -26,7 +26,7 @@ const AuthPage = () => {
             <h1>Create Account</h1>
             <input type='text' placeholder='Email...'></input>
             <input type='text' placeholder='Username...'></input>
-            <input type='text' placeholder='Password...'></input>
+            <input type='password' placeholder='Password...'></input>
             <Link to="/home">
             <button>Sign Up</button>
             </Link>
@@ -37,7 +37,7 @@ const AuthPage = () => {
         <form>
             <h1>Sign In</h1>
             <input type='text' placeholder='Username...'></input>
-            <input type='text' placeholder='Password...'></input>
+            <input type='password' placeholder='Password...'></input>
             <Link to="/Home">
             <button>Sign In</button>
             </Link>

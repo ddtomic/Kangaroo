@@ -1,0 +1,31 @@
+p{
+    color: gray;
+}
+
+.profile-overview{
+    margin-top: 75px;
+    border-radius: 10px;
+
+    /* Box Shadow Generation */
+    -webkit-box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
+    -moz-box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
+    box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
+
+    width: 70vw;
+    height: 15rem;
+    background-color: white;
+    
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pfp{
+    height: 60px;
+    width:60px;
+    border-radius: 50%;
+    background-image: url(../assets/images/usericon.png);
+    background-size: 100% 100%;
+    margin-bottom:5px;
+}

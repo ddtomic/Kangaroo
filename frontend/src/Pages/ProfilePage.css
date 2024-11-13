@@ -29,3 +29,26 @@
     background-size: 100% 100%;
     margin-bottom:5px;
 }
+.user-pouches{
+    margin-top:10px;
+    background-color: white;
+    border-radius:10px;
+
+    /* Box Shadow Generation */
+    -webkit-box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
+    -moz-box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
+    box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
+}
+
+.heading-container{
+    font-size: 20px;
+    height: 75px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+select{
+    font-size: 20px;
+    border: none;
+}

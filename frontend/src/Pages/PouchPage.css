@@ -64,14 +64,14 @@
     margin-bottom: 10vh;
 }
 
-.reply-container input{
-    text-align:start;
-    align-items: end;
+.pouch-input{
+    text-align:left;
     border-style: solid;
     border-radius: 5px;
-    border-style: thin;
+    border-width: thin;
     width: 95%;
     height: 30vh;
+
 }
 
 .reply-container button{
@@ -93,12 +93,22 @@
     display: flex;
     flex-direction: column;
     width: 150vh;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: thin;
     margin-top: 5vh;
+    max-height: 80vh;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none; 
+    
 }
 
 .top-comment{
     border-style: solid;
-    border-radius: 10px;
+
     border-width: thin;
     background-color: white;
     padding: 3vh;
@@ -106,7 +116,7 @@
 
 .bottom-comment{
     border-style: solid;
-    border-radius: 10px;
+
     border-width: thin;
     background-color: white;
     padding: 3vh;
@@ -114,4 +124,8 @@
 
 .bottom-comment h3{
     font-weight: normal;
+}
+
+.pouch-button, .pouch-input{
+    margin-top: 2vh;
 }

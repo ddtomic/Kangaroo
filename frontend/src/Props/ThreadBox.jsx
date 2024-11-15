@@ -15,9 +15,10 @@ ThreadBox.propTypes = {
 }
 
 function ThreadBox(props) {
+  var rating = 0; 
   return (
     <div> <li className="row">
-    <a href="/pouch">
+    <a href="\pouch">
       <div className="top">
       <h4 className="username">{props.name}</h4>
       <h2 className="title">{props.title}</h2>
@@ -33,16 +34,16 @@ function ThreadBox(props) {
               <p>{props.commentcount}</p>
             </div>
           </div>
-          <div className="like-feedback">
-            <div className="left-feedback">
-            <img src={like} alt="like-img"></img>
-            </div>
-            <div className="middle-feedback">
-              <p>{props.ratingcount}</p>
-            </div>
-            <div className="right-feedback">
-            <img src={dislike} alt="like-img"></img>
-            </div>
+            <div className="like-feedback">
+              <div className="left-feedback">
+              <img src={like} alt="like-img"></img>
+              </div>
+              <div className="middle-feedback">
+                <p>{props.ratingcount}</p>
+              </div>
+              <div className="right-feedback">
+              <img src={dislike} alt="dislike-img"></img>
+              </div>
           </div>
         </div>
       </div>

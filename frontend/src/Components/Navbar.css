@@ -3,7 +3,10 @@
     margin: 0; 
     padding: 0; 
 }
-
+.navbar img{
+    height: auto;
+    width: 5vh;
+}
 .header{
     position: fixed;
     top: 0; 
@@ -56,5 +59,9 @@
 
 .navbar a:hover::before{
     width: 100%;
+}
+
+.notification:hover{
+    cursor: pointer;
 }
 

@@ -1,95 +1,182 @@
 body{
-   
-    display: flex;                   /* Use flexbox to center content */
-    align-items: center;             /* Center items vertically */
-    justify-content: center;         /* Center items horizontally */
-    height: 100vh;                  /* Full viewport height */
-    margin: 0;  
-    font-family: "Jacquarda Bastarda 9", serif;
-    background-color: #8f6dc2;
+    margin-top: 5%;
+    background-color: #ac79f8; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: auto;
 }
-h4{
-    padding-bottom: 1em;
-}
-#hello{
-    font-weight: lighter;
-
-}
-h1{
-    color: black;
-    font-weight:bold;
-}
-
 
 .auth-container{
-    height: 30em;
-    width: 50em;
     background-color: white;
-    display:flex;
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
-    border-radius: 40px; 
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    width: 800px;
+    max-width: 100%;
+    min-height: 480px;
+    
 }
 
-.left-container, .right-container {
-    flex: 1; /* Each child will take up equal space */
-    height: 100%; /* Ensure they take up the full height of the parent */
+.auth-container p{
+    font-size: 14px; 
+    line-height: 20px;
+    letter-spacing: 0.3px;
+    margin: 20px 0;
 }
 
-.right-container{
-    background-image: url('../assets/images/LoginPattern.png'); /* Set your image path here */
-    background-size: cover; /* Cover the entire container */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent the image from repeating */
-    border-radius: 40px;
+.auth-container a{
+    color: #333; 
+    font-size: 13px; 
+    text-decoration: none;
+    margin: 15px 0 10px;
 }
 
-.left-container{
-    padding-left: 2em;
-    padding-top: 1em;
+.auth-container button{
+    background-color: #8a5bcf; 
+    color: white; 
+    font-size: 12px; 
+    padding: 10px 45px; 
+    border: 1px solid transparent; 
+    border-radius: 8px; 
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.auth-container button.hidden{
+    background-color: transparent;
+    border-color: white; 
+}
+
+.auth-container form{
+    background-color: white;
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 0 40px; 
 }
 
-input{
-    all: unset; /* Resets all inherited styles */
-    border: 1px solid lightgray;
-    border-bottom: 0.5px;
-    height:3em;
-    width: 20em;
-    border-radius: 50px;
-    margin: 0.5em 0;
-    border-color: black;
-    border-style: solid;
-    padding-left: 1em; 
+.auth-container input{
+    background-color: #eee;
+    border: none; 
+    margin: 8px 0; 
+    padding: 10px 15px; 
+    font-size: 13px; 
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
 }
-.auth-form{
-    display:flex;
+
+.form-container{
+    position: absolute;
+    top: 30%; 
+    height: 100%; 
+    transition: all 0.6s ease-in-out; 
+}
+
+.sign-in{
+    left: 0; 
+    width: 50%; 
+    z-index: 2; 
+}
+
+.auth-container.active .sign-in{
+    transform: translateX(100%);
+
+}
+
+.sign-up{
+    left: 0; 
+    width: 50%; 
+    opacity: 0;
+    z-index: 1;
+}
+
+.auth-container.active .sign-up{
+    transform: translateX(100%);
+    opacity: 1; 
+    z-index: 5; 
+    animation: move 0.6s; 
+}
+
+@keyframes move {
+    0%, 49.99%{
+        opacity: 0; 
+        z-index: 1; ;
+    }
+    50%, 100%{
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+.toggle-container{
+    position: absolute; 
+    top: 0; 
+    left: 50%; 
+    width: 50%; 
+    height: 100%; 
+    overflow: hidden; 
+    transition: all 0.6s ease-in-out; 
+    z-index: 1000; 
+    border-radius: 75px 0 0 75px;
+}
+
+.auth-container.active .toggle-container{
+    transform: translateX(-100%); 
+    border-radius: 0 75px 75px 0; 
+}
+
+.toggle{
+    background-color: #8a5bcf;
+    height: 100%;
+    color: white; 
+    position: relative;
+    left: -100%;
+    height: 100%; 
+    width: 200%;
+    transform: translateX(0); 
+    transition: all 0.6s ease-in-out;
+}
+
+.auth-container.active .toggle{
+    transform: translateX(50%); 
+}
+
+.toggle-panel{
+    position: absolute; 
+    width: 50%; 
+    height: 100%; 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 0 30px; 
+    text-align: center; 
+    top: 0; 
+    transform: translateX(0); 
+    transition: all 0.6s ease-in-out;
 }
 
-.signUpBtn, .logInBtn{
-    color: black;
-    font-weight: normal;
-    height: 2.5em;
-    width: 10em;
-    border-radius: 40px;
-    margin: 0.5em 0;
-    border-style: none;
-    background-color: #ba92f5;  
-    cursor: pointer;   
-    transition: 0.2s;   
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.toggle-left{
+    transform: translateX(-200%);
 }
 
-.signUpBtn:hover, .logInBtn:hover{
-    background-color: #8f6dc2;
+.auth-container.active .toggle-left{
+    transform: translateX(0); 
 }
 
+.toggle-right{
+    right: 0; 
+    transform: translateX(0)
+}
 
-
+.auth-container.active .toggle-right{
+    transform: translateX(200%);
+}

@@ -24,7 +24,7 @@
     justify-content: center;
 }
 
-img{
+.upper-body img{
     position: absolute;
     height: auto;
     width: 90vh; 
@@ -54,6 +54,7 @@ img{
 
 .upper-search input{
     background: transparent;
+    padding: 2vh;
     border: 0; 
     outline: 0;
     color: black;
@@ -154,12 +155,21 @@ img{
 
 .container{
     width: 125vh;
-    
+    height: auto; 
+    max-height: 100vh;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none; 
+    margin-bottom: 10vh;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 10px;
+
 }
 
 .row{
-    border-style: solid;
-    border-width: thin;
 
     list-style: none;
     border-radius: 10px;
@@ -173,22 +183,41 @@ img{
 }
 
 .row a{
-    width: 110vh;
+    width: 100%;
     display: flex; 
     align-items: center;
     justify-content: space-between;
-    padding: 5vh;
+    padding: 2vh 5vh;
 }
 
-h5, h2, h4{
+.row h5, h4{
+    color: black;
+    font-weight: normal;
+}
+
+.row h5{
+    margin-top: 2vh;
+}
+
+.row h2{
     color: black;
 }
+
+.top{
+    max-width: 75vh;
+    width: auto; 
+    display: flex; 
+    flex-direction: column;
+    margin-bottom: 2vh;
+}
+
 .bottom{
     margin-top: 2vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: black;
+    width: 30vh;
 }
 .bottom img{
     float: right; 
@@ -197,17 +226,17 @@ h5, h2, h4{
 }
 
 .feedback{
-    width: 20vh;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-
     border-radius: 10px;
 }
 
 
 .feedback img{
+    position: sticky;
     margin: 0;
     padding: 0;
     height: auto;
@@ -217,9 +246,7 @@ h5, h2, h4{
 .feedback img:hover{
     height: auto;
     width: 4.5vh;
-    
 }
-
 
 .feedback p{
     font-weight: bolder;
@@ -233,9 +260,11 @@ h5, h2, h4{
 
 .left-comment{
     margin-top: 0vh;
+    margin-right: 5vh;
 }
 
 .right-comment{
+    margin-top: 0vh;
     margin-left: 5vh;
 }
 
@@ -247,35 +276,12 @@ h5, h2, h4{
 
 .right-feedback{
 
-    margin-bottom: 4vh;
+    margin-top: 4vh;
 }
 
 .left-feedback{
 
     margin-bottom: 4vh;
-}
-
-.switch-page{
-    margin-top: 2vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.switch-page button{
-    width: 20vh;
-    padding: 2vh;
-    background-color: #ba92f5;
-    border-radius: 10px;
-    border-width: thin;
-    color: white;
-    font-size: 2vh;
-    cursor: pointer;
-    margin-bottom: 5vh;
-}
-
-.switch-page button:hover{
-    background-color: #ad7df7;
 }
 
 

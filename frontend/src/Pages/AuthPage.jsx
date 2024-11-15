@@ -1,34 +1,23 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import "./AuthPage.css";
+import  { Link } from 'react-router-dom'
 
-class AuthPage extends React.Component {
-  state = { details: [] };
+const AuthPage = () => {
 
-  componentDidMount() {
-    let data;
-    axios
-      .get("http://localhost:8000/")
-      .then((res) => {
-        data = res.data;
-        this.setState({
-          details: data,
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [isActive, setIsActive] = useState(false); 
+
+  const setActive= () =>{
+      setIsActive(true);
   }
 
-  onSubmit = (data) => {
-    console.log(data.target.username.value);
-    axios.post("http://localhost:8000/", {
-      username: data.target.username.value,
-      email: data.target.email.value,
-    });
-  };
+  const resetActive = () =>{
+      setIsActive(false); 
+  }
+  
 
-  render() {
+
     return (
       //
       <div className="auth-container">
@@ -59,30 +48,50 @@ class AuthPage extends React.Component {
               Log In
             </a>
           </form>
-        </div>
-        <div className="right-container"></div>
+      <body>
+        <div className={`auth-container${isActive ? " active" : ''}`} id='auth-container'>
+      <div className='form-container sign-up'>
+        <form>
+            <h1>Create Account</h1>
+            <input type='text' placeholder='Email...'></input>
+            <input type='text' placeholder='Username...'></input>
+            <input type='password' placeholder='Password...'></input>
+            <Link to="/home">
+            <button>Sign Up</button>
+            </Link>
+        </form>
       </div>
-      //   <div>
-      //     <header>Enter Info Below</header>
-      //     <hr />
-      //     <form onSubmit={this.onSubmit}>
-      //       <label>
-      //         Username: <input type="text" name="username" />
-      //       </label>
-      //       <label>
-      //         Email: <input type="email" name="email" />
-      //       </label>
-      //       <button type="submit">Submit</button>
-      //     </form>
-      //     {this.state.details.map((output, id) => (
-      //       <div key={id}>
-      //         <h1>{output.username}</h1>
-      //         <h2>{output.email}</h2>
-      //       </div>
-      //     ))}
-      //   </div>
+
+      <div className='form-container sign-in'>
+        <form>
+            <h1>Sign In</h1>
+            <input type='text' placeholder='Username...'></input>
+            <input type='password' placeholder='Password...'></input>
+            <Link to="/Home">
+            <button>Sign In</button>
+            </Link>
+
+        </form>
+      </div>
+
+      <div className="toggle-container">
+        <div className="toggle">
+            <div className="toggle-panel toggle-left">
+                <h1>Welcome to Kangaroo!</h1>
+                <p>Already have an account? Click the button to sign in!</p>
+                <button className="hidden" id='login' onClick={resetActive}>Sign In</button>
+            </div>
+            <div className="toggle-panel toggle-right">
+                <h1>Welcome Back!</h1>
+                <p>Dont have an account? Register with your information to create one!</p>
+                <button className="hidden" id='register' onClick={setActive}>Sign Up</button>
+            </div>
+        </div>
+      </div>
+    </div>
+    </body>
     );
   }
-}
+
 
 export default AuthPage;

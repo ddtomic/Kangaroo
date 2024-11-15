@@ -19,8 +19,9 @@ const AuthPage = () => {
 
 
     return (
+      <div></div>
       //
-      <div className="auth-container">
+      /*<div className="auth-container">
         <div className="left-container">
           <h4>Kangaroo</h4>
           <h1 id="hello">Hello,</h1>
@@ -89,7 +90,7 @@ const AuthPage = () => {
         </div>
       </div>
     </div>
-    </body>
+    </body>*/
     );
   }
 

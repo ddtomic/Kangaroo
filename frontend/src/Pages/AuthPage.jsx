@@ -19,6 +19,35 @@ const AuthPage = () => {
 
 
     return (
+      //
+      <div className="auth-container">
+        <div className="left-container">
+          <h4>Kangaroo</h4>
+          <h1 id="hello">Hello,</h1>
+          <h1>Please Login</h1>
+          <form action="#" method="POST" class="auth-form">
+            <input
+              className="username-input"
+              type="text"
+              name="username"
+              placeholder="Username..."
+              required
+            />
+            <input
+              className="password-input"
+              type="password"
+              name="password"
+              placeholder="Password..."
+              required
+            />
+
+            <a className="signUpBtn" href="\home">
+              Sign Up
+            </a>
+            <a className="logInBtn " href="#">
+              Log In
+            </a>
+          </form>
       <body>
         <div className={`auth-container${isActive ? " active" : ''}`} id='auth-container'>
       <div className='form-container sign-up'>

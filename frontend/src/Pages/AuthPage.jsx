@@ -51,9 +51,13 @@ class AuthPage extends React.Component {
               placeholder="Password..."
               required
             />
-  
-            <a className='signUpBtn' href="\home">Sign Up</a>
-            <a className='logInBtn 'href="#">Log In</a>
+
+            <a className="signUpBtn" href="\home">
+              Sign Up
+            </a>
+            <a className="logInBtn " href="#">
+              Log In
+            </a>
           </form>
         </div>
         <div className="right-container"></div>

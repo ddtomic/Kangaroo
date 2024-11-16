@@ -25,7 +25,7 @@ const MainPage = () => {
     axios.get("http://18.119.120.175:3002/thread/date").then((response) => {
       setThreadList(response.data);
     });
-  }, []);
+  }, [setThreadList]);
 
   return (
     <div className="main">
@@ -61,11 +61,11 @@ const MainPage = () => {
             return (
               <ThreadBox
                 key={key}
-                name={value.User.username}
+                name={value.userThread.username}
                 title={value.title}
                 timestamp={formatDate(value.createdAt)}
-                commentcount={value.commentRate.rating}
-                ratingcount={value.commentRate.rating}
+                commentcount={value.commentCount}
+                ratingcount={value.threadRatings.length}
               ></ThreadBox>
             );
           })}

@@ -15,7 +15,6 @@ const CreatePage = () => {
   const initialValues = {
     threadTitle: "",
     threadContent: "",
-    userID: authState.userID,
   };
 
   const validationSchema = Yup.object().shape({
@@ -31,12 +30,19 @@ const CreatePage = () => {
 
   const onSubmit = (data) => {
     axios
-      .post("http://18.119.120.175:3002/thread/create", data)
+      .post(
+        "http://18.119.120.175:3002/thread/create",
+        (data = {
+          threadTitle: data.threadTitle,
+          threadContent: data.threadContent,
+          userID: authState.id,
+        })
+      )
       .then(() => {
         console.log("Thread created successfully");
+        navTo("/home");
       })
       .catch((error) => {
-        console.log(authState);
         console.log(data);
         console.error("Error creating thread:", error);
       });

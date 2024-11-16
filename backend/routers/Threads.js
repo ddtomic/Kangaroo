@@ -1,19 +1,43 @@
 const express = require("express");
 const router = express.Router();
-const { Thread } = require("../models");
+const { Thread, threadRate, commentRate, Users } = require("../models");
 
 router.post("/create", async (req, res) => {
   const { threadTitle, threadContent, userID } = req.body;
   await Thread.create({
-    threadTitle,
-    threadContent,
-    userID,
+    title: threadTitle,
+    content: threadContent,
+    userID: userID,
   });
   return res.json("Thread created");
 });
 
+//Get threads from newest to oldest (descending)
 router.get("/date", async (req, res) => {
-  const threadListDates = await Thread.findAll();
+  const threadListDates = await Thread.findAll({
+    include: {
+      model: Users,
+      attributes: ["username"],
+    },
+    order: [["createdAt", "DESC"]],
+  });
+
+  res.json(threadListDates);
+});
+
+//Get threads from most to least liked (descending)
+router.get("/like", async (req, res) => {
+  const threadListDates = await Thread.findAll({
+    order: [["createdAt", "DESC"]],
+  });
+  res.json(threadListDates);
+});
+
+//Get threads from most to least comments (descending)
+router.get("/comment", async (req, res) => {
+  const threadListDates = await Thread.findAll({
+    order: [["createdAt", "DESC"]],
+  });
   res.json(threadListDates);
 });
 

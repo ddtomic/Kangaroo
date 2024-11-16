@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         references: {
           model: "Users",
           key: "userID",
+          as: "userCommentRate",
         },
       },
       rating: {
@@ -18,12 +19,13 @@ module.exports = (sequelize, DataTypes) => {
           isIn: [["l", "d", "n"]], // Restrict input to 'l', 'd', 'n'
         },
       },
-      threadID: {
+      commentID: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "Threads",
-          key: "threadID",
+          model: "Comments",
+          key: "commentID",
+          as: "commentRate",
         },
       },
     },

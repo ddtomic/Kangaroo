@@ -57,14 +57,15 @@ const MainPage = () => {
         </div>
         <div className="container">
           {threadList.map((value, key) => {
+            console.log(value);
             return (
               <ThreadBox
                 key={key}
                 name={value.User.username}
                 title={value.title}
                 timestamp={formatDate(value.createdAt)}
-                commentcount={45}
-                ratingcount={45}
+                commentcount={value.commentRate.rating}
+                ratingcount={value.commentRate.rating}
               ></ThreadBox>
             );
           })}

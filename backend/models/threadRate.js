@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         references: {
           model: "Users",
           key: "userID",
+          as: "userThreadRate",
         },
       },
       rating: {
@@ -24,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         references: {
           model: "Threads",
           key: "threadID",
+          as: "threadRates",
         },
       },
     },

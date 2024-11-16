@@ -169,8 +169,9 @@
 
 }
 
-.row{
-
+.container .row{
+    border-style: solid;
+    border-width: thin;
     list-style: none;
     border-radius: 10px;
     
@@ -282,6 +283,81 @@
 .left-feedback{
 
     margin-bottom: 4vh;
+}
+
+.leaderboard-container{
+    display: flex; 
+    justify-content: space-between;
+    width: 125vh;
+    list-style-type: decimal;
+    margin-bottom: 4vh;
+}
+
+.leaderboard-container .leaderboard{
+    align-items: start;
+    border-style: solid;
+    border-color: rgb(173, 173, 173);
+    border-width: thin;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 35vh;
+    height: auto;
+    max-height: 50vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none; 
+}
+
+.leaderboard-header{
+   
+    border-radius: 10px;
+    border-style: solid;
+    border-width: thin;
+    padding: 2vh 0;
+    background-color: #d5b9ff;
+    width: 100%;
+    text-align: center;
+    font-size: 3vh;
+    font-weight: bold;
+    border-color: rgb(219, 219, 219);
+}
+
+.leaderboard-row{
+    cursor: pointer;
+    border-width: thin;
+    border-radius: 10px;
+    border-style: solid;
+    display: flex;
+    width: 35vh;
+    padding: 2vh;
+}
+
+.leaderboard-row:hover{
+    background-color: rgb(238, 236, 236);
+    cursor: pointer;
+    transition: 0.2s;
+
+}
+
+.leaderboard-link{
+    width: 100%;
+    text-align: start;
+    font-size: 2vh;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+}
+
+.counter{
+    font-size: 2vh;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    margin-right: 2vh;
+    margin-left: 10vh;
 }
 
 

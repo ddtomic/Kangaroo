@@ -163,7 +163,5 @@ const AuthPage = () => {
         </div>
       </div>
     </div>
-  );
-};
 
 export default AuthPage;

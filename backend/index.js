@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const { Users } = require("./models");
 const app = express();
 const db = require("./models");
 
@@ -20,9 +19,12 @@ app.use(express.json());
 const userRouter = require("./routers/Users");
 app.use("/auth", userRouter);
 
+const threadRouter = require("./routers/Thread");
+app.use("/thread", threadRouter);
+
 // Sync and start the server
 db.sequelize
-  .sync({ force: false })
+  .sync({ force: true })
   .then(() => {
     app.listen(3002, "0.0.0.0", () => {
       console.log("Server running on port 3002");

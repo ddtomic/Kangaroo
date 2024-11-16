@@ -3,16 +3,16 @@ import like from "../assets/images/like.png";
 import dislike from "../assets/images/dislike.png";
 import propTypes from "prop-types";
 import message from "../assets/images/message.png";
+import { useNavigate } from "react-router-dom";
 
-ThreadBox.propTypes = {
-  name: propTypes.string,
-  title: propTypes.string,
-  timestamp: propTypes.string,
-  ratingcount: propTypes.number,
-  commentcount: propTypes.number,
-};
-
-function ThreadBox(props) {
+const ThreadBox = React.memo((props) => {
+  ThreadBox.propTypes = {
+    name: propTypes.string,
+    title: propTypes.string,
+    timestamp: propTypes.string,
+    ratingcount: propTypes.number,
+    commentcount: propTypes.number,
+  };
   return (
     <div>
       {" "}
@@ -50,6 +50,6 @@ function ThreadBox(props) {
       </li>
     </div>
   );
-}
+});
 
 export default ThreadBox;

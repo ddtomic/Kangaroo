@@ -12,10 +12,19 @@ import { useState, useEffect } from "react";
 const MainPage = () => {
   const [threadList, setThreadList] = useState([]);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString); // Parse the incoming date string
+    return new Intl.DateTimeFormat("en-US", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    }).format(date);
+  };
+
   useEffect(() => {
-    //axios.get("http://18.119.120.175:3002/thread/date").then((response) => {
-    //setThreadList(response.data);
-    //});
+    console.log("Fetching threads...");
+    axios.get("http://18.119.120.175:3002/thread/date").then((response) => {
+      setThreadList(response.data);
+    });
   }, []);
 
   return (
@@ -48,13 +57,12 @@ const MainPage = () => {
         </div>
         <div className="container">
           {threadList.map((value, key) => {
-            console.log(value);
             return (
               <ThreadBox
                 key={key}
-                name={value.username}
+                name={value.User.username}
                 title={value.title}
-                timestamp={value.createdAt}
+                timestamp={formatDate(value.createdAt)}
                 commentcount={45}
                 ratingcount={45}
               ></ThreadBox>

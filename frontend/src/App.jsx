@@ -32,7 +32,7 @@ const App = () => {
           });
         }
       });
-  });
+  }, []);
 
   return (
     <AuthContext.Provider value={{ authState, setAuthState }}>

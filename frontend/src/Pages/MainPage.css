@@ -154,9 +154,8 @@
 
 .container {
   width: 125vh;
-  height: auto;
   max-height: 100vh;
-
+  min-height: 100vh;
   overflow-x: hidden;
   overflow-y: scroll;
   -ms-overflow-style: none; /* IE and Edge */

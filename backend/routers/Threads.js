@@ -19,6 +19,14 @@ router.get("/date", async (req, res) => {
       model: Users,
       attributes: ["username"],
     },
+    include: {
+      model: commentRate,
+      attributes: ["rating"],
+    },
+    include: {
+      model: threadRate,
+      attributes: ["rating"],
+    },
     order: [["createdAt", "DESC"]],
   });
 

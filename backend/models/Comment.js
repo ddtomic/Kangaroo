@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         references: {
           model: "Users",
           key: "userID",
+          as: "userComment",
         },
       },
       threadID: {
@@ -16,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         references: {
           model: "Threads",
           key: "threadID",
+          as: "threadComments",
         },
       },
       content: {

@@ -54,11 +54,11 @@ const Thread = require("./Thread")(sequelize, Sequelize.DataTypes);
 const Users = require("./Users")(sequelize, Sequelize.DataTypes);
 const commentRate = require("./commentRate")(sequelize, Sequelize.DataTypes);
 const threadRate = require("./threadRate")(sequelize, Sequelize.DataTypes);
-const comment = require("./Comment")(sequelize, Sequelize.DataTypes);
+const Comment = require("./Comment")(sequelize, Sequelize.DataTypes);
 
 //User assoc.
-Users.hasMany(Thread, { foreignKey: "userID" });
-Thread.belongsTo(Users, { foreignKey: "userID" });
+Users.hasMany(Thread, { foreignKey: "userID", as: "userThread" });
+Thread.belongsTo(Users, { foreignKey: "userID", as: "userThread" });
 //Thread -> Users via userID
 Users.hasOne(commentRate, { foreignKey: "userID", as: "userCommentRate" });
 commentRate.belongsTo(Users, { foreignKey: "userID", as: "userCommentRate" });
@@ -66,11 +66,16 @@ commentRate.belongsTo(Users, { foreignKey: "userID", as: "userCommentRate" });
 Users.hasOne(threadRate, { foreignKey: "userID", as: "userThreadRate" });
 threadRate.belongsTo(Users, { foreignKey: "userID", as: "userThreadRate" });
 //threadRate -> Users via userID
+Users.hasMany(Comment, { foreignKey: "userID", as: "userComment" });
+Comment.hasOne(Users, { foreignKey: "userID", as: "userComment" });
 
 //Thread assoc.
-Thread.hasMany(threadRate, { foreignKey: "threadID", as: "threadRates" });
-threadRate.belongsTo(Thread, { foreignKey: "threadID", as: "threadRates" });
+Thread.hasMany(threadRate, { foreignKey: "threadID", as: "threadRatings" });
+threadRate.belongsTo(Thread, { foreignKey: "threadID", as: "threadRatings" });
 //threadRate -> Thread via threadID
+Thread.hasMany(Comment, { foreignKey: "threadID", as: "threadComments" });
+Comment.hasOne(Thread, { foreignKey: "threadID", as: "threadComments" });
+//Comment -> Thread via threadID
 
 //Comment assoc.
 Comment.hasMany(commentRate, {
@@ -89,4 +94,5 @@ module.exports = {
   Thread,
   commentRate,
   threadRate,
+  Comment,
 };

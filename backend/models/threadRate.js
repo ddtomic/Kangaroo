@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         references: {
           model: "Threads",
           key: "threadID",
-          as: "threadRates",
+          as: "threadRatings",
         },
       },
     },

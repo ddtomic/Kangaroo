@@ -16,3 +16,5 @@ router.get("/date", async (req, res) => {
   const threadListDates = await Thread.findAll();
   res.json(threadListDates);
 });
+
+module.exports = router;

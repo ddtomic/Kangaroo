@@ -19,7 +19,7 @@ app.use(express.json());
 const userRouter = require("./routers/Users");
 app.use("/auth", userRouter);
 
-const threadRouter = require("./routers/Thread");
+const threadRouter = require("./routers/Threads");
 app.use("/thread", threadRouter);
 
 // Sync and start the server

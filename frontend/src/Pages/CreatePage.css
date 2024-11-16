@@ -9,11 +9,9 @@
     display: flex;
     flex-direction: column;
     border-style: solid; 
-    border-radius: 10px;
     border-width: thin;
-    margin-top: 2vh;
-    padding: 5vh;
-    width: 150vh;
+    padding: 2vh;
+    width: 50vh;
     height: auto;
     
 }
@@ -42,8 +40,11 @@
     border-radius: 10px; 
     border-width: thin; 
     height: auto; 
-    width: 20vh; 
-    padding: 2vh;
+    width: 10vh; 
+    padding: 1.5vh;
     margin-top: 2vh; 
     cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5vh;
 }

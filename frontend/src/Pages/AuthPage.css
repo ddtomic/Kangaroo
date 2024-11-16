@@ -1,6 +1,6 @@
 body{
-    margin-top: 5%;
-    background-color: #ac79f8; 
+    margin-top: 20vh;
+    background-color: #d5bafc; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,7 +17,6 @@ body{
     width: 800px;
     max-width: 100%;
     min-height: 480px;
-    
 }
 
 .auth-container p{

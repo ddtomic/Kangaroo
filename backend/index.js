@@ -1,21 +1,31 @@
 const express = require("express");
-const app = express();
 const cors = require("cors");
-app.use(cors);
-app.use(express.json());
-
+const { Users } = require("./models");
+const app = express();
 const db = require("./models");
 
-//Routers
+const corsOptions = {
+  origin: [
+    "http://<frontend-ip-or-domain>:<frontend-port>",
+    "http://localhost:3000",
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
+
+// Routes
 const userRouter = require("./routers/Users");
 app.use("/auth", userRouter);
 
+// Sync and start the server
 db.sequelize
   .sync({ force: false })
   .then(() => {
-    // Start the server
     app.listen(3002, "0.0.0.0", () => {
-      console.log(`Server running on port 3002`);
+      console.log("Server running on port 3002");
     });
   })
   .catch((error) => console.log("Error syncing database:", error));

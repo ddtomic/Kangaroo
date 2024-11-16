@@ -31,11 +31,13 @@ const CreatePage = () => {
 
   const onSubmit = (data) => {
     axios
-      .post("http://18.119.120.175:3002/thread/", data)
+      .post("http://18.119.120.175:3002/thread/create", data)
       .then(() => {
         console.log("Thread created successfully");
       })
       .catch((error) => {
+        console.log(authState);
+        console.log(data);
         console.error("Error creating thread:", error);
       });
   };

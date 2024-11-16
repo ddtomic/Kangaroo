@@ -6,6 +6,7 @@ import design from '../assets/images/pngegg.png'
 import search from '../assets/images/icons8-search-50.png'
 import ThreadBox from "../Props/ThreadBox";
 import { Link } from 'react-router-dom'
+import Leaderbaord from "../Props/Leaderboard";
 
 
 class MainPage extends React.Component {
@@ -46,6 +47,7 @@ class MainPage extends React.Component {
             <input type="text" placeholder="Search Roo..." />
           </div>
         </div>
+
         <div className="middle-body">
           <p className="middle-p">
             Collaborate with a community of creators who are building the future
@@ -61,16 +63,43 @@ class MainPage extends React.Component {
           <a href='/'>Most Relavent</a>
         </div>
         <div className="container">
-
-            <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
+            <ThreadBox name='Quadspy' title='Hello hi' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
             <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
             <ThreadBox name='Quadspy' title='Ran into a bera in the woods and fought it off with a stic! Also I was at a nar and this dude' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
             <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
-            <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
-            
-            
+            <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>  
+          </div>
+
+          <div className="leaderboard-container">
+          <div className="leaderboard">
+            <p className="leaderboard-header">Most Liked</p>
+            <Leaderbaord name='Ben' count='1'></Leaderbaord>
+            <Leaderbaord name='Ayham'></Leaderbaord>
+            <Leaderbaord name='Dejan'></Leaderbaord>
+            <Leaderbaord name='Josue'></Leaderbaord>
+            <Leaderbaord name='Ben' count='1'></Leaderbaord>
+            <Leaderbaord name='Ayham'></Leaderbaord>
+            <Leaderbaord name='Dejan'></Leaderbaord>
+            <Leaderbaord name='Josue'></Leaderbaord>
+          </div>
+          <div className="leaderboard">
+          <p className="leaderboard-header">Most Commented</p>
+          <Leaderbaord name='Ben'></Leaderbaord>
+          <Leaderbaord name='Ayham'></Leaderbaord>
+          <Leaderbaord name='Dejan'></Leaderbaord>
+          <Leaderbaord name='Josue'></Leaderbaord>
+          </div>
+          <div className="leaderboard">
+          <p className="leaderboard-header">Most Activity</p>
+          <Leaderbaord name='Ben'></Leaderbaord>
+          <Leaderbaord name='Ayham'></Leaderbaord>
+          <Leaderbaord name='Dejan'></Leaderbaord>
+          <Leaderbaord name='Josue'></Leaderbaord>
           </div>
         </div>
+
+        </div>
+
         <footer className="lower-body">
           <div className="top-footer">
             <p>About us</p>

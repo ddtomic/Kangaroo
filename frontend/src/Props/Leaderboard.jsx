@@ -10,11 +10,12 @@ Leaderbaord.propTypes = {
 function Leaderbaord(prop) {
   return (
     <div>
+        <div className="leaderboard-header">
+          <p>Most Point's</p>
+        </div>
             <li className="leaderboard-row">
-
-                <p className='counter'>{prop.count}.</p>
+                <p className='counter'>{prop.count}</p>
                 <a className='leaderboard-link'href='/Profile'>{prop.name}</a>
-
             </li>
     </div>
   )

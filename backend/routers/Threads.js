@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { Threads } = require("../models");
+const { Thread } = require("../models");
 
 router.post("/create", async (req, res) => {
   const { threadTitle, threadContent, userID } = req.body;
-  await Threads.create({
+  await Thread.create({
     threadTitle,
     threadContent,
     userID,
@@ -13,6 +13,6 @@ router.post("/create", async (req, res) => {
 });
 
 router.get("/date", async (req, res) => {
-  const threadListDates = await Threads.findAll();
+  const threadListDates = await Thread.findAll();
   res.json(threadListDates);
 });

@@ -46,6 +46,7 @@ router.post("/signin", async (req, res) => {
   });
 });
 
+//Get all users (just for testing)
 router.get("/users", async (req, res) => {
   try {
     const users = await Users.findAll(); // Sequelize method to fetch all records
@@ -55,6 +56,7 @@ router.get("/users", async (req, res) => {
   }
 });
 
+//Verify login token
 router.get("/", validateToken, (req, res) => {
   res.json(req.user);
 });

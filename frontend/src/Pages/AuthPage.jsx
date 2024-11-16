@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./AuthPage.css";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
@@ -52,20 +52,20 @@ const AuthPage = () => {
     setIsActive(false);
   };
 
-  const onSubmitSignUp = (data) => {
+  const onSubmitSignUp = (data, { resetForm }) => {
     axios
       .post("http://18.119.120.175:3002/auth/", data)
       .then(() => {
         console.log("User created successfully");
+        setIsActive(false);
+        resetForm();
       })
       .catch((error) => {
         console.error("Error creating user:", error);
       });
-
-    navTo("/");
   };
 
-  const onSubmitSignIn = (data) => {
+  const onSubmitSignIn = (data, { resetForm }) => {
     const userData = { username: data.username, password: data.password };
     axios
       .post("http://18.119.120.175:3002/auth/signin", userData)
@@ -81,6 +81,7 @@ const AuthPage = () => {
             status: true,
           });
           navTo("/home");
+          resetForm();
         }
       });
   };
@@ -98,13 +99,7 @@ const AuthPage = () => {
         >
           <Form>
             <h1>Create Account</h1>
-            <Field
-              className="inpField"
-              id="userInputArea"
-              autoComplete="off"
-              name="email"
-              placeholder="Email..."
-            />
+            <Field autoComplete="off" name="email" placeholder="Email..." />
             <Field
               autoComplete="off"
               name="username"

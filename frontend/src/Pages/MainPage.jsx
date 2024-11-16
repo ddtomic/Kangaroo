@@ -13,9 +13,9 @@ const MainPage = () => {
   const [threadList, setThreadList] = useState([]);
 
   useEffect(() => {
-    axios.get("http://18.119.120.175:3002/thread/date").then((response) => {
-      setThreadList(response.data);
-    });
+    //axios.get("http://18.119.120.175:3002/thread/date").then((response) => {
+    //setThreadList(response.data);
+    //});
   }, []);
 
   return (

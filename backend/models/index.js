@@ -8,13 +8,6 @@ const process = require("process");
 const basename = path.basename(__filename);
 const db = {};
 
-const Thread = require("./Thread")(sequelize, Sequelize.DataTypes);
-const Users = require("./Users")(sequelize, Sequelize.DataTypes);
-
-// Define associations
-Users.hasMany(Thread, { foreignKey: "userID" });
-Thread.belongsTo(Users, { foreignKey: "userID" });
-
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
@@ -57,4 +50,15 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-module.exports = db;
+const Thread = require("./Thread")(sequelize, Sequelize.DataTypes);
+const Users = require("./Users")(sequelize, Sequelize.DataTypes);
+
+// Define associations
+Users.hasMany(Thread, { foreignKey: "userID" });
+Thread.belongsTo(Users, { foreignKey: "userID" });
+
+module.exports = {
+  db,
+  Users,
+  Thread,
+};

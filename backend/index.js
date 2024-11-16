@@ -23,7 +23,7 @@ const threadRouter = require("./routers/Threads");
 app.use("/thread", threadRouter);
 
 // Sync and start the server
-db.sequelize
+db.db.sequelize
   .sync({ force: true })
   .then(() => {
     app.listen(3002, "0.0.0.0", () => {

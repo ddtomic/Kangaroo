@@ -50,4 +50,49 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-module.exports = db;
+const Thread = require("./Thread")(sequelize, Sequelize.DataTypes);
+const Users = require("./Users")(sequelize, Sequelize.DataTypes);
+const commentRate = require("./commentRate")(sequelize, Sequelize.DataTypes);
+const threadRate = require("./threadRate")(sequelize, Sequelize.DataTypes);
+const Comment = require("./Comment")(sequelize, Sequelize.DataTypes);
+
+//User assoc.
+Users.hasMany(Thread, { foreignKey: "userID", as: "userThread" });
+Thread.belongsTo(Users, { foreignKey: "userID", as: "userThread" });
+//Thread -> Users via userID
+Users.hasOne(commentRate, { foreignKey: "userID", as: "userCommentRate" });
+commentRate.belongsTo(Users, { foreignKey: "userID", as: "userCommentRate" });
+//commentRate -> Users via userID
+Users.hasOne(threadRate, { foreignKey: "userID", as: "userThreadRate" });
+threadRate.belongsTo(Users, { foreignKey: "userID", as: "userThreadRate" });
+//threadRate -> Users via userID
+Users.hasMany(Comment, { foreignKey: "userID", as: "userComment" });
+Comment.hasOne(Users, { foreignKey: "userID", as: "userComment" });
+
+//Thread assoc.
+Thread.hasMany(threadRate, { foreignKey: "threadID", as: "threadRatings" });
+threadRate.belongsTo(Thread, { foreignKey: "threadID", as: "threadRatings" });
+//threadRate -> Thread via threadID
+Thread.hasMany(Comment, { foreignKey: "threadID", as: "threadComments" });
+Comment.hasOne(Thread, { foreignKey: "threadID", as: "threadComments" });
+//Comment -> Thread via threadID
+
+//Comment assoc.
+Comment.hasMany(commentRate, {
+  foreignKey: "commentID",
+  as: "commentRate",
+});
+commentRate.belongsTo(Comment, {
+  foreignKey: "commentID",
+  as: "commentRate",
+});
+//commentRate -> Comment via commentID
+
+module.exports = {
+  db,
+  Users,
+  Thread,
+  commentRate,
+  threadRate,
+  Comment,
+};

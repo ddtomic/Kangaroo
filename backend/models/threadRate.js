@@ -8,11 +8,16 @@ module.exports = (sequelize, DataTypes) => {
         references: {
           model: "Users",
           key: "userID",
+          as: "userThreadRate",
         },
       },
       rating: {
         type: DataTypes.STRING(1),
         allowNull: false,
+        defaultValue: "n", // Default value is 'n'
+        validate: {
+          isIn: [["l", "d", "n"]], // Restrict input to 'l', 'd', 'n'
+        },
       },
       threadID: {
         type: DataTypes.INTEGER,
@@ -20,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         references: {
           model: "Threads",
           key: "threadID",
+          as: "threadRatings",
         },
       },
     },

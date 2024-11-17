@@ -1,8 +1,9 @@
-*{
-    margin: 0; 
-    padding: 0; 
-    text-decoration: none;
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
 }
+
 
 .create-container{
     background-color: white;
@@ -13,26 +14,26 @@
     padding: 2vh;
     width: 50vh;
     height: auto;
-    
 }
 
-.create-container p{
-    margin-top: 5vh;
-    font-weight: bold;
+.create-container p {
+  margin-top: 5vh;
+  font-weight: bold;
 }
 
-.title-input{
-    width: 100%;
-    height: 5vh; 
+.title-input {
+  width: 100%;
+  height: 5vh;
 }
 
-.desc-input{
-    width: 100%; 
-    height: 30vh; 
-    border-style: solid;
-    border-radius: 5px;
-    border-width: thin;
+.desc-input {
+  width: 100%;
+  height: 30vh;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: thin;
 }
+
 
 .create-container button{
     background-color: #d5b9ff;
@@ -48,3 +49,4 @@
     font-weight: bold;
     font-size: 1.5vh;
 }
+

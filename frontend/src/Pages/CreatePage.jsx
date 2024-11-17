@@ -1,22 +1,87 @@
-import React from 'react'
-import Navbar from '../Components/Navbar'
-import './CreatePage.css'
+import React from "react";
+import Navbar from "../Components/Navbar";
+import "./CreatePage.css";
+import axios from "axios";
+import * as Yup from "yup";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../helpers/AuthContext";
 
 const CreatePage = () => {
+  const navTo = useNavigate();
+  const { authState } = useContext(AuthContext);
+
+  const initialValues = {
+    threadTitle: "",
+    threadContent: "",
+  };
+
+  const validationSchema = Yup.object().shape({
+    threadTitle: Yup.string()
+      .min(1, "Thread title is too short!")
+      .max(99, "Thread title is too long!")
+      .required("Thread title is required!"),
+    threadContent: Yup.string()
+      .min(10, "Threads need at least 10 characters!")
+      .max(1200, "Thread content too long!")
+      .required("Thread content is required!"),
+  });
+
+  const onSubmit = (data) => {
+    axios
+      .post(
+        "http://18.119.120.175:3002/thread/create",
+        (data = {
+          threadTitle: data.threadTitle,
+          threadContent: data.threadContent,
+          userID: authState.id,
+        })
+      )
+      .then(() => {
+        console.log("Thread created successfully");
+        navTo("/home");
+      })
+      .catch((error) => {
+        console.log(data);
+        console.error("Error creating thread:", error);
+      });
+  };
   return (
-    <div className='create-background'>
-      <Navbar/>
+    <div className="create-background">
+      <Navbar />
       <div className="create-container">
-        <h2>New Conversation</h2>
-        <h4>Ask a question, start a discussion or start an idea.</h4>
-        <p>Title</p>
-        <input className='title-input' type='text' placeholder='Enter title here'></input>
-        <p>Description</p>
-        <input className='desc-input' type='text' placeholder='Add as many details as possible. By doing so you will get the best responses.'></input>
-        <button className='create-button'>Create</button>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          <Form>
+            <h2>New Conversation</h2>
+            <h4>Ask a question, start a discussion, or explain an idea.</h4>
+            <p>Thread Title</p>
+            <Field
+              className="title-input"
+              autoComplete="off"
+              name="threadTitle"
+              placeholder="Be specific enough to intrigue but vague enough to invite curiosity."
+            />
+            <p>Thread Content</p>
+            <Field
+              className="desc-input"
+              autoComplete="off"
+              name="threadContent"
+              placeholder="Be brief, be clear, and leave room for cheer."
+            />
+
+            <button type="submit" className="create-button">
+              Create
+            </button>
+          </Form>
+        </Formik>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CreatePage
+export default CreatePage;

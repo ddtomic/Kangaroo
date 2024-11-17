@@ -4,7 +4,6 @@ import MainPage from "./Pages/MainPage";
 import { Routes, Route } from "react-router-dom";
 import PouchPage from "./Pages/PouchPage";
 import SignUp from "./Pages/SignUp";
-import CreatePage from "./Pages/CreatePage";
 import ProfilePage from "./Pages/ProfilePage";
 import axios from "axios";
 import { AuthContext } from "./helpers/AuthContext";
@@ -40,7 +39,6 @@ const App = () => {
         <Route path="/home" element={<MainPage />} />
         <Route path="/pouch" element={<PouchPage />} />
         <Route path="/pouch" element={<PouchPage />} />
-        <Route path="/create" element={<CreatePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="*" element={<AuthPage />} />
         <Route path="signup" element={<SignUp />} />

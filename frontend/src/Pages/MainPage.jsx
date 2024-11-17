@@ -9,6 +9,11 @@ import { Link } from "react-router-dom";
 import Leaderbaord from "../Props/Leaderboard";
 import './CreatePage.css'
 import { useState, useEffect } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../helpers/AuthContext";
+import * as Yup from "yup";
 
 const MainPage = () => {
   const [threadList, setThreadList] = useState([]);
@@ -21,42 +26,82 @@ const MainPage = () => {
     }).format(date);
   };
 
+  const navTo = useNavigate();
+  const { authState } = useContext(AuthContext);
+
+  const initialValues = {
+    threadTitle: "",
+    threadContent: "",
+  };
+
+  const validationSchema = Yup.object().shape({
+    threadTitle: Yup.string()
+      .min(1, "Thread title is too short!")
+      .max(99, "Thread title is too long!")
+      .required("Thread title is required!"),
+    threadContent: Yup.string()
+      .min(10, "Threads need at least 10 characters!")
+      .max(1200, "Thread content too long!")
+      .required("Thread content is required!"),
+  });
+
   useEffect(() => {
     console.log("Fetching threads...");
     axios.get("http://18.119.120.175:3002/thread/date").then((response) => {
       setThreadList(response.data);
     });
-  }, [setThreadList]);
+  }, []);
+
+  const postThread = (data) => {
+    axios
+      .post(
+        "http://18.119.120.175:3002/thread/create",
+        (data = {
+          threadTitle: data.threadTitle,
+          threadContent: data.threadContent,
+          userID: authState.id,
+        })
+      )
+      .then(() => {
+        console.log("Thread created successfully");
+
+      })
+      .catch((error) => {
+        console.log(data);
+        console.error("Error creating thread:", error);
+      });
+  };
 
   return (
     <div className="main">
-      <Navbar />
-      <div className="upper-body">
-        <img src={design} alt="background-image"></img>
-        <p>Welcome to Kangaroo!</p>
-        <div className="upper-search">
-          <img src={search} alt="search-img"></img>
-          <input type="text" placeholder="Search Roo..." />
+    <Navbar/>
+    <div className="upper-body">
+      <img src={design} alt="background-image"></img>
+      <p>Welcome to Kangaroo!</p>
+      <div className="upper-search">
+        <img src={search} alt="search-img"></img>
+        <input type="text" placeholder="Search Roo..." />
+      </div>
+    </div>
+  
+    <div className="middle-body">
+        <p className="middle-p">
+          Collaborate with a community of creators who are building the future
+          of online conversations
+        </p>
+          <div className="roo-header">
+            <p>Roo's</p>
+          </div>
+        <div className="roo-catagories">
+          <a href='/'>Most liked</a>
+          <a href='/'>Most Commented</a>
+          <a href='/'>Most Relavent</a>
         </div>
-      
-        <div className="middle-body">
-            <p className="middle-p">
-              Collaborate with a community of creators who are building the future
-              of online conversations
-            </p>
-              <div className="roo-header">
-                <p>Roo's</p>
-              </div>
-            <div className="roo-catagories">
-              <a href='/'>Most liked</a>
-              <a href='/'>Most Commented</a>
-              <a href='/'>Most Relavent</a>
-            </div>
-            <div className="middle-container">
+        <div className="middle-container">
 
-              <div className="left-container">
-                <Leaderbaord name='bem' count='3'></Leaderbaord>
-              </div>
+          <div className="left-container">
+            <Leaderbaord name='bem' count='3'></Leaderbaord>
+          </div>
 
                <div className="container">
                         {threadList.map((value, key) => {
@@ -74,18 +119,39 @@ const MainPage = () => {
                         })}
                       </div>
 
-                  <div className="right-container">
+                      <div className="right-container">
                       <div className="create-container">
                         <h2>New Conversation</h2>
                         <h4>Ask a question, start a discussion or start an idea.</h4>
                         <p>Title</p>
-                        <input className='title-input' type='text' placeholder='Enter title here'></input>
-                        <p>Description</p>
-                        <input className='desc-input' type='text' placeholder='Add as many details as possible. By doing so you will get the best responses.'></input>
-                      <button className='create-button'>Create</button>
+                          <Formik
+                            initialValues={initialValues}
+                            validationSchema={validationSchema}
+                            onSubmit={postThread}
+                          >
+                          <Form>
+                            <Field
+                              className="title-input"
+                              autoComplete="off"
+                              name="threadTitle"
+                              placeholder="Enter title here..."
+                            />
+                            <p>Thread Content</p>
+                            <Field
+                              className="desc-input"
+                              autoComplete="off"
+                              name="threadContent"
+                              placeholder="Be specific enough to intrigue but vague enough to invite curiosity."
+                            />
+
+                            <button type="submit" className="create-button">
+                              Create
+                            </button>
+                          </Form>
+                      </Formik>
                     </div>
                   </div>
-              </div>
+               </div>
             </div>
 
         <footer className="lower-body">
@@ -96,22 +162,9 @@ const MainPage = () => {
               users to come and interact with one another. This project is for
               our CS 44200 class and we hope you enjoy!
             </h1>
-
           </div>
-        </div>
+        </footer>
       </div>
-
-      <footer className="lower-body">
-        <div className="top-footer">
-          <p>About us</p>
-          <h1>
-            We are computer engineering students making a forum website for
-            users to come and interact with one another. This project is for our
-            CS 44200 class and we hope you enjoy!
-          </h1>
-        </div>
-      </footer>
-    </div>
   );
 };
 

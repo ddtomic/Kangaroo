@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import like from "../assets/images/like.png";
 import dislike from "../assets/images/dislike.png";
 import propTypes from "prop-types";
 import message from "../assets/images/message.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const ThreadBox = React.memo((props) => {
   ThreadBox.propTypes = {
@@ -13,11 +13,12 @@ const ThreadBox = React.memo((props) => {
     ratingcount: propTypes.number,
     commentcount: propTypes.number,
   };
+
   return (
     <div>
       {" "}
       <li className="row">
-        <a href="\pouch">
+        <Link to={`/${props.title}`}>
           <div className="top">
             <h4 className="username">{props.name}</h4>
             <h2 className="title">{props.title}</h2>
@@ -46,7 +47,7 @@ const ThreadBox = React.memo((props) => {
               </div>
             </div>
           </div>
-        </a>
+        </Link>
       </li>
     </div>
   );

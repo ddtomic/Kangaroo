@@ -8,8 +8,11 @@ import CreatePage from "./Pages/CreatePage";
 import ProfilePage from "./Pages/ProfilePage";
 import axios from "axios";
 import { AuthContext } from "./helpers/AuthContext";
+import Pouch from "./Props/Pouch";
+import Navbar from "./Components/Navbar";
 
 const App = () => {
+  const [listOfThreads, setListOfThreads] = useState([]);
   const [authState, setAuthState] = useState({
     username: "",
     id: "",
@@ -17,6 +20,9 @@ const App = () => {
   });
 
   useEffect(() => {
+    axios.get("http://18.119.120.175:3002/thread").then((response) => {
+      setListOfThreads(response.data);
+    });
     axios
       .get("http://18.119.120.175:3002/auth/", {
         headers: { accessToken: localStorage.getItem("accessToken") },
@@ -38,8 +44,15 @@ const App = () => {
     <AuthContext.Provider value={{ authState, setAuthState }}>
       <Routes>
         <Route path="/home" element={<MainPage />} />
-        <Route path="/pouch" element={<PouchPage />} />
-        <Route path="/pouch" element={<PouchPage />} />
+        {listOfThreads.map((value, key) => {
+          return (
+            <Route
+              key={key}
+              path={value.title}
+              element={<PouchPage></PouchPage>}
+            ></Route>
+          );
+        })}
         <Route path="/create" element={<CreatePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="*" element={<AuthPage />} />

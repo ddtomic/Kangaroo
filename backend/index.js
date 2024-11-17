@@ -22,6 +22,8 @@ app.use("/auth", userRouter);
 const threadRouter = require("./routers/Threads");
 app.use("/thread", threadRouter);
 
+const commentRouter = require("./routers/Comments");
+app.use("/comment", commentRouter);
 // Sync and start the server
 db.db.sequelize
   .sync({ force: true })

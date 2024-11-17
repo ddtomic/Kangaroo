@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         references: {
           model: "Users",
           key: "userID",
+          as: "userThread",
         },
       },
       content: {

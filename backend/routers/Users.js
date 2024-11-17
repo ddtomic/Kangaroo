@@ -35,13 +35,13 @@ router.post("/signin", async (req, res) => {
     if (!match) return res.json({ error: "Password is wrong!" });
 
     const accessToken = sign(
-      { username: user.username, id: user.id },
+      { username: user.username, id: user.userID },
       "nrQaoHnpKNNi1izsQZrBhdAZU"
     );
     return res.json({
       token: accessToken,
       username: username,
-      id: user.id,
+      id: user.userID,
     });
   });
 });

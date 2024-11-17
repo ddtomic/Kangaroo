@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./AuthPage.css";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
@@ -165,6 +165,6 @@ const AuthPage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default AuthPage;

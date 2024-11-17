@@ -1,9 +1,12 @@
+
 *{
     margin: 0; 
     padding: 0; 
     text-decoration: none;
     box-sizing: border-box;
+
 }
+
 
 .create-container{
     background-color:#d5b9ff;
@@ -14,13 +17,13 @@
     padding: 2vh;
     width: 50vh;
     height: auto;
-    
 }
 
-.create-container p{
-    margin-top: 5vh;
-    font-weight: bold;
+.create-container p {
+  margin-top: 5vh;
+  font-weight: bold;
 }
+
 
 .title-input{
     width: 100%;
@@ -39,6 +42,7 @@
     box-sizing: border-box;
 }
 
+
 .create-container button{
     background-color: #ba92f5;
     border-style: solid; 
@@ -53,3 +57,4 @@
     font-weight: bold;
     font-size: 1.5vh;
 }
+

@@ -7,6 +7,7 @@ import search from '../assets/images/icons8-search-50.png'
 import ThreadBox from "../Props/ThreadBox";
 import { Link } from 'react-router-dom'
 import Leaderbaord from "../Props/Leaderboard";
+import './CreatePage.css'
 
 
 class MainPage extends React.Component {
@@ -49,47 +50,45 @@ class MainPage extends React.Component {
         </div>
       
         <div className="middle-body">
-          <p className="middle-p">
-            Collaborate with a community of creators who are building the future
-            of online conversations
-          </p>
-          <div className="roo-header">
-            <p>Pouch's</p>
-            <Link to="/create"><button className="create-roo">Create Roo</button></Link>
-        </div>
-        <div className="roo-catagories">
-          <a href='/'>Most liked</a>
-          <a href='/'>Most Commented</a>
-          <a href='/'>Most Relavent</a>
-        </div>
-        <div className="middle-container">
+            <p className="middle-p">
+              Collaborate with a community of creators who are building the future
+              of online conversations
+            </p>
+              <div className="roo-header">
+                <p>Roo's</p>
+              </div>
+            <div className="roo-catagories">
+              <a href='/'>Most liked</a>
+              <a href='/'>Most Commented</a>
+              <a href='/'>Most Relavent</a>
+            </div>
+            <div className="middle-container">
 
-          <div className="left-container">
-            <Leaderbaord name='bem' count='3'></Leaderbaord>
-          </div>
-
-          <div className="container">
-              <ThreadBox name='Quadspy' title='Hello hi' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
-              <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
-              <ThreadBox name='Quadspy' title='Ran into a bera in the woods and fought it off with a stic! Also I was at a nar and this dude,' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
-              <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
-              <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>  
+              <div className="left-container">
+                <Leaderbaord name='bem' count='3'></Leaderbaord>
               </div>
 
-              <div className="right-container">
-                  <div className="create-container">
-                    <h2>New Conversation</h2>
-                    <h4>Ask a question, start a discussion or start an idea.</h4>
-                    <p>Title</p>
-                    <input className='title-input' type='text' placeholder='Enter title here'></input>
-                    <p>Description</p>
-                    <input className='desc-input' type='text' placeholder='Add as many details as possible. By doing so you will get the best responses.'></input>
-                  <button className='create-button'>Create</button>
-                </div>
-              </div>
+              <div className="container">
+                  <ThreadBox name='Quadspy' title='Hello hi' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
+                  <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
+                  <ThreadBox name='Quadspy' title='Ran into a bera in the woods and fought it off with a stic! Also I was at a nar and this dude,' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
+                  <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>
+                  <ThreadBox name='Quadspy' title='Hello world' timestamp='11/2/3023' commentcount='45' ratingcount='24'></ThreadBox>  
+                  </div>
 
-          </div>
-        </div>
+                  <div className="right-container">
+                      <div className="create-container">
+                        <h2>New Conversation</h2>
+                        <h4>Ask a question, start a discussion or start an idea.</h4>
+                        <p>Title</p>
+                        <input className='title-input' type='text' placeholder='Enter title here'></input>
+                        <p>Description</p>
+                        <input className='desc-input' type='text' placeholder='Add as many details as possible. By doing so you will get the best responses.'></input>
+                      <button className='create-button'>Create</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
 
         <footer className="lower-body">
           <div className="top-footer">

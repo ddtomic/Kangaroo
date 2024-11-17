@@ -87,6 +87,7 @@ const AuthPage = () => {
   };
 
   return (
+    
     <div
       className={`auth-container${isActive ? " active" : ""}`}
       id="auth-container"

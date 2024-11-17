@@ -11,45 +11,21 @@ import { useState, useEffect } from "react";
 
 const MainPage = () => {
   const [threadList, setThreadList] = useState([]);
-  const [filter, setFilter] = useState("date");
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
+    const date = new Date(dateString); // Parse the incoming date string
     return new Intl.DateTimeFormat("en-US", {
       dateStyle: "medium",
       timeStyle: "short",
     }).format(date);
   };
 
-  const recentFunc = () => {
-    setFilter("date");
-  };
-  const commentFunc = () => {
-    setFilter("comment");
-  };
-
-  const likeFunc = () => {
-    setFilter("like");
-  };
-
   useEffect(() => {
-    console.log("Fetching threads by...", filter);
-    if (filter === "like") {
-      axios.get("http://18.119.120.175:3002/thread/like").then((response) => {
-        setThreadList(response.data);
-      });
-    } else if (filter === "comment") {
-      axios
-        .get("http://18.119.120.175:3002/thread/comment")
-        .then((response) => {
-          setThreadList(response.data);
-        });
-    } else {
-      axios.get("http://18.119.120.175:3002/thread/date").then((response) => {
-        setThreadList(response.data);
-      });
-    }
-  }, [setFilter]);
+    console.log("Fetching threads...");
+    axios.get("http://18.119.120.175:3002/thread/date").then((response) => {
+      setThreadList(response.data);
+    });
+  }, [setThreadList]);
 
   return (
     <div className="main">
@@ -75,19 +51,13 @@ const MainPage = () => {
           </Link>
         </div>
         <div className="roo-catagories">
-          <a href="/home" onClick={recentFunc}>
-            Most Recent
-          </a>
-          <a href="/home" onClick={commentFunc}>
-            Most Commented
-          </a>
-          <a href="/home" onClick={likeFunc}>
-            Most Liked
-          </a>
+          <a href="/">Most liked</a>
+          <a href="/">Most Commented</a>
+          <a href="/">Most Relavent</a>
         </div>
         <div className="container">
           {threadList.map((value, key) => {
-            //console.log(value);
+            console.log(value);
             return (
               <ThreadBox
                 key={key}
@@ -95,7 +65,7 @@ const MainPage = () => {
                 title={value.title}
                 timestamp={formatDate(value.createdAt)}
                 commentcount={value.commentCount}
-                ratingcount={value.ratingCount}
+                ratingcount={value.threadRatings.length}
               ></ThreadBox>
             );
           })}

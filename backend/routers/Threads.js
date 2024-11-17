@@ -58,20 +58,4 @@ router.get("/date", async (req, res) => {
   res.json(finalData);
 });
 
-//Get threads from most to least liked (descending)
-router.get("/like", async (req, res) => {
-  const threadListDates = await Thread.findAll({
-    order: [["createdAt", "DESC"]],
-  });
-  res.json(threadListDates);
-});
-
-//Get threads from most to least comments (descending)
-router.get("/comment", async (req, res) => {
-  const threadListDates = await Thread.findAll({
-    order: [["createdAt", "DESC"]],
-  });
-  res.json(threadListDates);
-});
-
 module.exports = router;

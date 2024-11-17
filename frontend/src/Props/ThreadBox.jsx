@@ -32,9 +32,6 @@ const ThreadBox = React.memo((props) => {
       <div className="bottom">
         <div className="feedback">
             <div className="like-feedback">
-              <div className="left-feedback">
-              <img src={like} alt="like-img"></img>
-              </div>
               <div className="like-feedback">
                 <div className="left-feedback">
                   <img src={like} alt="like-img"></img>
@@ -47,6 +44,7 @@ const ThreadBox = React.memo((props) => {
                 </div>
               </div>
             </div>
+          </div>
           </div>
         </a>
       </li>

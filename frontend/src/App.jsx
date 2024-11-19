@@ -20,14 +20,6 @@ const App = () => {
     return title.substring(0, title.size || 10);
   };
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString); // Parse the incoming date string
-    return new Intl.DateTimeFormat("en-US", {
-      dateStyle: "medium",
-      timeStyle: "short",
-    }).format(date);
-  };
-
   useEffect(() => {
     axios
       .get("http://18.119.120.175:3002/thread/date")
@@ -68,7 +60,7 @@ const App = () => {
                   name={value.userThread.username}
                   comment={value.content}
                   title={value.title}
-                  timestamp={formatDate(value.createdAt)}
+                  timestamp={value.createdAt}
                   replycount={value.comments.length}
                   likecount={value.threadRatings.length}
                   comments={value.comments}

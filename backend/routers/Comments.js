@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Comment, thread } = require("../models");
+const { Thread, threadRate, Users, Comment } = require("../models");
 
 //Post a comment
 router.post("/", async (req, res) => {
@@ -12,3 +12,5 @@ router.post("/", async (req, res) => {
   });
   return res.json("Comment created");
 });
+
+module.exports = router;

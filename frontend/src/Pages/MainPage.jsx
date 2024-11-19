@@ -7,13 +7,14 @@ import search from "../assets/images/icons8-search-50.png";
 import ThreadBox from "../Props/ThreadBox";
 import { Link } from "react-router-dom";
 import Leaderbaord from "../Props/Leaderboard";
-import './CreatePage.css'
+import "./CreatePage.css";
 import { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import * as Yup from "yup";
+import Footer from "../Components/Footer";
 
 const MainPage = () => {
   const [threadList, setThreadList] = useState([]);
@@ -41,18 +42,11 @@ const MainPage = () => {
       .required("Thread title is required!"),
     threadContent: Yup.string()
       .min(10, "Threads need at least 10 characters!")
-      .max(1200, "Thread content too long!")
+      //.max(1200, "Thread content too long!")
       .required("Thread content is required!"),
   });
 
-  useEffect(() => {
-    console.log("Fetching threads...");
-    axios.get("http://18.119.120.175:3002/thread/date").then((response) => {
-      setThreadList(response.data);
-    });
-  }, []);
-
-  const postThread = (data) => {
+  const postThread = (data, { resetForm }) => {
     axios
       .post(
         "http://18.119.120.175:3002/thread/create",
@@ -63,8 +57,9 @@ const MainPage = () => {
         })
       )
       .then(() => {
-        console.log("Thread created successfully");
-
+        console.log("Thread created successfully:", data);
+        resetForm();
+        window.location.reload();
       })
       .catch((error) => {
         console.log(data);
@@ -72,99 +67,98 @@ const MainPage = () => {
       });
   };
 
+  useEffect(() => {
+    console.log("Fetching threads...");
+    axios.get("http://18.119.120.175:3002/thread/date").then((response) => {
+      setThreadList(response.data);
+    });
+  }, []);
+
   return (
     <div className="main">
-    <Navbar/>
-    <div className="upper-body">
-      <img src={design} alt="background-image"></img>
-      <p>Welcome to Kangaroo!</p>
-      <div className="upper-search">
-        <img src={search} alt="search-img"></img>
-        <input type="text" placeholder="Search Roo..." />
+      <Navbar />
+      <div className="upper-body">
+        <img src={design} alt="background-image"></img>
+        <p>Welcome to Kangaroo!</p>
+        <div className="upper-search">
+          <img src={search} alt="search-img"></img>
+          <input type="text" placeholder="Search Roo..." />
+        </div>
       </div>
-    </div>
-  
-    <div className="middle-body">
+
+      <div className="middle-body">
         <p className="middle-p">
           Collaborate with a community of creators who are building the future
           of online conversations
         </p>
-          <div className="roo-header">
-            <p>Roo's</p>
-          </div>
+        <div className="roo-header">
+          <p>Roo's</p>
+        </div>
         <div className="roo-catagories">
-          <a href='/'>Most liked</a>
-          <a href='/'>Most Commented</a>
-          <a href='/'>Most Relavent</a>
+          <a href="/">Most liked</a>
+          <a href="/">Most Commented</a>
+          <a href="/">Most Relavent</a>
         </div>
         <div className="middle-container">
-
           <div className="left-container">
-            <Leaderbaord name='bem' count='3'></Leaderbaord>
+            <Leaderbaord name="bem" count={3}></Leaderbaord>
           </div>
 
-               <div className="container">
-                        {threadList.map((value, key) => {
-                          console.log(value);
-                          return (
-                            <ThreadBox
-                              key={key}
-                              name={value.userThread.username}
-                              title={value.title}
-                              timestamp={formatDate(value.createdAt)}
-                              commentcount={value.commentCount}
-                              ratingcount={value.threadRatings.length}
-                            ></ThreadBox>
-                          );
-                        })}
-                      </div>
+          <div className="container">
+            {threadList.map((value, key) => {
+              //console.log(value);
+              return (
+                <ThreadBox
+                  key={key}
+                  name={value.userThread.username}
+                  title={value.title}
+                  timestamp={formatDate(value.createdAt)}
+                  commentcount={value.commentCount}
+                  ratingcount={value.threadRatings.length}
+                ></ThreadBox>
+              );
+            })}
+          </div>
 
-                      <div className="right-container">
-                      <div className="create-container">
-                        <h2>New Conversation</h2>
-                        <h4>Ask a question, start a discussion or start an idea.</h4>
-                        <p>Title</p>
-                          <Formik
-                            initialValues={initialValues}
-                            validationSchema={validationSchema}
-                            onSubmit={postThread}
-                          >
-                          <Form>
-                            <Field
-                              className="title-input"
-                              autoComplete="off"
-                              name="threadTitle"
-                              placeholder="Enter title here..."
-                            />
-                            <p>Thread Content</p>
-                            <Field
-                              className="desc-input"
-                              autoComplete="off"
-                              name="threadContent"
-                              placeholder="Be specific enough to intrigue but vague enough to invite curiosity."
-                            />
+          <div className="right-container">
+            <div className="create-container">
+              <h2>New Conversation</h2>
+              <h4>Ask a question, start a discussion or start an idea.</h4>
+              <p>Title</p>
+              <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={postThread}
+              >
+                <Form>
+                  <Field
+                    className="title-input"
+                    autoComplete="off"
+                    name="threadTitle"
+                    placeholder="Enter title here..."
+                  />
+                  <p>Thread Content</p>
+                  <Field
+                    className="desc-input"
+                    as="textarea"
+                    rows="5"
+                    cols="30"
+                    autoComplete="off"
+                    name="threadContent"
+                    placeholder="Be specific enough to intrigue but vague enough to invite curiosity."
+                  />
 
-                            <button type="submit" className="create-button">
-                              Create
-                            </button>
-                          </Form>
-                      </Formik>
-                    </div>
-                  </div>
-               </div>
+                  <button type="submit" className="create-button">
+                    Create
+                  </button>
+                </Form>
+              </Formik>
             </div>
-
-        <footer className="lower-body">
-          <div className="top-footer">
-            <p>About us</p>
-            <h1>
-              We are computer engineering students making a forum website for
-              users to come and interact with one another. This project is for
-              our CS 44200 class and we hope you enjoy!
-            </h1>
           </div>
-        </footer>
+        </div>
       </div>
+      <Footer />
+    </div>
   );
 };
 

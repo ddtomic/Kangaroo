@@ -1,37 +1,112 @@
-import React from 'react'
-import Navbar from '../Components/Navbar'
-import like from '../assets/images/like.png'
-import dislike from '../assets/images/dislike.png'
-import message from '../assets/images/message.png'
-import './PouchPage.css'
-import PouchReply from '../Props/PouchReply'
-import Pouch from '../Props/Pouch'
+import React from "react";
+import Navbar from "../Components/Navbar";
+import "./PouchPage.css";
+import PouchReply from "../Props/PouchReply";
+import Pouch from "../Props/Pouch";
+import propTypes from "prop-types";
+import { Field, Form, Formik } from "formik";
+import { useContext } from "react";
+import { AuthContext } from "../helpers/AuthContext";
+import * as Yup from "yup";
+import Footer from "../Components/Footer";
+import axios from "axios";
 
-const PouchPage = () => {
+PouchPage.propTypes = {
+  keyer: propTypes.number,
+  threadID: propTypes.number,
+  name: propTypes.string,
+  comment: propTypes.string,
+  title: propTypes.string,
+  timestamp: propTypes.string,
+  replycount: propTypes.number,
+  likecount: propTypes.number,
+  commentName: propTypes.string,
+  commentContent: propTypes.string,
+};
+
+function PouchPage(props) {
+  const { authState } = useContext(AuthContext);
+
+  const initialValues = {
+    replyfield: "",
+  };
+
+  const validationSchema = Yup.object().shape({
+    replyfield: Yup.string()
+      .min(1, "Comment needs at least 1 character!")
+      .required("Comment content is required!"),
+  });
+
+  const onSubmit = (data, { resetForm }) => {
+    axios
+      .post(
+        "http://18.119.120.175:3002/comment/",
+        (data = {
+          threadID: props.threadID,
+          comment: data.replyfield,
+          userID: authState.id,
+        })
+      )
+      .then(() => {
+        console.log("Comment posted successfully:", data);
+        resetForm();
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(data);
+        console.error("Error posting comment:", error);
+      });
+  };
   return (
     <div className="pouch-background">
-        <Navbar/>
-        <div className="pouch-container">
-          <Pouch title='Went on a run' timestamp='22/34/3453' replycount='3' likecount='4'
-          name='Quadspy' comment=' the heavy rain that soaked the streets and made the evening air thick with mist, people continued to bustle about, huddling under umbrellas or seeking shelter in the nearby cafes, where the warm light from the windows spilled out onto the wet pavement, reflecting the vibrant energy of the city as if it were trying to shake off the melancholy brought by the weather, and yet, there was an undeniable sense of calm that settled over the scene, a quiet serenity that seemed to slow time for just a moment'></Pouch>
-        </div>
-        <div className="comment-container">
-          <div className="top-comment">
-              <h2>3 Replies</h2>
-              </div>
-                <PouchReply name='Quadspy' comment='hThe rain tapped softly against the window, a soothing rhythm that filled the quiet room. In that stillness, everything felt calm and connected, as if the world outside had slowed down just for a moment.' ></PouchReply>
-                <PouchReply name='Quadspy' comment='The rain tapped softly against the window, a soothing rhythm that filled the quiet room. In that stillness, everything felt calm and connected, as if the world outside had slowed down just for a moment.' ></PouchReply>
-                <PouchReply name='Quadspy' comment='The sky was painted with shades of pink and orange as the sun set behind the mountains. It was a moment of peaceful solitude, reminding me how beautiful the world can be when we pause to notice it.' ></PouchReply>
-                <PouchReply name='Quadspy' comment='The sky was painted with shades of pink and orange as the sun set behind the mountains. It was a moment of peaceful solitude, reminding me how beautiful the world can be when we pause to notice it.' ></PouchReply>
-                <PouchReply name='Quadspy' comment='The sky was painted with shades of pink and orange as the sun set behind the mountains. It was a moment of peaceful solitude, reminding me how beautiful the world can be when we pause to notice it.' ></PouchReply>
-            </div>
-          <div className="reply-container">
-            <h2>Reply</h2>
-            <input className='pouch-input' type="text" placeholder="Add as many details as possible. By doing so you will get the best responses." />
-            <button className='pouch-button'>Send</button>
+      <Navbar />
+      <Pouch
+        name={props.name}
+        comment={props.comment}
+        title={props.title}
+        timestamp={props.timestamp}
+        replycount={props.replycount}
+        likecount={props.likecount}
+      />
+      {props.comments.map((value, key) => {
+        return (
+          <div>
+            <PouchReply
+              name={value.userComment.username}
+              comment={value.content}
+              replycount={props.replycount}
+              key={key}
+            />
           </div>
+        );
+      })}
+
+      <div className="reply-container">
+        <h2>Reply</h2>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          <Form>
+            <Field
+              className="pouch-input"
+              as="textarea"
+              rows="5"
+              cols="30"
+              autoComplete="off"
+              name="replyfield"
+              placeholder="Add to the conversation!"
+            />
+            <button className="pouch-button" type="submit">
+              Send
+            </button>
+          </Form>
+        </Formik>
+      </div>
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default PouchPage
+export default PouchPage;

@@ -1,12 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {
-  Thread,
-  threadRate,
-  commentRate,
-  Users,
-  Comment,
-} = require("../models");
+const { Thread, threadRate, Users, Comment } = require("../models");
 
 router.post("/create", async (req, res) => {
   const { threadTitle, threadContent, userID } = req.body;
@@ -18,8 +12,19 @@ router.post("/create", async (req, res) => {
   return res.json("Thread created");
 });
 
-//Get threads from newest to oldest (descending)
-router.get("/date", async (req, res) => {
+/*
+Get threads from newest to oldest (descending)
+data = {
+  threadID -> ID of a thread,
+  title -> Title of a thread,
+  content -> Content of a thread,
+  userID -> ID of the user who made the thread,
+  userThread.username -> username of the user who made the thread
+  comment -> Array of all comments owned by the thread,
+  threadRatings -> Array of all ratings owned by thread,
+}
+*/
+router.get("/", async (req, res) => {
   const threadListDates = await Thread.findAll({
     include: [
       {
@@ -34,7 +39,7 @@ router.get("/date", async (req, res) => {
 
   const commentCounts = await Promise.all(
     threadListDates.map(async (thread) => {
-      const commentCount = await Comment.count({
+      const commentCount = await Comment.findAll({
         where: {
           threadID: thread.threadID,
         },
@@ -52,7 +57,7 @@ router.get("/date", async (req, res) => {
     );
     return {
       ...thread.toJSON(),
-      commentCount: count ? count.commentCount : 0,
+      commentCount: count ? count.commentCount : [],
     };
   });
   res.json(finalData);

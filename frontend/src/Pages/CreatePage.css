@@ -38,6 +38,7 @@
   border-width: thin;
   resize: none;
   box-sizing: border-box;
+  padding: 1.5vh;
 }
 
 .create-container button {

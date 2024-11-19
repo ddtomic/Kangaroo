@@ -4,21 +4,25 @@ import propTypes from "prop-types";
 PouchReply.propTypes = {
   name: propTypes.string,
   comment: propTypes.string,
-  replycount: propTypes.number,
+  date: propTypes.string,
+  likes: propTypes.number
 };
 
 function PouchReply(prop) {
   return (
-    <div>
+
       <div className="comment-container">
-        <div className="top-comment">
-          <div className="bottom-comment">
-            <h5 className="comment-username">{prop.name}</h5>
+
+          <div className="top-comment">
+            <h3 className="comment-username">{prop.name}</h3>
             <h3 className="comment-comment">{prop.comment} </h3>
           </div>
-        </div>
+          <div className="bottom-comment">
+          <h4 className="date-comment">{prop.date}</h4>
+          <h4>{prop.likes} likes</h4>
+          </div>
       </div>
-    </div>
+
   );
 }
 

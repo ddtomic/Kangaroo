@@ -3,6 +3,7 @@
     padding: 0; 
     text-decoration: none;
     box-sizing: border-box;
+
 }
 
 .main{
@@ -241,11 +242,6 @@
     padding: 0;
     height: auto;
     width: 3vh;
-}
-
-.top img:hover{
-    height: auto;
-    width: 4vh;
 }
 
 .top p{

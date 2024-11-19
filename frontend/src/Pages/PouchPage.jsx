@@ -1,24 +1,61 @@
 import React from "react";
 import Navbar from "../Components/Navbar";
-import like from "../assets/images/like.png";
-import dislike from "../assets/images/dislike.png";
-import message from "../assets/images/message.png";
 import "./PouchPage.css";
 import PouchReply from "../Props/PouchReply";
 import Pouch from "../Props/Pouch";
 import propTypes from "prop-types";
+import { Field, Form, Formik } from "formik";
+import { useContext } from "react";
+import { AuthContext } from "../helpers/AuthContext";
+import * as Yup from "yup";
+import Footer from "../Components/Footer";
+import axios from "axios";
 
 PouchPage.propTypes = {
+  threadID: propTypes.number,
   name: propTypes.string,
   comment: propTypes.string,
   title: propTypes.string,
   timestamp: propTypes.string,
   replycount: propTypes.number,
   likecount: propTypes.number,
-  comments: propTypes.arrayOf(propTypes.object),
+  commentName: propTypes.string,
+  commentContent: propTypes.string,
 };
 
 function PouchPage(props) {
+  const { authState } = useContext(AuthContext);
+
+  const initialValues = {
+    replyfield: "",
+  };
+
+  const validationSchema = Yup.object().shape({
+    replyfield: Yup.string()
+      .min(1, "Comment needs at least 1 character!")
+      .required("Comment content is required!"),
+  });
+
+  const onSubmit = (data, { resetForm }) => {
+    axios
+      .post(
+        "http://18.119.120.175:3002/comment/",
+        (data = {
+          threadID: props.threadID,
+          comment: data.replyfield,
+          userID: authState.id,
+        })
+      )
+      .then(() => {
+        console.log("Comment posted successfully:", data);
+        resetForm();
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(data);
+        console.error("Error posting comment:", error);
+      });
+  };
   return (
     <div className="pouch-background">
       <Navbar />
@@ -31,23 +68,42 @@ function PouchPage(props) {
         likecount={props.likecount}
       />
       {props.comments.map((value, key) => {
-        <PouchReply
-          name={"test"}
-          comment={"this is a test"}
-          replycount={props.replycount.length}
-          key={key}
-        />;
+        return (
+          <div>
+            <PouchReply
+              name={value.userComment.username}
+              comment={value.content}
+              replycount={props.replycount}
+              key={key}
+            />
+          </div>
+        );
       })}
 
       <div className="reply-container">
         <h2>Reply</h2>
-        <input
-          className="pouch-input"
-          type="text"
-          placeholder="Add as many details as possible. By doing so you will get the best responses."
-        />
-        <button className="pouch-button">Send</button>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          <Form>
+            <Field
+              className="pouch-input"
+              as="textarea"
+              rows="5"
+              cols="30"
+              autoComplete="off"
+              name="replyfield"
+              placeholder="Add to the conversation!"
+            />
+            <button className="pouch-button" type="submit">
+              Send
+            </button>
+          </Form>
+        </Formik>
       </div>
+      <Footer />
     </div>
   );
 }

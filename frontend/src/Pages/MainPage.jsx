@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import * as Yup from "yup";
+import Footer from "../Components/Footer";
 
 const MainPage = () => {
   const [threadList, setThreadList] = useState([]);
@@ -156,17 +157,7 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-
-      <footer className="lower-body">
-        <div className="top-footer">
-          <p>About us</p>
-          <h1>
-            We are computer engineering students making a forum website for
-            users to come and interact with one another. This project is for our
-            CS 44200 class and we hope you enjoy!
-          </h1>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

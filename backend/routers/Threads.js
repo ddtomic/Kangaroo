@@ -37,29 +37,28 @@ router.get("/date", async (req, res) => {
     order: [["createdAt", "DESC"]],
   });
 
-  const commentCounts = await Promise.all(
+  const finalData = await Promise.all(
     threadListDates.map(async (thread) => {
-      const commentCount = await Comment.findAll({
+      const comments = await Comment.findAll({
         where: {
           threadID: thread.threadID,
         },
+        include: [
+          {
+            model: Users,
+            attributes: ["userID", "username"],
+            as: "userComment",
+          },
+        ],
       });
+
       return {
-        threadID: thread,
-        commentCount,
+        ...thread.toJSON(),
+        comments: comments.map((comment) => comment.toJSON()),
       };
     })
   );
 
-  const finalData = threadListDates.map((thread) => {
-    const count = commentCounts.find(
-      (item) => item.threadID === thread.threadID
-    );
-    return {
-      ...thread.toJSON(),
-      commentCount: count.length > 0 ? count.commentCount : [],
-    };
-  });
   res.json(finalData);
 });
 

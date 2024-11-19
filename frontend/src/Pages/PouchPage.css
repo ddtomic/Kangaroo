@@ -74,22 +74,24 @@
 }
 
 .pouch-input {
-  text-align: left;
+  white-space: pre-wrap;
+  word-wrap: break-word;
   border-style: solid;
   border-radius: 5px;
   border-width: thin;
   width: 95%;
-  height: 30vh;
+  height: 10vh;
+  resize: none;
 }
 
 .reply-container button {
-  width: 20vh;
+  width: 15vh;
   border-radius: 10px;
   border-width: thin;
   background-color: #ba92f5;
   color: white;
   font-size: 2vh;
-  padding: 2vh;
+  padding: 1vh;
   cursor: pointer;
 }
 

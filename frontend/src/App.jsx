@@ -65,13 +65,14 @@ const App = () => {
               path={urlSetup(value.title)}
               element={
                 <PouchPage
+                  threadID={value.threadID}
                   name={value.userThread.username}
                   comment={value.content}
                   title={value.title}
                   timestamp={formatDate(value.createdAt)}
-                  replycount={value.commentCount.length}
+                  replycount={value.comments.length}
                   likecount={value.threadRatings.length}
-                  comments={value.commentCount}
+                  comments={value.comments}
                 />
               }
             />

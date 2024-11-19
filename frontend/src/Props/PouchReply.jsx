@@ -12,7 +12,6 @@ function PouchReply(prop) {
     <div>
       <div className="comment-container">
         <div className="top-comment">
-          <h3>Replies: {prop.replycount}</h3>
           <div className="bottom-comment">
             <h5 className="comment-username">{prop.name}</h5>
             <h3 className="comment-comment">{prop.comment} </h3>

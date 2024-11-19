@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       content: {
-        type: DataTypes.STRING(300),
+        type: DataTypes.TEXT("medium"),
         allowNull: false,
       },
       commentID: {

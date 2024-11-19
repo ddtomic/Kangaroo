@@ -67,14 +67,14 @@ Users.hasOne(threadRate, { foreignKey: "userID", as: "userThreadRate" });
 threadRate.belongsTo(Users, { foreignKey: "userID", as: "userThreadRate" });
 //threadRate -> Users via userID
 Users.hasMany(Comment, { foreignKey: "userID", as: "userComment" });
-Comment.hasOne(Users, { foreignKey: "userID", as: "userComment" });
+Comment.belongsTo(Users, { foreignKey: "userID", as: "userComment" });
 
 //Thread assoc.
 Thread.hasMany(threadRate, { foreignKey: "threadID", as: "threadRatings" });
 threadRate.belongsTo(Thread, { foreignKey: "threadID", as: "threadRatings" });
 //threadRate -> Thread via threadID
 Thread.hasMany(Comment, { foreignKey: "threadID", as: "threadComments" });
-Comment.hasOne(Thread, { foreignKey: "threadID", as: "threadComments" });
+Comment.belongsTo(Thread, { foreignKey: "threadID", as: "threadComments" });
 //Comment -> Thread via threadID
 
 //Comment assoc.

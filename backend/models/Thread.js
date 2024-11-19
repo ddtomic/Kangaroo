@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       content: {
-        type: DataTypes.STRING(1234),
+        type: DataTypes.TEXT("long"),
         allowNull: false,
       },
       title: {

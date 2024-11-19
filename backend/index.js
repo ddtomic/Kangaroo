@@ -9,7 +9,6 @@ const corsOptions = {
     "http://localhost:3000",
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
 };
 
 app.use(cors(corsOptions));
@@ -22,9 +21,12 @@ app.use("/auth", userRouter);
 const threadRouter = require("./routers/Threads");
 app.use("/thread", threadRouter);
 
+const commentRouter = require("./routers/Comments");
+app.use("/comment", commentRouter);
+
 // Sync and start the server
 db.db.sequelize
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => {
     app.listen(3002, "0.0.0.0", () => {
       console.log("Server running on port 3002");

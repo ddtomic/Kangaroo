@@ -189,6 +189,8 @@
 .row h5, h4{
     color: black;
     font-weight: normal;
+    cursor: text; 
+    width: fit-content;
 }
 
 .row h5{
@@ -197,6 +199,8 @@
 
 .row h2{
     color: black;
+    cursor: text; 
+    width: fit-content;
 }
 
 .top{
@@ -241,11 +245,7 @@
     padding: 0;
     height: auto;
     width: 3vh;
-}
-
-.top img:hover{
-    height: auto;
-    width: 4vh;
+    cursor:text;
 }
 
 .top p{

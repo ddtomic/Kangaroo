@@ -15,6 +15,7 @@ PouchPage.propTypes = {
   timestamp: propTypes.string,
   replycount: propTypes.number,
   likecount: propTypes.number,
+  comments: propTypes.arrayOf(propTypes.object),
 };
 
 function PouchPage(props) {
@@ -29,11 +30,15 @@ function PouchPage(props) {
         replycount={props.replycount}
         likecount={props.likecount}
       />
-      <PouchReply
-        name={"test"}
-        comment={"this is a test"}
-        replycount={props.replycount}
-      />
+      {props.comments.map((value, key) => {
+        <PouchReply
+          name={"test"}
+          comment={"this is a test"}
+          replycount={props.replycount.length}
+          key={key}
+        />;
+      })}
+
       <div className="reply-container">
         <h2>Reply</h2>
         <input

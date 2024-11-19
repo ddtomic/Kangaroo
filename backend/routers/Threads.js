@@ -24,7 +24,7 @@ data = {
   threadRatings -> Array of all ratings owned by thread,
 }
 */
-router.get("/", async (req, res) => {
+router.get("/date", async (req, res) => {
   const threadListDates = await Thread.findAll({
     include: [
       {
@@ -57,7 +57,7 @@ router.get("/", async (req, res) => {
     );
     return {
       ...thread.toJSON(),
-      commentCount: count ? count.commentCount : [],
+      commentCount: count.length > 0 ? count.commentCount : [],
     };
   });
   res.json(finalData);

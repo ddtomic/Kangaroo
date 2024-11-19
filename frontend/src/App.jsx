@@ -32,7 +32,6 @@ const App = () => {
     axios
       .get("http://18.119.120.175:3002/thread/date")
       .then((response) => {
-        console.log(response.data);
         setThreadList(response.data);
       })
       .catch((error) => console.log("error getting threads:", error));
@@ -73,6 +72,7 @@ const App = () => {
                   replycount={value.comments.length}
                   likecount={value.threadRatings.length}
                   comments={value.comments}
+                  key={key}
                 />
               }
             />

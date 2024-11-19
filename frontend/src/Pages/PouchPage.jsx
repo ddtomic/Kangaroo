@@ -12,6 +12,7 @@ import Footer from "../Components/Footer";
 import axios from "axios";
 
 PouchPage.propTypes = {
+  keyer: propTypes.number,
   threadID: propTypes.number,
   name: propTypes.string,
   comment: propTypes.string,

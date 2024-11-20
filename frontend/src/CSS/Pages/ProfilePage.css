@@ -117,72 +117,23 @@ select{
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 }
 
-#kangaroo{
-    background-image: url(../../assets/images/ProfilePics/kangaroo.jpg);
-    background-size: 100% 100%;
-}
-
-#dog{
-    background-image: url(../../assets/images/ProfilePics/dog.jpg);
-    background-size: 100% 100%;
-}
-
-#giraffe{
-    background-image: url(../../assets/images/ProfilePics/giraffe.jpg);
-    background-size: 100% 100%;
-}
-
-#hedgehog{
-    background-image: url(../../assets/images/ProfilePics/hedgehog.jpg);
-    background-size: 100% 100%;
-}
-
-#panda{
-    background-image: url(../../assets/images/ProfilePics/panda.jpg);
-    background-size: 100% 100%;
-}
-
-#squirrel{
-    background-image: url(../../assets/images/ProfilePics/squirrel.jpg);
-    background-size: 100% 100%;
-}
-
-#tiger{
-    background-image: url(../../assets/images/ProfilePics/tiger.jpg);
-    background-size: 100% 100%;
-}
-
-#turtle{
-    background-image: url(../../assets/images/ProfilePics/turtle.jpg);
-    background-size: 100% 100%;
-}
-
-.overlay {
+.profile-page .pfp-container:hover::after {
+    content: 'Change PFP';
     position: absolute;
-    display:flex;
-    align-items: center;
-    justify-content: center;
     top: 0;
-    bottom: 0;
     left: 0;
-    right: 0;
-    height: 100%;
     width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);  /* Semi-transparent black background */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
     border-radius: 50%;
-    opacity: 0;
-    transition: .3s ease;
-    background-color: lightslategray;
-    z-index: 1; 
+    cursor: pointer;  /* Show pointer cursor to indicate it's clickable */
 }
 
-.pfp:hover{
+.pfp-container:hover{
     cursor: pointer;
-}
-.pfp:hover .overlay {
-    opacity: 1;
-    cursor: pointer;
-}
-.text{
-    font-size: 15px;
-    color: white;
-}
+    }

@@ -1,50 +1,65 @@
-import React, { useState } from "react";
-import Navbar from "../Components/Navbar";
-import "../CSS/Pages/ProfilePage.css";
-import "../CSS/Pages/MainPage.css";
-import Pouch from "../Props/Pouch";
-import ThreadBox from "../Props/ThreadBox";
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom'; 
+import Navbar from '../Components/Navbar';
+import '../CSS/Pages/ProfilePage.css';
+import '../CSS/Pages/MainPage.css';
+import ThreadBox from '../Props/ThreadBox';
+import Profilepic from '../Components/Profilepic';
+
+//importing all images
+import dogImage from '../assets/images/ProfilePics/dog.jpg'; // Import the dog image
+import giraffeImage from '../assets/images/ProfilePics/giraffe.jpg';
+import hedgehogImage from '../assets/images/ProfilePics/hedgehog.jpg';
+import kangarooImage from '../assets/images/ProfilePics/kangaroo.jpg';
+import pandaImage from '../assets/images/ProfilePics/panda.jpg';
+import squirrelImage from '../assets/images/ProfilePics/squirrel.jpg';
+import tigerImage from '../assets/images/ProfilePics/tiger.jpg';
+import turtleImage from '../assets/images/ProfilePics/turtle.jpg';
+
+
 
 function ProfilePage(props) {
+    //get current location
+    const location = useLocation();
+
     const [showModal, setShowModal] = useState(false);
     const [selectedContent, setSelectedContent] = useState("Pouches");
 
-  const handlePfpClick = () => {
-    setShowModal(true);
-  };
+    const isProfilePage = location.pathname === '/Profile'; // Check if we are on the profile page
+    const handlePfpClick = () => {
+        setShowModal(true);
+    };
 
-  const handleModalClose = () => {
-    setShowModal(false);
-  };
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
 
+    //This is called when a new PFP is clicked
     const handleNewPfpClick = (id) => {
         let pfpName = id.concat(".png");
         console.log('Clicked PFP ID:', pfpName);
-        // Additional logic (if needed)
         setShowModal(false);
     };
 
     const handleSelectChange = (event) => {
-        setSelectedContent(event.target.value);  // Update the state when dropdown changes
+        setSelectedContent(event.target.value);  // Update  state when dropdown changes
     };
 
     return (
         <>
+         <div className={isProfilePage ? 'profile-page' : ''}>
             <Navbar />
 
             <div className="profile-overview">
-                <div
-                    className="pfp"
-                    onClick={handlePfpClick}
-                    title="Click to edit profile picture">
-                    <div className="overlay">
-                        <div className="text">Change PFP</div>
-                    </div>
-                </div>
-
+                {/* User PFP */}
+                <Profilepic onClick={handlePfpClick} />
+                {/* Username */}
                 <h4>{props.name}</h4>
+                {/* Member since year */}
                 <p>Member since {props.register_year}</p>
+                {/* Amount of LIkes */}
                 <p>Likes: {props.likes}</p>
+                {/* Bio */}
                 <p className="bio">{props.bio}</p>
             </div>
 
@@ -57,7 +72,6 @@ function ProfilePage(props) {
                     </select>
                 </div>
 
-                {/* Conditionally render ThreadBox or Pouch based on selection */}
                 {selectedContent === "Pouches" && (
                     <ThreadBox
                         name="Quadspy"
@@ -69,7 +83,7 @@ function ProfilePage(props) {
                 )}
 
                 {selectedContent === "Comments" && (
-<p>We render comments here.</p>
+                    <p>We render comments here.</p>
                 )}
             </div>
 
@@ -77,55 +91,29 @@ function ProfilePage(props) {
             {showModal && (
                 <div className="modal">
                     <div className="modal-content">
+                        {/* Close Button */}
                         <span className="close" onClick={handleModalClose}>
                             &times;
                         </span>
+
                         <h3>Change Profile Picture</h3>
+
+                        {/* All PFP Options */}
                         <div className="pfpContainer">
-                            <div
-                                className="pfp"
-                                id="kangaroo"
-                                onClick={() => handleNewPfpClick('kangaroo')}
-                            ></div>
-                            <div
-                                className="pfp"
-                                id="dog"
-                                onClick={() => handleNewPfpClick('dog')}
-                            ></div>
-                            <div
-                                className="pfp"
-                                id="giraffe"
-                                onClick={() => handleNewPfpClick('giraffe')}
-                            ></div>
-                            <div
-                                className="pfp"
-                                id="hedgehog"
-                                onClick={() => handleNewPfpClick('hedgehog')}
-                            ></div>
-                            <div
-                                className="pfp"
-                                id="panda"
-                                onClick={() => handleNewPfpClick('panda')}
-                            ></div>
-                            <div
-                                className="pfp"
-                                id="squirrel"
-                                onClick={() => handleNewPfpClick('squirrel')}
-                            ></div>
-                            <div
-                                className="pfp"
-                                id="tiger"
-                                onClick={() => handleNewPfpClick('tiger')}
-                            ></div>
-                            <div
-                                className="pfp"
-                                id="turtle"
-                                onClick={() => handleNewPfpClick('turtle')}
-                            ></div>
+                            <Profilepic imageUrl = {dogImage} onClick={() => handleNewPfpClick('dog')}/>
+                            <Profilepic imageUrl = {giraffeImage} onClick={() => handleNewPfpClick('giraffe')} />
+                            <Profilepic imageUrl = {hedgehogImage} onClick={() => handleNewPfpClick('hedgehog')}/>
+                            <Profilepic imageUrl = {kangarooImage} onClick={() => handleNewPfpClick('kangaroo')}/>
+                            <Profilepic imageUrl = {pandaImage} onClick={() => handleNewPfpClick('panda')}/>
+                            <Profilepic imageUrl = {squirrelImage} onClick={() => handleNewPfpClick('squirrel')}/>
+                            <Profilepic imageUrl = {tigerImage} onClick={() => handleNewPfpClick('tiger')}/>
+                            <Profilepic imageUrl = {turtleImage} onClick={() => handleNewPfpClick('turtle')}/>
+
                         </div>
                     </div>
                 </div>
             )}
+            </div>
         </>
     );
 }

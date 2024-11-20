@@ -6,7 +6,9 @@ const { commentRate, threadRate, Users, Comment } = require("../models");
 router.post("/", async (req, res) => {
   try {
     const { userID, rating, threadID } = req.body;
-    const existingRate = await threadRate.findOne({ where: userID, threadID });
+    const existingRate = await threadRate.findOne({
+      where: { userID, threadID },
+    });
     if (existingRate) {
       if (existingRate.rating === rating) {
         existingRate.rating = "n";

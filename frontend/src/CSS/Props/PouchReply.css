@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.comment-container {
+    display: flex;
+    flex-direction: column;
+    width: 150vh;
+    height: auto;  
+    white-space: pre;
+    word-break:break-all;
+    padding: 3vh;
+    border-style: solid;
+    border-width: thin ;
+  }
+  
+  
+  .bottom-comment{
+    display: flex;
+  
+  }
+  
+  .date-comment{
+    margin-right: 10vh;
+  }
+  
+  .comment-username{
+    font-weight: bold;
+    margin-bottom: 1vh;
+  }
+  
+  .bottom-comment h3 {
+    font-weight: normal;
+  }
+  
+  .pouch-button,
+  .pouch-input {
+    margin-top: 2vh;
+  }
+  
+  
+  .comment-comment{
+    width: 100%;
+    font-weight: normal;
+    white-space: pre;
+    word-break: break-all;
+    margin-bottom: 2vh;
+  }

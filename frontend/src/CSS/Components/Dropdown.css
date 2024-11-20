@@ -2,6 +2,7 @@
         text-decoration: none;
         margin: 0; 
         padding: 0; 
+        box-sizing: border-box;
 }
 
 .notify{
@@ -15,13 +16,15 @@
     flex-direction: column;
     width: 50vh;
     height: auto;
-    max-height: 50vh;
+    max-height: 40vh;
     list-style: none;
     overflow-x: hidden;
     overflow-y: scroll;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none; 
-    
+    -webkit-box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
+    -moz-box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
+    box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
 }
 
 .notify::before{

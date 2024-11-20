@@ -28,13 +28,19 @@
 }
 
 .pfp{
-    height: 60px;
-    width:60px;
+    height: 100px;
+    width:100px;
     border-radius: 50%;
-    background-image: url(../assets/images/usericon.png);
     background-size: 100% 100%;
-    margin-bottom:5px;
+    margin: 10px;
+    background-image: url(../assets/images/ProfilePics/kangaroo.jpg);
+    position: relative; /* Make it a positioned container for the overlay */
 }
+
+.pfp:hover::after {
+    background-image: url(../assets/images/editpfp.png);
+}
+
 .user-pouches{
     margin-top:10px;
     background-color: white;
@@ -83,7 +89,7 @@ select{
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 300px;
+    width: 50vw;
     position: relative; /* Needed for the close button */
 }
 
@@ -107,5 +113,80 @@ select{
     font-size: 24px;
     cursor: pointer;
     color: #333;
+}
+
+.pfpContainer{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjust column width */
+}
+
+#kangaroo{
+    background-image: url(../assets/images/ProfilePics/kangaroo.jpg);
+    background-size: 100% 100%;
+}
+
+#dog{
+    background-image: url(../assets/images/ProfilePics/dog.jpg);
+    background-size: 100% 100%;
+}
+
+#giraffe{
+    background-image: url(../assets/images/ProfilePics/giraffe.jpg);
+    background-size: 100% 100%;
+}
+
+#hedgehog{
+    background-image: url(../assets/images/ProfilePics/hedgehog.jpg);
+    background-size: 100% 100%;
+}
+
+#panda{
+    background-image: url(../assets/images/ProfilePics/panda.jpg);
+    background-size: 100% 100%;
+}
+
+#squirrel{
+    background-image: url(../assets/images/ProfilePics/squirrel.jpg);
+    background-size: 100% 100%;
+}
+
+#tiger{
+    background-image: url(../assets/images/ProfilePics/tiger.jpg);
+    background-size: 100% 100%;
+}
+
+#turtle{
+    background-image: url(../assets/images/ProfilePics/turtle.jpg);
+    background-size: 100% 100%;
+}
+
+.overlay {
+    position: absolute;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    opacity: 0;
+    transition: .3s ease;
+    background-color: lightslategray;
+    z-index: 1; /* Ensure the overlay appears above the profile picture */
+}
+
+.pfp:hover{
+    cursor: pointer;
+}
+.pfp:hover .overlay {
+    opacity: 1;
+    cursor: pointer;
+}
+.text{
+    font-size: 15px;
+    color: white;
 }
 

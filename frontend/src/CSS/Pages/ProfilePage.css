@@ -46,7 +46,7 @@
     background-color: white;
     border-radius:10px;
 
-    /* Box Shadow Generation */
+    /* Box Shadow */
     -webkit-box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
     -moz-box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
     box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);

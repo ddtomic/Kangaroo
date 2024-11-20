@@ -56,7 +56,7 @@ const MainPage = () => {
           userID: authState.id,
         })
       )
-      .then(() => {
+      .then((data) => {
         console.log("Thread created successfully:", data);
         resetForm();
         window.location.reload();

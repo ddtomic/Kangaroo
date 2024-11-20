@@ -18,21 +18,19 @@ const ThreadBox = React.memo((props) => {
     commentcount: propTypes.number,
   };
   const { authState } = useContext(AuthContext);
-  const rateThread = (rate) => {
-    axios.post(
-      "http://18.119.120.175:3002/rate/",
-      {
+  const rateThread = (...rate) => {
+    axios
+      .post("http://18.119.120.175:3002/rate/", {
         userID: authState.id,
         threadID: props.threadID,
         rating: rate,
-      }
-        .then((response) => {
-          console.log("Thread liked:", response);
-        })
-        .catch((error) => {
-          console.log("Thread could not be liked:", error);
-        })
-    );
+      })
+      .then(() => {
+        console.log("Thread liked");
+      })
+      .catch((error) => {
+        console.log("Thread could not be liked:", error);
+      });
   };
 
   return (

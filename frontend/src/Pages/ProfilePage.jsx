@@ -17,6 +17,7 @@ import tigerImage from '../assets/images/ProfilePics/tiger.jpg';
 import turtleImage from '../assets/images/ProfilePics/turtle.jpg';
 
 
+
 function ProfilePage(props) {
     //get current location
     const location = useLocation();
@@ -118,10 +119,10 @@ function ProfilePage(props) {
 }
 
 ProfilePage.defaultProps = {
-    name: "Guest",
-    register_year: 2024,
-    likes: 0,
-    bio: "No Bio",
+  name: "Guest",
+  register_year: 2024,
+  likes: 0,
+  bio: "No Bio",
 };
 
 export default ProfilePage;

@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../Components/Navbar";
-import '../CSS/Pages/PouchPage.css';
+import "../CSS/Pages/PouchPage.css";
 import PouchReply from "../Props/PouchReply";
 import Pouch from "../Props/Pouch";
 import propTypes from "prop-types";
@@ -79,17 +79,16 @@ function PouchPage(props) {
       />
 
       <div className="comment-box">
-      {props.comments.map((value, key) => {
-        return (
+        {props.comments.map((value, key) => {
+          return (
             <PouchReply
               name={value.userComment.username}
               comment={value.content}
               date={formatDate(value.createdAt)}
-
               key={key}
             />
-        );
-      })}
+          );
+        })}
       </div>
 
       <div className="reply-container">

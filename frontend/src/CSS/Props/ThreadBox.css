@@ -9,6 +9,7 @@
     border-style: solid;
     border-width: thin;
     list-style: none;
+    display: flex;
 }
 
 .row:hover{
@@ -55,7 +56,9 @@
     justify-content: space-between;
     align-items: center;
     color: black;
-
+    padding: 0 5vh;
+    background-color: #d5b9ff;
+    
 }
 
 .bottom img{

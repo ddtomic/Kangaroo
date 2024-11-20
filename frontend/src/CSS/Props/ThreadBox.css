@@ -12,7 +12,7 @@
     display: flex;
 }
 
-.row:hover{
+.row a:hover{
     background-color: rgb(238, 236, 236);
     cursor: pointer;
     transition: 0.2s;
@@ -58,22 +58,23 @@
     color: black;
     padding: 0 5vh;
     background-color: #d5b9ff;
-    
+    cursor:default;
 }
 
 .bottom img{
     float: right; 
     height: auto;
     width: 3vh;
+    cursor: pointer;
 }
 
 .feedback{
-
     display: flex;
     flex-direction: row;
     align-items: end;
     justify-content: space-between;
     border-radius: 10px;
+
 }
 
 .feedback p{

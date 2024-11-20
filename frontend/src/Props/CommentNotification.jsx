@@ -16,11 +16,11 @@ function CommentNotification(props) {
             <li>
                 <div className='commented-container'>
                     <div className='commented-top'>
-                        <h4>{props.name}</h4>
-                        <h4>{props.date}</h4>
+                        <h5>{props.name}</h5>
+                        <h5>{props.date}</h5>
                     </div>
                     <div className="commented-bottom">
-                        <h3>{props.user} commented on your post!</h3>
+                        <h5>{props.user} commented on your post!</h5>
                     </div>
                 </div>
             </li>

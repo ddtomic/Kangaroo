@@ -15,8 +15,8 @@
     display: flex; 
     flex-direction: column;
     width: 50vh;
-    height: auto;
-    max-height: 40vh;
+    height: auto; 
+    max-height: 50vh;
     list-style: none;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -25,6 +25,8 @@
     -webkit-box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
     -moz-box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
     box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
+    padding: 3vh;
+    background-color: white;
 }
 
 .notify::before{
@@ -32,18 +34,33 @@
     position: absolute; 
     top: -0.7rem;
     right: 1.1rem;  
-    
 }
 
 .notify ul{
     list-style: none;
 }
 
+.close-dropdown{
+    top: 1vh; 
+    position: absolute; 
+    right: 1vh; 
+    cursor: pointer;
+}
+
+.dropdown img{
+    width: 3vh; 
+    height: auto; 
+}
+
+.dropdown img:hover{
+    width: 3.5vh;
+    height: auto;
+    transition: 0.2s;
+}
+
 
 .liked-container, .commented-container{
-    border-style: solid;
-
-    border-width: thin;
+    border-radius: 10px;
     display: flex; 
     flex-direction: column;
     width:100%;
@@ -52,7 +69,7 @@
 }
 
 .liked-container:hover, .commented-container:hover{
-    background-color: rgb(238, 236, 236);
+    background-color:#ba92f5;
     cursor: pointer;
 }
 
@@ -62,10 +79,10 @@
     align-items: center;
 }
 
-.liked-container, .commented-container, h4{
+.liked-container, .commented-container, h5{
     margin-right: 2vh;
     font-weight: normal;
+    font-size: 2vh;
 }
-
 
 

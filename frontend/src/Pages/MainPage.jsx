@@ -27,20 +27,6 @@ const MainPage = () => {
       timeStyle: "short",
     }).format(date);
   };
-  const ratingAmount = (rates) => {
-    console.log(rates);
-    let like = 0;
-    let dlike = 0;
-    rates.map((rating) => {
-      if (rating.rating === "l") {
-        like++;
-      } else {
-        dlike++;
-      }
-      //console.log(like - dlike);
-      return like - dlike;
-    });
-  };
 
   const navTo = useNavigate();
   const { authState } = useContext(AuthContext);
@@ -135,7 +121,7 @@ const MainPage = () => {
                   title={value.title}
                   timestamp={formatDate(value.createdAt)}
                   commentcount={value.comments.length}
-                  ratingcount={ratingAmount(value.threadRatings)}
+                  ratingcount={value.threadScores}
                 ></ThreadBox>
               );
             })}

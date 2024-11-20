@@ -50,7 +50,7 @@ const App = () => {
       <Routes>
         <Route path="/home" element={<MainPage />} />
         {threadList.map((value, key) => {
-          console.log(value);
+          console.log("app:", value.threadID, urlSetup(value.title));
           return (
             <Route
               key={key}

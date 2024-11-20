@@ -76,7 +76,7 @@ router.get("/date", async (req, res) => {
         return {
           ...thread.toJSON(),
           comments: comments.map((comment) => comment.toJSON()),
-          threadScore: threadscores,
+          threadScore: threadscores ? threadscores : 0,
         };
       })
     );

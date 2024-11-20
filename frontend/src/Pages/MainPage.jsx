@@ -112,7 +112,6 @@ const MainPage = () => {
 
           <div className="container">
             {threadList.map((value, key) => {
-              //console.log(value);
               return (
                 <ThreadBox
                   key={key}
@@ -121,7 +120,7 @@ const MainPage = () => {
                   title={value.title}
                   timestamp={formatDate(value.createdAt)}
                   commentcount={value.comments.length}
-                  ratingcount={value.threadScores}
+                  ratingcount={value.threadScore}
                 ></ThreadBox>
               );
             })}

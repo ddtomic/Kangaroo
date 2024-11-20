@@ -50,7 +50,7 @@ const App = () => {
       <Routes>
         <Route path="/home" element={<MainPage />} />
         {threadList.map((value, key) => {
-          console.log(ratingAmount(value.threadRatings));
+          console.log(value);
           return (
             <Route
               key={key}
@@ -63,7 +63,7 @@ const App = () => {
                   title={value.title}
                   timestamp={value.createdAt}
                   replycount={value.comments.length}
-                  likecount={value.threadScores}
+                  likecount={value.threadScore}
                   comments={value.comments}
                   key={key}
                 />

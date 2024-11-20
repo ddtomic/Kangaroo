@@ -1,13 +1,14 @@
 import axios from "axios";
 import React from "react";
-import "./MainPage.css";
+import '../CSS/Pages/MainPage.css'
 import Navbar from "../Components/Navbar";
 import design from "../assets/images/pngegg.png";
 import search from "../assets/images/icons8-search-50.png";
 import ThreadBox from "../Props/ThreadBox";
+import bell from "../assets/images/bell.png"
 import { Link } from "react-router-dom";
 import Leaderbaord from "../Props/Leaderboard";
-import "./CreatePage.css";
+import '../CSS/Pages/CreatePage.css'
 import { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
@@ -163,7 +164,7 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 };

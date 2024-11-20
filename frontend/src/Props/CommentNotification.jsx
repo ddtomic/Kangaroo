@@ -1,6 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 
+
 CommentNotification.propTypes = {
     name: propTypes.string, 
     date: propTypes.string, 

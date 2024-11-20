@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import "./AuthPage.css";
+import '../CSS/Pages/AuthPage.css'
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";

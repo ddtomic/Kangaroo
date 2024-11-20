@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.pouch-background {
+  margin-top: 20vh;
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+
+.reply-container {
+  padding: 3vh;
+  margin-top: 5vh;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: thin;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  width: 150vh;
+
+}
+
+.pouch-input {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: thin;
+  width: 95%;
+  height: 10vh;
+  resize: none;
+  padding: 1.5vh;
+}
+
+.reply-container button {
+  width: 15vh;
+  border-radius: 10px;
+  border-width: thin;
+  background-color: #ba92f5;
+  color: white;
+  font-size: 2vh;
+  padding: 1vh;
+  cursor: pointer;
+}
+
+.reply-container button:hover {
+  background-color: #ac7cf3;
+}
+
+.comment-box{
+  width: 150vh;
+  min-height: 50vh;
+  height: auto;
+  margin-bottom: 5vh;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 10px;
+  background-color: white;
+}
+
+

@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../Components/Navbar";
-import "./PouchPage.css";
+import '../CSS/Pages/PouchPage.css';
 import PouchReply from "../Props/PouchReply";
 import Pouch from "../Props/Pouch";
 import propTypes from "prop-types";
@@ -57,6 +57,15 @@ function PouchPage(props) {
         console.error("Error posting comment:", error);
       });
   };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString); // Parse the incoming date string
+    return new Intl.DateTimeFormat("en-US", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    }).format(date);
+  };
+
   return (
     <div className="pouch-background">
       <Navbar />
@@ -64,22 +73,24 @@ function PouchPage(props) {
         name={props.name}
         comment={props.comment}
         title={props.title}
-        timestamp={props.timestamp}
+        timestamp={formatDate(props.timestamp)}
         replycount={props.replycount}
         likecount={props.likecount}
       />
+
+      <div className="comment-box">
       {props.comments.map((value, key) => {
         return (
-          <div>
             <PouchReply
               name={value.userComment.username}
               comment={value.content}
-              replycount={props.replycount}
+              date={formatDate(value.createdAt)}
+
               key={key}
             />
-          </div>
         );
       })}
+      </div>
 
       <div className="reply-container">
         <h2>Reply</h2>

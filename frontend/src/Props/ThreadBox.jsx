@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
+import "../CSS/Props/ThreadBox.css";
 
 const ThreadBox = React.memo((props) => {
   ThreadBox.propTypes = {
@@ -50,28 +51,28 @@ const ThreadBox = React.memo((props) => {
               </div>
             </div>
           </div>
-          <div className="bottom">
-            <div className="feedback">
+        </a>
+        <div className="bottom">
+          <div className="feedback">
+            <div className="like-feedback">
               <div className="like-feedback">
-                <div className="like-feedback">
-                  <div className="left-feedback">
-                    <button onClick={rateThread("l")}>
-                      <img src={like} alt="like-img" />
-                    </button>
-                  </div>
-                  <div className="middle-feedback">
-                    <p>{props.ratingcount}</p>
-                  </div>
-                  <div className="right-feedback">
-                    <button onClick={rateThread("d")}>
-                      <img src={dislike} alt="dislike-img" />
-                    </button>
-                  </div>
+                <div className="left-feedback">
+                  <button onClick={rateThread("l")}>
+                    <img src={like} alt="like-img" />
+                  </button>
+                </div>
+                <div className="middle-feedback">
+                  <p>{props.ratingcount}</p>
+                </div>
+                <div className="right-feedback">
+                  <button onClick={rateThread("d")}>
+                    <img src={dislike} alt="dislike-img" />
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </li>
     </div>
   );

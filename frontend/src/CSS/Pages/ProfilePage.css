@@ -33,12 +33,12 @@
     border-radius: 50%;
     background-size: 100% 100%;
     margin: 10px;
-    background-image: url(../assets/images/ProfilePics/kangaroo.jpg);
-    position: relative; /* Make it a positioned container for the overlay */
+    background-image: url(../../assets/images/ProfilePics/kangaroo.jpg);
+    position: relative; 
 }
 
 .pfp:hover::after {
-    background-image: url(../assets/images/editpfp.png);
+    background-image: url(../../assets/images/editpfp.png);
 }
 
 .user-pouches{
@@ -46,7 +46,7 @@
     background-color: white;
     border-radius:10px;
 
-    /* Box Shadow Generation */
+    /* Box Shadow */
     -webkit-box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
     -moz-box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
     box-shadow: 28px 32px 51px -24px rgba(0,0,0,0.57);
@@ -68,18 +68,18 @@ select{
     cursor: pointer;
 }
 
-/* Modal overlay */
+
 .modal {
-    position: fixed; /* Ensures it stays in place while scrolling */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
-    justify-content: center; /* Center modal content horizontally and vertically */
-    z-index: 1000; /* Ensure it overlays other content */
+    justify-content: center;
+    z-index: 1000; 
 }
 
 /* Modal content */
@@ -90,22 +90,19 @@ select{
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 50vw;
-    position: relative; /* Needed for the close button */
+    position: relative;
 }
 
-/* Modal content header */
 .modal-content h3 {
     margin-bottom: 20px;
 }
 
-/* Input inside modal */
 .modal-content input {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
 }
 
-/* Close button */
 .close {
     position: absolute;
     top: 10px;
@@ -117,46 +114,46 @@ select{
 
 .pfpContainer{
     display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjust column width */
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 }
 
 #kangaroo{
-    background-image: url(../assets/images/ProfilePics/kangaroo.jpg);
+    background-image: url(../../assets/images/ProfilePics/kangaroo.jpg);
     background-size: 100% 100%;
 }
 
 #dog{
-    background-image: url(../assets/images/ProfilePics/dog.jpg);
+    background-image: url(../../assets/images/ProfilePics/dog.jpg);
     background-size: 100% 100%;
 }
 
 #giraffe{
-    background-image: url(../assets/images/ProfilePics/giraffe.jpg);
+    background-image: url(../../assets/images/ProfilePics/giraffe.jpg);
     background-size: 100% 100%;
 }
 
 #hedgehog{
-    background-image: url(../assets/images/ProfilePics/hedgehog.jpg);
+    background-image: url(../../assets/images/ProfilePics/hedgehog.jpg);
     background-size: 100% 100%;
 }
 
 #panda{
-    background-image: url(../assets/images/ProfilePics/panda.jpg);
+    background-image: url(../../assets/images/ProfilePics/panda.jpg);
     background-size: 100% 100%;
 }
 
 #squirrel{
-    background-image: url(../assets/images/ProfilePics/squirrel.jpg);
+    background-image: url(../../assets/images/ProfilePics/squirrel.jpg);
     background-size: 100% 100%;
 }
 
 #tiger{
-    background-image: url(../assets/images/ProfilePics/tiger.jpg);
+    background-image: url(../../assets/images/ProfilePics/tiger.jpg);
     background-size: 100% 100%;
 }
 
 #turtle{
-    background-image: url(../assets/images/ProfilePics/turtle.jpg);
+    background-image: url(../../assets/images/ProfilePics/turtle.jpg);
     background-size: 100% 100%;
 }
 
@@ -175,7 +172,7 @@ select{
     opacity: 0;
     transition: .3s ease;
     background-color: lightslategray;
-    z-index: 1; /* Ensure the overlay appears above the profile picture */
+    z-index: 1; 
 }
 
 .pfp:hover{

@@ -19,7 +19,7 @@ const ThreadBox = React.memo((props) => {
     commentcount: propTypes.number,
   };
   const { authState } = useContext(AuthContext);
-  console.log(props.title.substring(0, props.title.size || 10));
+  //console.log(props.title.substring(0, props.title.size || 10));
   const rateThread = (rate) => {
     console.log({
       userID: authState.id,

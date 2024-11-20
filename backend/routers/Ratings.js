@@ -13,7 +13,11 @@ router.post("/", async (req, res) => {
     });
     return res.json("Thread liked");
   } catch (error) {
-    res.status(500).send("Could not like thread:", error);
+    if (error === "SequelizeUniqueConstraintError") {
+      res.status(500).send("User has already rated this thread:", error);
+    } else {
+      res.status(500).send("Could not like thread:", error);
+    }
   }
 });
 

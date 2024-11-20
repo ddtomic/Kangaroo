@@ -28,7 +28,15 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    { timestamps: true }
+    {
+      timestamps: true,
+      indexes: [
+        {
+          unique: true,
+          fields: ["userID", "threadID"],
+        },
+      ],
+    }
   );
 
   return threadRate;

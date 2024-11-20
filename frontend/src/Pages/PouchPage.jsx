@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../Components/Navbar";
-import "./PouchPage.css";
+import '../CSS/Pages/PouchPage.css';
 import PouchReply from "../Props/PouchReply";
 import Pouch from "../Props/Pouch";
 import propTypes from "prop-types";

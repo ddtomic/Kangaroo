@@ -1,6 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import '../CSS/Props/Leaderboard.css'
 
 Leaderbaord.propTypes = {
     name: propTypes.string,

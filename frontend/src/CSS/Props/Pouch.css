@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.pouch-container {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 150vh;
+    margin-bottom: 5vh;
+  }
+  
+  .top-pouch {
+    padding: 2vh;
+    width: 150vh;
+    border-style: solid;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-width: thin;
+    background-color: white;
+  }
+  
+  .pouch-feedback {
+    display: flex;
+    text-align: center;
+    margin-top: 2vh;
+  }
+  
+  .pouch-feedback h5 {
+    margin-right: 5vh;
+    font-style: normal;
+    font-weight: normal;
+  }
+  
+  .bottom-pouch {
+    padding: 2vh;
+    width: 100%;
+    border-style: solid;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-width: thin;
+    background-color: white;
+  }
+  
+  .bottom-pouch h3 {
+    font-weight: normal;
+    width: 95%;
+  }

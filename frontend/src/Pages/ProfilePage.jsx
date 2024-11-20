@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
-import Navbar from '../Components/Navbar';
-import '../CSS/Pages/ProfilePage.css';
-import '../CSS/Pages/MainPage.css'
-import Pouch from '../Props/Pouch';
-import ThreadBox from '../Props/ThreadBox';
+import React, { useState } from "react";
+import Navbar from "../Components/Navbar";
+import "../CSS/Pages/ProfilePage.css";
+import "../CSS/Pages/MainPage.css";
+import Pouch from "../Props/Pouch";
+import ThreadBox from "../Props/ThreadBox";
 
 function ProfilePage(props) {
     const [showModal, setShowModal] = useState(false);
     const [selectedContent, setSelectedContent] = useState("Pouches");
 
-    const handlePfpClick = () => {
-        setShowModal(true);
-    };
+  const handlePfpClick = () => {
+    setShowModal(true);
+  };
 
-    const handleModalClose = () => {
-        setShowModal(false);
-    };
-
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
 
     const handleNewPfpClick = (id) => {
         let pfpName = id.concat(".png");
@@ -132,10 +131,10 @@ function ProfilePage(props) {
 }
 
 ProfilePage.defaultProps = {
-    name: "Guest",
-    register_year: 2024,
-    likes: 0,
-    bio: "No Bio",
+  name: "Guest",
+  register_year: 2024,
+  likes: 0,
+  bio: "No Bio",
 };
 
 export default ProfilePage;

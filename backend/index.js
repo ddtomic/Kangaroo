@@ -24,9 +24,12 @@ app.use("/thread", threadRouter);
 const commentRouter = require("./routers/Comments");
 app.use("/comment", commentRouter);
 
+const rateRouter = require("./routers/Ratings");
+app.use("/rate", rateRouter);
+
 // Sync and start the server
 db.db.sequelize
-  .sync({ force: false })
+  .sync({ force: true })
   .then(() => {
     app.listen(3002, "0.0.0.0", () => {
       console.log("Server running on port 3002");

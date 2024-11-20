@@ -26,7 +26,7 @@ const App = () => {
       .then((response) => {
         setThreadList(response.data);
       })
-      .catch((error) => console.log("error getting threads:", error));
+      .catch((error) => console.log("Error getting threads:", error));
 
     axios
       .get("http://18.119.120.175:3002/auth/", {
@@ -50,6 +50,7 @@ const App = () => {
       <Routes>
         <Route path="/home" element={<MainPage />} />
         {threadList.map((value, key) => {
+          console.log("app:", value.threadID, urlSetup(value.title));
           return (
             <Route
               key={key}
@@ -62,7 +63,7 @@ const App = () => {
                   title={value.title}
                   timestamp={value.createdAt}
                   replycount={value.comments.length}
-                  likecount={value.threadRatings.length}
+                  likecount={value.threadScore}
                   comments={value.comments}
                   key={key}
                 />

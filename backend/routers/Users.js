@@ -19,31 +19,35 @@ router.post("/", (req, res) => {
       res.json("Success!");
     });
   } catch (error) {
-    res.status(500).send("Can't create user");
+    res.status(500).send("Can't create user:", error);
   }
 });
 
 //Logging into an account
 router.post("/signin", async (req, res) => {
-  const { username, password } = req.body;
+  try {
+    const { username, password } = req.body;
 
-  const user = await Users.findOne({ where: { username: username } });
+    const user = await Users.findOne({ where: { username: username } });
 
-  if (!user) return res.json({ error: "User doesn't exist!" });
+    if (!user) return res.json({ error: "User doesn't exist!" });
 
-  bcrypt.compare(password, user.password).then((match) => {
-    if (!match) return res.json({ error: "Password is wrong!" });
+    bcrypt.compare(password, user.password).then((match) => {
+      if (!match) return res.json({ error: "Password is wrong!" });
 
-    const accessToken = sign(
-      { username: user.username, id: user.userID },
-      "nrQaoHnpKNNi1izsQZrBhdAZU"
-    );
-    return res.json({
-      token: accessToken,
-      username: username,
-      id: user.userID,
+      const accessToken = sign(
+        { username: user.username, id: user.userID },
+        "nrQaoHnpKNNi1izsQZrBhdAZU"
+      );
+      return res.json({
+        token: accessToken,
+        username: username,
+        id: user.userID,
+      });
     });
-  });
+  } catch (error) {
+    res.status(500).send("Login failed:", error);
+  }
 });
 
 //Get all users (just for testing)

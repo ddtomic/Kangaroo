@@ -1,5 +1,7 @@
 import React from "react";
 import propTypes from "prop-types";
+import '../CSS/Props/Pouch.css'
+
 
 Pouch.propTypes = {
   name: propTypes.string,

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Navbar from '../Components/Navbar';
-import './ProfilePage.css';
+import '../CSS/Pages/ProfilePage.css';
+import '../CSS/Pages/MainPage.css'
+import Pouch from '../Props/Pouch';
 import ThreadBox from '../Props/ThreadBox';
 
 function ProfilePage(props) {

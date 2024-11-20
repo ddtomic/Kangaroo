@@ -4,6 +4,7 @@ import dislike from "../assets/images/dislike.png";
 import propTypes from "prop-types";
 import message from "../assets/images/message.png";
 import { useNavigate } from "react-router-dom";
+import '../CSS/Props/ThreadBox.css'
 
 const ThreadBox = React.memo((props) => {
   ThreadBox.propTypes = {

@@ -30,7 +30,8 @@ const ThreadBox = React.memo((props) => {
                 <p>{props.commentcount}</p>
               </div>
             </div>
-          </div>
+           </div>
+          </a>
           <div className="bottom">
             <div className="feedback">
               <div className="like-feedback">
@@ -48,7 +49,6 @@ const ThreadBox = React.memo((props) => {
               </div>
             </div>
           </div>
-        </a>
       </li>
     </div>
   );

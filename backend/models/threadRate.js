@@ -13,10 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       rating: {
         type: DataTypes.STRING(1),
-        allowNull: false,
-        defaultValue: "n", // Default value is 'n'
+        allowNull: true,
         validate: {
-          isIn: [["l", "d", "n"]], // Restrict input to 'l', 'd', 'n'
+          isIn: [["l", "d"]], // Restrict input to 'l', 'd'
         },
       },
       threadID: {
@@ -29,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    { timestamps: false }
+    { timestamps: true }
   );
 
   return threadRate;

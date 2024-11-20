@@ -69,9 +69,14 @@ const MainPage = () => {
 
   useEffect(() => {
     console.log("Fetching threads...");
-    axios.get("http://18.119.120.175:3002/thread/date").then((response) => {
-      setThreadList(response.data);
-    });
+    axios
+      .get("http://18.119.120.175:3002/thread/date")
+      .then((response) => {
+        setThreadList(response.data);
+      })
+      .catch((error) => {
+        console.log("Failed to get threads:", error);
+      });
   }, []);
 
   return (
@@ -113,7 +118,7 @@ const MainPage = () => {
                   name={value.userThread.username}
                   title={value.title}
                   timestamp={formatDate(value.createdAt)}
-                  commentcount={value.commentCount}
+                  commentcount={value.comments.length}
                   ratingcount={value.threadRatings.length}
                 ></ThreadBox>
               );

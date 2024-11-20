@@ -34,7 +34,7 @@ const App = () => {
       .then((response) => {
         setThreadList(response.data);
       })
-      .catch((error) => console.log("error getting threads:", error));
+      .catch((error) => console.log("Error getting threads:", error));
 
     axios
       .get("http://18.119.120.175:3002/auth/", {

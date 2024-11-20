@@ -78,7 +78,7 @@ const MainPage = () => {
       .catch((error) => {
         console.log("Failed to get threads:", error);
       });
-  }, []);
+  }, [setThreadList]);
 
   return (
     <div className="main">

@@ -6,14 +6,31 @@ const { commentRate, threadRate, Users, Comment } = require("../models");
 router.post("/", async (req, res) => {
   try {
     const { userID, rating, threadID } = req.body;
-    await threadRate.create({
-      userID: userID,
-      rating: rating,
-      threadID: threadID,
-    });
-    return res.json("Thread liked");
+    const existingRate = await threadRate.findOne({ where: userID, threadID });
+    if (existingRate) {
+      if (existingRate.rating === rating) {
+        existingRate.rating = "n";
+        existingRate.save();
+        return res.status(200).send("Rating removed");
+      } else {
+        existingRate.rating = rating;
+        await existingRate.save();
+        res.status(200).send("Rating updated");
+      }
+    } else {
+      await threadRate.create({
+        userID: userID,
+        rating: rating,
+        threadID: threadID,
+      });
+      res.status(201).send("Rating created");
+    }
   } catch (error) {
-    res.status(500).send("Could not like thread:", error);
+    if (error === "SequelizeUniqueConstraintError") {
+      res.status(500).send("User has already rated this thread:", error);
+    } else {
+      res.status(500).send("Could not like thread:", error);
+    }
   }
 });
 

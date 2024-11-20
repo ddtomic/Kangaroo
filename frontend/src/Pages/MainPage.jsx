@@ -115,6 +115,7 @@ const MainPage = () => {
               return (
                 <ThreadBox
                   key={key}
+                  threadID={value.threadID}
                   name={value.userThread.username}
                   title={value.title}
                   timestamp={formatDate(value.createdAt)}

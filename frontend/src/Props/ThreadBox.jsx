@@ -4,15 +4,37 @@ import dislike from "../assets/images/dislike.png";
 import propTypes from "prop-types";
 import message from "../assets/images/message.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../helpers/AuthContext";
 
 const ThreadBox = React.memo((props) => {
   ThreadBox.propTypes = {
+    threadID: propTypes.number,
     name: propTypes.string,
     title: propTypes.string,
     timestamp: propTypes.string,
     ratingcount: propTypes.number,
     commentcount: propTypes.number,
   };
+  const { authState } = useContext(AuthContext);
+  const rateThread = (rate) => {
+    axios.post(
+      "http://18.119.120.175:3002/rate/",
+      {
+        userID: authState.id,
+        threadID: props.threadID,
+        rating: rate,
+      }
+        .then((response) => {
+          console.log("Thread liked:", response);
+        })
+        .catch((error) => {
+          console.log("Thread could not be liked:", error);
+        })
+    );
+  };
+
   return (
     <div>
       <li className="row">
@@ -35,13 +57,17 @@ const ThreadBox = React.memo((props) => {
               <div className="like-feedback">
                 <div className="like-feedback">
                   <div className="left-feedback">
-                    <img src={like} alt="like-img"></img>
+                    <button onClick={rateThread("l")}>
+                      <img src={like} alt="like-img" />
+                    </button>
                   </div>
                   <div className="middle-feedback">
                     <p>{props.ratingcount}</p>
                   </div>
                   <div className="right-feedback">
-                    <img src={dislike} alt="dislike-img"></img>
+                    <button onClick={rateThread("d")}>
+                      <img src={dislike} alt="dislike-img" />
+                    </button>
                   </div>
                 </div>
               </div>

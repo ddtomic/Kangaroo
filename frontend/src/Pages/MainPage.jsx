@@ -16,7 +16,6 @@ import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import * as Yup from "yup";
 import Footer from "../Components/Footer";
-
 const MainPage = () => {
   const [threadList, setThreadList] = useState([]);
 
@@ -109,6 +108,7 @@ const MainPage = () => {
             {threadList.map((value, key) => {
               //console.log(value);
               return (
+                
                 <ThreadBox
                   key={key}
                   name={value.userThread.username}

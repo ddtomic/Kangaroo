@@ -20,6 +20,22 @@ const App = () => {
     return title.substring(0, title.size || 10);
   };
 
+  function ratingAmount(rates) {
+    // console.log(rates);
+    let like = 0;
+    let dlike = 0;
+    rates.map((rating) => {
+      if (rating.rating === "l") {
+        like++;
+      } else {
+        dlike++;
+      }
+      const total = like - dlike;
+      console.log("total:", total);
+      return total;
+    });
+  }
+
   useEffect(() => {
     axios
       .get("http://18.119.120.175:3002/thread/date")
@@ -50,6 +66,7 @@ const App = () => {
       <Routes>
         <Route path="/home" element={<MainPage />} />
         {threadList.map((value, key) => {
+          console.log(ratingAmount(value.threadRatings));
           return (
             <Route
               key={key}
@@ -62,7 +79,7 @@ const App = () => {
                   title={value.title}
                   timestamp={value.createdAt}
                   replycount={value.comments.length}
-                  likecount={value.threadRatings.length}
+                  likecount={ratingAmount(value.threadRatings)}
                   comments={value.comments}
                   key={key}
                 />

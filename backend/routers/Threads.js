@@ -57,6 +57,13 @@ router.get("/date", async (req, res) => {
           ],
         });
 
+        const likescore = await threadRate.count({
+          where: {
+            threadID: thread.threadID,
+            rating: "l",
+          },
+        });
+
         return {
           ...thread.toJSON(),
           comments: comments.map((comment) => comment.toJSON()),

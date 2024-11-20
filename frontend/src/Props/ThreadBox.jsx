@@ -19,7 +19,12 @@ const ThreadBox = React.memo((props) => {
     commentcount: propTypes.number,
   };
   const { authState } = useContext(AuthContext);
-  const rateThread = (...rate) => {
+  const rateThread = (rate) => {
+    console.log({
+      userID: authState.id,
+      threadID: props.threadID,
+      rating: rate,
+    });
     axios
       .post("http://18.119.120.175:3002/rate/", {
         userID: authState.id,
@@ -27,7 +32,12 @@ const ThreadBox = React.memo((props) => {
         rating: rate,
       })
       .then(() => {
-        console.log("Thread liked");
+        if (rate === "l") {
+          console.log("Thread liked");
+        } else {
+          console.log("Thread disliked");
+        }
+        window.location.reload();
       })
       .catch((error) => {
         console.log("Thread could not be liked:", error);
@@ -57,7 +67,7 @@ const ThreadBox = React.memo((props) => {
             <div className="like-feedback">
               <div className="like-feedback">
                 <div className="left-feedback">
-                  <button onClick={rateThread("l")}>
+                  <button onClick={() => rateThread("l")}>
                     <img src={like} alt="like-img" />
                   </button>
                 </div>
@@ -65,7 +75,7 @@ const ThreadBox = React.memo((props) => {
                   <p>{props.ratingcount}</p>
                 </div>
                 <div className="right-feedback">
-                  <button onClick={rateThread("d")}>
+                  <button onClick={() => rateThread("d")}>
                     <img src={dislike} alt="dislike-img" />
                   </button>
                 </div>

@@ -65,8 +65,7 @@ const ThreadBox = React.memo((props) => {
         </a>
         <div className="bottom">
           <div className="feedback">
-            <div className="like-feedback">
-              <div className="like-feedback">
+              
                 <div className="left-feedback">
                   <button onClick={() => rateThread("l")}>
                     <img src={like} alt="like-img" />
@@ -82,8 +81,7 @@ const ThreadBox = React.memo((props) => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+
       </li>
     </div>
   );

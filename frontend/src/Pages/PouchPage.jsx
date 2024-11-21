@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Components/Navbar";
 import "../CSS/Pages/PouchPage.css";
 import PouchReply from "../Props/PouchReply";
@@ -18,14 +18,14 @@ PouchPage.propTypes = {
   comment: propTypes.string,
   title: propTypes.string,
   timestamp: propTypes.string,
-  replycount: propTypes.number,
-  likecount: propTypes.number,
   commentName: propTypes.string,
   commentContent: propTypes.string,
 };
 
 function PouchPage(props) {
   const { authState } = useContext(AuthContext);
+  const [threadReplies, setThreadReplies] = useState(0);
+  const [threadScore, setThreadScore] = useState(0);
 
   const initialValues = {
     replyfield: "",
@@ -36,6 +36,21 @@ function PouchPage(props) {
       .min(1, "Comment needs at least 1 character!")
       .required("Comment content is required!"),
   });
+
+  const getRatings = async () => {
+    axios
+      .get(`http://18.119.120.175:3002/rate/threadrates/${props.threadID}`)
+      .then((response) => {
+        return setThreadScore(response.data.score);
+      })
+      .catch((error) => {
+        return console.log("Could not get thread score:", error);
+      });
+  };
+
+  const ratingRefresh = async () => {
+    getRatings();
+  };
 
   const onSubmit = (data, { resetForm }) => {
     axios
@@ -58,6 +73,10 @@ function PouchPage(props) {
       });
   };
 
+  useEffect(() => {
+    getRatings();
+  });
+
   const formatDate = (dateString) => {
     const date = new Date(dateString); // Parse the incoming date string
     return new Intl.DateTimeFormat("en-US", {
@@ -74,8 +93,8 @@ function PouchPage(props) {
         comment={props.comment}
         title={props.title}
         timestamp={formatDate(props.timestamp)}
-        replycount={props.replycount}
-        likecount={props.likecount}
+        replycount={threadReplies}
+        likecount={threadScore}
       />
 
       <div className="comment-box">

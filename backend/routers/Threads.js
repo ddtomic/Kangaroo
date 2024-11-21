@@ -31,14 +31,7 @@ data = {
 router.get("/date", async (req, res) => {
   try {
     const threadListDates = await Thread.findAll({
-      include: [
-        {
-          model: threadRate,
-          attributes: ["rating"],
-          as: "threadRatings",
-        },
-        { model: Users, attributes: ["username"], as: "userThread" },
-      ],
+      include: [{ model: Users, attributes: ["username"], as: "userThread" }],
       order: [["createdAt", "DESC"]],
     });
 
@@ -57,26 +50,9 @@ router.get("/date", async (req, res) => {
           ],
         });
 
-        const likescore = await threadRate.count({
-          where: {
-            threadID: thread.threadID,
-            rating: "l",
-          },
-        });
-
-        const dlikescore = await threadRate.count({
-          where: {
-            threadID: thread.threadID,
-            rating: "d",
-          },
-        });
-
-        const threadscores = likescore - dlikescore;
-
         return {
           ...thread.toJSON(),
           comments: comments.map((comment) => comment.toJSON()),
-          threadScore: threadscores ? threadscores : 0,
         };
       })
     );

@@ -59,7 +59,7 @@ const MainPage = () => {
       .then((data) => {
         console.log("Thread created successfully:", data);
         resetForm();
-        window.location.reload();
+        threadRefresh();
       })
       .catch((error) => {
         console.log(data);
@@ -67,7 +67,7 @@ const MainPage = () => {
       });
   };
 
-  useEffect(() => {
+  const getThreads = async () => {
     console.log("Fetching threads...");
     axios
       .get("http://18.119.120.175:3002/thread/date")
@@ -77,7 +77,15 @@ const MainPage = () => {
       .catch((error) => {
         console.log("Failed to get threads:", error);
       });
-  }, [setThreadList]);
+  };
+
+  const threadRefresh = () => {
+    getThreads();
+  };
+
+  useEffect(() => {
+    getThreads();
+  }, []);
 
   return (
     <div className="main">
@@ -112,7 +120,6 @@ const MainPage = () => {
           <div className="container">
             {threadList.map((value, key) => {
               return (
-                
                 <ThreadBox
                   key={key}
                   threadID={value.threadID}
@@ -120,7 +127,6 @@ const MainPage = () => {
                   title={value.title}
                   timestamp={formatDate(value.createdAt)}
                   commentcount={value.comments.length}
-                  ratingcount={value.threadScore}
                 ></ThreadBox>
               );
             })}

@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
     if (existingRate) {
       if (existingRate.rating === rating) {
         existingRate.rating = "n";
-        existingRate.save();
+        await existingRate.save();
         return res.status(200).send("Rating removed");
       } else {
         existingRate.rating = rating;
@@ -36,6 +36,36 @@ router.post("/", async (req, res) => {
   }
 });
 
+//Get all thread ratings for a specific thread
+router.get("/threadrates/:threadID", async (req, res) => {
+  try {
+    const { threadID } = req.params;
+    const ratings = await threadRate.findAll({ where: { threadID: threadID } });
+    const likescore = await threadRate.count({
+      where: {
+        threadID: threadID,
+        rating: "l",
+      },
+    });
+
+    const dlikescore = await threadRate.count({
+      where: {
+        threadID: threadID,
+        rating: "d",
+      },
+    });
+    const scoring = likescore - dlikescore;
+    //console.log("Score:", scoring);
+    const finalData = {
+      ratings,
+      score: scoring ? scoring : 0,
+    };
+
+    res.json(finalData);
+  } catch (error) {
+    res.status(400).send("Could not get thread ratings");
+  }
+});
 //Get all thread ratings
 router.get("/threadrates", async (req, res) => {
   try {

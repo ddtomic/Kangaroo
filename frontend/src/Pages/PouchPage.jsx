@@ -77,20 +77,7 @@ function PouchPage(props) {
         replycount={props.replycount}
         likecount={props.likecount}
       />
-
-      <div className="comment-box">
-        {props.comments.map((value, key) => {
-          return (
-            <PouchReply
-              name={value.userComment.username}
-              comment={value.content}
-              date={formatDate(value.createdAt)}
-              key={key}
-            />
-          );
-        })}
-      </div>
-
+      
       <div className="reply-container">
         <h2>Reply</h2>
         <Formik
@@ -114,6 +101,20 @@ function PouchPage(props) {
           </Form>
         </Formik>
       </div>
+
+      <div className="comment-box">
+        {props.comments.map((value, key) => {
+          return (
+            <PouchReply
+              name={value.userComment.username}
+              comment={value.content}
+              date={formatDate(value.createdAt)}
+              key={key}
+            />
+          );
+        })}
+      </div>
+
       <Footer />
     </div>
   );

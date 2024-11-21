@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import like from "../assets/images/like.png";
 import dislike from "../assets/images/dislike.png";
 import propTypes from "prop-types";
@@ -19,6 +19,13 @@ const ThreadBox = React.memo((props) => {
     commentcount: propTypes.number,
   };
   const { authState } = useContext(AuthContext);
+
+  const [ isClicked, setIsClicked ]  = useState(null); 
+
+  const handleClick = (buttonID) => {
+    setIsClicked(buttonID); 
+  }
+
   //console.log(props.title.substring(0, props.title.size || 10));
   const rateThread = (rate) => {
     console.log({
@@ -65,9 +72,8 @@ const ThreadBox = React.memo((props) => {
         </a>
         <div className="bottom">
           <div className="feedback">
-              
                 <div className="left-feedback">
-                  <button onClick={() => rateThread("l")}>
+                  <button onClick={() => {rateThread("l"); handleClick(1)}} className={`likeBtn ${isClicked === 1 ? 'liked' : ''}`}>
                     <img src={like} alt="like-img" />
                   </button>
                 </div>
@@ -75,14 +81,13 @@ const ThreadBox = React.memo((props) => {
                   <p>{props.ratingcount}</p>
                 </div>
                 <div className="right-feedback">
-                  <button onClick={() => rateThread("d")}>
+                  <button onClick={() => {rateThread("d"); handleClick(2)}} className={`dislikeBtn ${isClicked === 2 ? 'disliked' : ''}`}>
                     <img src={dislike} alt="dislike-img" />
                   </button>
                 </div>
               </div>
             </div>
-
-      </li>
+        </li>
     </div>
   );
 });

@@ -3,13 +3,17 @@ const router = express.Router();
 const { Thread, threadRate, Users, Comment } = require("../models");
 
 router.post("/create", async (req, res) => {
-  const { threadTitle, threadContent, userID } = req.body;
-  await Thread.create({
-    title: threadTitle,
-    content: threadContent,
-    userID: userID,
-  });
-  return res.json("Thread created");
+  try {
+    const { threadTitle, threadContent, userID } = req.body;
+    await Thread.create({
+      title: threadTitle,
+      content: threadContent,
+      userID: userID,
+    });
+    return res.json("Thread created");
+  } catch (error) {
+    res.status(500).send("Could not create thread:", error);
+  }
 });
 
 /*
@@ -25,41 +29,62 @@ data = {
 }
 */
 router.get("/date", async (req, res) => {
-  const threadListDates = await Thread.findAll({
-    include: [
-      {
-        model: threadRate,
-        attributes: ["rating"],
-        as: "threadRatings",
-      },
-      { model: Users, attributes: ["username"], as: "userThread" },
-    ],
-    order: [["createdAt", "DESC"]],
-  });
-
-  const finalData = await Promise.all(
-    threadListDates.map(async (thread) => {
-      const comments = await Comment.findAll({
-        where: {
-          threadID: thread.threadID,
+  try {
+    const threadListDates = await Thread.findAll({
+      include: [
+        {
+          model: threadRate,
+          attributes: ["rating"],
+          as: "threadRatings",
         },
-        include: [
-          {
-            model: Users,
-            attributes: ["userID", "username"],
-            as: "userComment",
+        { model: Users, attributes: ["username"], as: "userThread" },
+      ],
+      order: [["createdAt", "DESC"]],
+    });
+
+    const finalData = await Promise.all(
+      threadListDates.map(async (thread) => {
+        const comments = await Comment.findAll({
+          where: {
+            threadID: thread.threadID,
           },
-        ],
-      });
+          include: [
+            {
+              model: Users,
+              attributes: ["userID", "username"],
+              as: "userComment",
+            },
+          ],
+        });
 
-      return {
-        ...thread.toJSON(),
-        comments: comments.map((comment) => comment.toJSON()),
-      };
-    })
-  );
+        const likescore = await threadRate.count({
+          where: {
+            threadID: thread.threadID,
+            rating: "l",
+          },
+        });
 
-  res.json(finalData);
+        const dlikescore = await threadRate.count({
+          where: {
+            threadID: thread.threadID,
+            rating: "d",
+          },
+        });
+
+        const threadscores = likescore - dlikescore;
+
+        return {
+          ...thread.toJSON(),
+          comments: comments.map((comment) => comment.toJSON()),
+          threadScore: threadscores ? threadscores : 0,
+        };
+      })
+    );
+
+    res.json(finalData);
+  } catch (error) {
+    res.status(500).send("Failed to get threads:", error);
+  }
 });
 
 module.exports = router;

@@ -1,14 +1,14 @@
 import axios from "axios";
 import React from "react";
-import '../CSS/Pages/MainPage.css'
+import "../CSS/Pages/MainPage.css";
 import Navbar from "../Components/Navbar";
 import design from "../assets/images/pngegg.png";
 import search from "../assets/images/icons8-search-50.png";
 import ThreadBox from "../Props/ThreadBox";
-import bell from "../assets/images/bell.png"
+import bell from "../assets/images/bell.png";
 import { Link } from "react-router-dom";
 import Leaderbaord from "../Props/Leaderboard";
-import '../CSS/Pages/CreatePage.css'
+import "../CSS/Pages/CreatePage.css";
 import { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,6 @@ import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import * as Yup from "yup";
 import Footer from "../Components/Footer";
-
 const MainPage = () => {
   const [threadList, setThreadList] = useState([]);
 
@@ -57,7 +56,7 @@ const MainPage = () => {
           userID: authState.id,
         })
       )
-      .then(() => {
+      .then((data) => {
         console.log("Thread created successfully:", data);
         resetForm();
         window.location.reload();
@@ -70,10 +69,15 @@ const MainPage = () => {
 
   useEffect(() => {
     console.log("Fetching threads...");
-    axios.get("http://18.119.120.175:3002/thread/date").then((response) => {
-      setThreadList(response.data);
-    });
-  }, []);
+    axios
+      .get("http://18.119.120.175:3002/thread/date")
+      .then((response) => {
+        setThreadList(response.data);
+      })
+      .catch((error) => {
+        console.log("Failed to get threads:", error);
+      });
+  }, [setThreadList]);
 
   return (
     <div className="main">
@@ -107,15 +111,16 @@ const MainPage = () => {
 
           <div className="container">
             {threadList.map((value, key) => {
-              //console.log(value);
               return (
+                
                 <ThreadBox
                   key={key}
+                  threadID={value.threadID}
                   name={value.userThread.username}
                   title={value.title}
                   timestamp={formatDate(value.createdAt)}
-                  commentcount={value.commentCount}
-                  ratingcount={value.threadRatings.length}
+                  commentcount={value.comments.length}
+                  ratingcount={value.threadScore}
                 ></ThreadBox>
               );
             })}
@@ -158,7 +163,7 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

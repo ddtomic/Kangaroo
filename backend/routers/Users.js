@@ -60,6 +60,16 @@ router.get("/users", async (req, res) => {
   }
 });
 
+//Get all threads liked by a specific user
+router.get("/threadlikes/:userID", async (req, res) => {
+  try {
+    const user = req.params;
+    const threadLikes = await threadRate.findAll({ where: { userID: user } });
+    return res.json(threadLikes);
+  } catch (error) {
+    return res.status(500).send("Could not get thread likes for user");
+  }
+});
 //Verify login token
 router.get("/", validateToken, (req, res) => {
   return res.json(req.user);

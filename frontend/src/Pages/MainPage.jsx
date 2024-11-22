@@ -78,16 +78,21 @@ const MainPage = () => {
             const commentResponse = await axios.get(
               `http://18.119.120.175:3002/comment/comms/${thread.threadID}`
             );
+
+            const ratingResponse = await axios.get(
+              `http://18.119.120.175:3002/rate/threadrates/${thread.threadID}`
+            );
             return {
               ...thread,
               replyCount: commentResponse.data.length,
+              score: ratingResponse.data.score,
             };
           } catch (error) {
             console.error(
               `Could not get comment counts for threadID ${thread.threadID}:`,
               error
             );
-            return { ...thread, replyCount: 0 };
+            return { ...thread, replyCount: 0, score: 0 };
           }
         })
       );
@@ -100,6 +105,7 @@ const MainPage = () => {
   };
 
   const threadRefresh = () => {
+    console.log("refreshing threads");
     getThreads();
   };
 
@@ -147,61 +153,115 @@ const MainPage = () => {
                   title={value.title}
                   timestamp={formatDate(value.createdAt)}
                   replyCount={value.replyCount}
+                  score={value.score}
+                  refreshThread={() => threadRefresh()}
                 ></ThreadBox>
               );
             })}
           </div>
+          {authState.status ? (
+            //SIGNED IN
+            <div className="right-container">
+              <div className="create-container">
+                <h2>New Conversation</h2>
+                <h4>Ask a question, start a discussion or start an idea.</h4>
+                <p>Title</p>
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema={validationSchema}
+                  onSubmit={postThread}
+                >
+                  <Form>
+                    <ErrorMessage
+                      name="threadTitle"
+                      className="error"
+                      component="span"
+                    />
+                    <Field
+                      className="title-input"
+                      autoComplete="off"
+                      name="threadTitle"
+                      placeholder="Enter title here..."
+                    />
 
-          <div className="right-container">
-            <div className="create-container">
-              <h2>New Conversation</h2>
-              <h4>Ask a question, start a discussion or start an idea.</h4>
-              <p>Title</p>
-              <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={postThread}
-              >
-                <Form>
-                  <ErrorMessage
-                    name="threadTitle"
-                    className="error"
-                    component="span"
-                  />
-                  <Field
-                    className="title-input"
-                    autoComplete="off"
-                    name="threadTitle"
-                    placeholder="Enter title here..."
-                  />
+                    <p>Thread Content</p>
+                    <ErrorMessage
+                      name="threadContent"
+                      className="error"
+                      component="span"
+                    />
+                    <Field
+                      className="desc-input"
+                      as="textarea"
+                      rows="5"
+                      cols="30"
+                      autoComplete="off"
+                      name="threadContent"
+                      placeholder="Be specific enough to intrigue but vague enough to invite curiosity."
+                    />
 
-                  <p>Thread Content</p>
-                  <ErrorMessage
-                    name="threadContent"
-                    className="error"
-                    component="span"
-                  />
-                  <Field
-                    className="desc-input"
-                    as="textarea"
-                    rows="5"
-                    cols="30"
-                    autoComplete="off"
-                    name="threadContent"
-                    placeholder="Be specific enough to intrigue but vague enough to invite curiosity."
-                  />
-
-                  <button
-                    disabled={!authState.status}
-                    type="submit"
-                    className="create-button"
-                  >
-                    Create
-                  </button>
-                </Form>
-              </Formik>
+                    <button type="submit" className="create-button">
+                      Create
+                    </button>
+                  </Form>
+                </Formik>
+              </div>
             </div>
-          </div>
+          ) : (
+            //NOT SIGNED IN
+            <div className="right-container">
+              <div className="create-container">
+                <h2>New Conversation</h2>
+                <h4>Ask a question, start a discussion or start an idea.</h4>
+                <p>Title</p>
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema={validationSchema}
+                  onSubmit={postThread}
+                >
+                  <Form>
+                    <ErrorMessage
+                      name="threadTitle"
+                      className="error"
+                      component="span"
+                    />
+                    <Field
+                      disabled={true}
+                      className="title-input"
+                      autoComplete="off"
+                      name="threadTitle"
+                      placeholder="Login or sign up to join the conversation!"
+                    />
+
+                    <p>Thread Content</p>
+                    <ErrorMessage
+                      name="threadContent"
+                      className="error"
+                      component="span"
+                    />
+                    <Field
+                      disabled={true}
+                      className="desc-input"
+                      as="textarea"
+                      rows="5"
+                      cols="30"
+                      autoComplete="off"
+                      name="threadContent"
+                      placeholder="Login or sign up to join the conversation!"
+                    />
+
+                    <button
+                      disabled={true}
+                      type="submit"
+                      className="create-button"
+                    >
+                      Create
+                    </button>
+                  </Form>
+                </Formik>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <Footer />

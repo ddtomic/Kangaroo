@@ -90,7 +90,7 @@ function PouchPage(props) {
   }, []);
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString); // Parse the incoming date string
+    const date = new Date(dateString);
     return new Intl.DateTimeFormat("en-US", {
       dateStyle: "medium",
       timeStyle: "short",
@@ -108,7 +108,6 @@ function PouchPage(props) {
         replycount={threadReplies.length}
         likecount={threadScore}
       />
-
       <div className="comment-box">
         {threadReplies.map((value, key) => {
           return (
@@ -116,35 +115,63 @@ function PouchPage(props) {
               name={value.userComment.username}
               comment={value.content}
               date={formatDate(value.createdAt)}
+              commentID={value.commentID}
               key={key}
             />
           );
         })}
       </div>
+      {authState.status ? (
+        <div className="reply-container">
+          <h2>Reply</h2>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            <Form>
+              <Field
+                className="pouch-input"
+                as="textarea"
+                rows="5"
+                cols="30"
+                autoComplete="off"
+                name="replyfield"
+                placeholder="Add to the conversation!"
+              />
+              <button className="pouch-button" type="submit">
+                Send
+              </button>
+            </Form>
+          </Formik>
+        </div>
+      ) : (
+        <div className="reply-container">
+          <h2>Reply</h2>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            <Form>
+              <Field
+                className="pouch-input"
+                disabled={true}
+                as="textarea"
+                rows="5"
+                cols="30"
+                autoComplete="off"
+                name="replyfield"
+                placeholder="Login or sign up to join the conversation!"
+              />
+              <button disabled={true} className="pouch-button" type="submit">
+                Send
+              </button>
+            </Form>
+          </Formik>
+        </div>
+      )}
 
-      <div className="reply-container">
-        <h2>Reply</h2>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={onSubmit}
-        >
-          <Form>
-            <Field
-              className="pouch-input"
-              as="textarea"
-              rows="5"
-              cols="30"
-              autoComplete="off"
-              name="replyfield"
-              placeholder="Add to the conversation!"
-            />
-            <button className="pouch-button" type="submit">
-              Send
-            </button>
-          </Form>
-        </Formik>
-      </div>
       <Footer />
     </div>
   );

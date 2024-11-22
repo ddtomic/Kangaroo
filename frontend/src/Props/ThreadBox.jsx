@@ -7,6 +7,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import "../CSS/Props/ThreadBox.css";
+import { useNavigate } from "react-router-dom";
 
 const ThreadBox = React.memo((props) => {
   ThreadBox.propTypes = {
@@ -14,11 +15,22 @@ const ThreadBox = React.memo((props) => {
     name: propTypes.string,
     title: propTypes.string,
     timestamp: propTypes.string,
+    replyCount: propTypes.number,
+    pathTo: propTypes.string,
   };
 
-  const [threadScore, setThreadScore] = useState();
-  const [threadReplies, setThreadReplies] = useState();
+  const [threadScore, setThreadScore] = useState(0);
   const { authState } = useContext(AuthContext);
+  const navTo = useNavigate();
+  const [isClicked, setIsClicked] = useState(null);
+
+  const handleClick = (buttonID) => {
+    if (authState.status) {
+      setIsClicked(buttonID);
+    } else {
+      navTo("/");
+    }
+  };
 
   const getRatings = async () => {
     axios
@@ -35,20 +47,9 @@ const ThreadBox = React.memo((props) => {
     getRatings();
   };
 
-  const getComments = async () => {
-    axios
-      .get(`http://18.119.120.175:3002/comment/comms/${props.threadID}`)
-      .then((response) => {
-        setThreadReplies(response.data.length);
-      })
-      .catch((error) => {
-        console.log("Could not get comments:", error);
-      });
-  };
-
   const rateThread = (rate) => {
     axios
-      .post("http://18.119.120.175:3002/rate/", {
+      .post("http://18.119.120.175:3002/rate/thread", {
         userID: authState.id,
         threadID: props.threadID,
         rating: rate,
@@ -67,14 +68,19 @@ const ThreadBox = React.memo((props) => {
   };
 
   useEffect(() => {
-    getComments();
     getRatings();
   }, []);
+
+  const urlSetup = (currThread) => {
+    let final =
+      props.threadID.toString() + "/" + currThread.replace(/\s+/g, "_");
+    return final;
+  };
 
   return (
     <div>
       <li className="row">
-        <a href={props.title.substring(0, props.title.size || 10)}>
+        <a href={urlSetup(props.title)}>
           <div className="top">
             <h4 className="username">{props.name}</h4>
             <h2 className="title">{props.title}</h2>
@@ -84,7 +90,7 @@ const ThreadBox = React.memo((props) => {
                 <img src={message} alt="message-img"></img>
               </div>
               <div className="right-comment">
-                <p>{threadReplies}</p>
+                <p>{props.replyCount}</p>
               </div>
             </div>
           </div>
@@ -92,7 +98,13 @@ const ThreadBox = React.memo((props) => {
         <div className="bottom">
           <div className="feedback">
             <div className="left-feedback">
-              <button onClick={() => rateThread("l")}>
+              <button
+                onClick={() => {
+                  rateThread("l");
+                  handleClick(1);
+                }}
+                className={`likeBtn ${isClicked === 1 ? "liked" : ""}`}
+              >
                 <img src={like} alt="like-img" />
               </button>
             </div>
@@ -100,7 +112,13 @@ const ThreadBox = React.memo((props) => {
               <p>{threadScore}</p>
             </div>
             <div className="right-feedback">
-              <button onClick={() => rateThread("d")}>
+              <button
+                onClick={() => {
+                  rateThread("d");
+                  handleClick(2);
+                }}
+                className={`dislikeBtn ${isClicked === 2 ? "disliked" : ""}`}
+              >
                 <img src={dislike} alt="dislike-img" />
               </button>
             </div>

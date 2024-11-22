@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { all } from "axios";
 import React from "react";
 import "../CSS/Pages/MainPage.css";
 import Navbar from "../Components/Navbar";
@@ -8,7 +8,7 @@ import ThreadBox from "../Props/ThreadBox";
 import Leaderbaord from "../Props/Leaderboard";
 import "../CSS/Pages/CreatePage.css";
 import { useState, useEffect } from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import * as Yup from "yup";
@@ -37,7 +37,7 @@ const MainPage = () => {
       .max(99, "Thread title is too long!")
       .required("Thread title is required!"),
     threadContent: Yup.string()
-      .min(10, "Threads need at least 10 characters!")
+      .min(1, "Threads need at least 1 character!")
       //.max(1200, "Thread content too long!")
       .required("Thread content is required!"),
   });
@@ -64,15 +64,39 @@ const MainPage = () => {
   };
 
   const getThreads = async () => {
-    console.log("Fetching threads...");
-    axios
-      .get("http://18.119.120.175:3002/thread/date")
-      .then((response) => {
-        setThreadList(response.data);
-      })
-      .catch((error) => {
-        console.log("Failed to get threads:", error);
-      });
+    try {
+      console.log("Fetching threads...");
+
+      const threadResponse = await axios.get(
+        "http://18.119.120.175:3002/thread/date"
+      );
+      const threads = threadResponse.data;
+
+      const threadsWithReplies = await Promise.all(
+        threads.map(async (thread) => {
+          try {
+            const commentResponse = await axios.get(
+              `http://18.119.120.175:3002/comment/comms/${thread.threadID}`
+            );
+            return {
+              ...thread,
+              replyCount: commentResponse.data.length,
+            };
+          } catch (error) {
+            console.error(
+              `Could not get comment counts for threadID ${thread.threadID}:`,
+              error
+            );
+            return { ...thread, replyCount: 0 };
+          }
+        })
+      );
+
+      // Update the state with the final array
+      setThreadList(threadsWithReplies);
+    } catch (error) {
+      console.error("Failed to get threads:", error);
+    }
   };
 
   const threadRefresh = () => {
@@ -122,7 +146,7 @@ const MainPage = () => {
                   name={value.userThread.username}
                   title={value.title}
                   timestamp={formatDate(value.createdAt)}
-                  commentcount={value.comments.length}
+                  replyCount={value.replyCount}
                 ></ThreadBox>
               );
             })}
@@ -139,13 +163,24 @@ const MainPage = () => {
                 onSubmit={postThread}
               >
                 <Form>
+                  <ErrorMessage
+                    name="threadTitle"
+                    className="error"
+                    component="span"
+                  />
                   <Field
                     className="title-input"
                     autoComplete="off"
                     name="threadTitle"
                     placeholder="Enter title here..."
                   />
+
                   <p>Thread Content</p>
+                  <ErrorMessage
+                    name="threadContent"
+                    className="error"
+                    component="span"
+                  />
                   <Field
                     className="desc-input"
                     as="textarea"
@@ -156,7 +191,11 @@ const MainPage = () => {
                     placeholder="Be specific enough to intrigue but vague enough to invite curiosity."
                   />
 
-                  <button type="submit" className="create-button">
+                  <button
+                    disabled={!authState.status}
+                    type="submit"
+                    className="create-button"
+                  >
                     Create
                   </button>
                 </Form>

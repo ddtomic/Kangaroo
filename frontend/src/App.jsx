@@ -16,18 +16,25 @@ const App = () => {
     status: false,
   });
 
-  const urlSetup = (title) => {
-    return title.substring(0, title.size || 10);
+  const urlSetup = (currThread) => {
+    let final =
+      currThread.threadID.toString() +
+      "/" +
+      currThread.title.replace(/\s+/g, "_");
+    return final;
   };
 
-  useEffect(() => {
+  const getThreads = async () => {
     axios
       .get("http://18.119.120.175:3002/thread/date")
       .then((response) => {
         setThreadList(response.data);
       })
       .catch((error) => console.log("Error getting threads:", error));
+  };
 
+  useEffect(() => {
+    getThreads();
     axios
       .get("http://18.119.120.175:3002/auth/", {
         headers: { accessToken: localStorage.getItem("accessToken") },
@@ -53,7 +60,7 @@ const App = () => {
           return (
             <Route
               key={key}
-              path={urlSetup(value.title)}
+              path={urlSetup(value)}
               element={
                 <PouchPage
                   threadID={value.threadID}

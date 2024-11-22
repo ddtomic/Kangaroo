@@ -92,7 +92,7 @@
     align-items: center;
 }
 
-.bottom button{
+.likeBtn, .dislikeBtn{
     border-radius: 15px;
     border-style: none;
     background-color: transparent;
@@ -100,7 +100,15 @@
     padding: 1.5vh;
 }
 
-.bottom button:hover{
+.likeBtn:hover, .dislikeBtn:hover{
+    background-color: #b789fd;
+}
+
+.likeBtn.liked{
+    background-color: #b789fd;
+}
+
+.dislikeBtn.disliked{
     background-color: #b789fd;
 }
 
@@ -113,7 +121,7 @@
 .feedback p{
     font-weight: bold;
     cursor:default;
-    padding-left: 3vh;
+
 }
 
 .comment-feedback{
@@ -129,6 +137,14 @@
 
 .left-feedback{
     margin-bottom: 1vh;
+}
+
+.middle-feedback, .right-feedback, .left-feedback {
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
+    align-content: center;
 }
 
 

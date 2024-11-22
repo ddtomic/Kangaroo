@@ -108,19 +108,7 @@ function PouchPage(props) {
         replycount={threadReplies.length}
         likecount={threadScore}
       />
-      <div className="comment-box">
-        {threadReplies.map((value, key) => {
-          return (
-            <PouchReply
-              name={value.userComment.username}
-              comment={value.content}
-              date={formatDate(value.createdAt)}
-              commentID={value.commentID}
-              key={key}
-            />
-          );
-        })}
-      </div>
+     
       {authState.status ? (
         <div className="reply-container">
           <h2>Reply</h2>
@@ -171,6 +159,20 @@ function PouchPage(props) {
           </Formik>
         </div>
       )}
+
+    <div className="comment-box">
+        {threadReplies.map((value, key) => {
+          return (
+            <PouchReply
+              name={value.userComment.username}
+              comment={value.content}
+              date={formatDate(value.createdAt)}
+              commentID={value.commentID}
+              key={key}
+            />
+          );
+        })}
+      </div>
 
       <Footer />
     </div>

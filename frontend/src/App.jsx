@@ -3,7 +3,6 @@ import AuthPage from "./Pages/AuthPage";
 import MainPage from "./Pages/MainPage";
 import { Routes, Route } from "react-router-dom";
 import PouchPage from "./Pages/PouchPage";
-import SignUp from "./Pages/SignUp";
 import ProfilePage from "./Pages/ProfilePage";
 import axios from "axios";
 import { AuthContext } from "./helpers/AuthContext";
@@ -55,7 +54,7 @@ const App = () => {
   return (
     <AuthContext.Provider value={{ authState, setAuthState }}>
       <Routes>
-        <Route path="/home" element={<MainPage />} />
+        <Route path="*" element={<MainPage />} />
         {threadList.map((value, key) => {
           return (
             <Route
@@ -76,8 +75,8 @@ const App = () => {
         })}
         ;
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="*" element={<AuthPage />} />
-        <Route path="signup" element={<SignUp />} />
+        <Route path="/signup" element={<AuthPage />} />
+
       </Routes>
     </AuthContext.Provider>
   );

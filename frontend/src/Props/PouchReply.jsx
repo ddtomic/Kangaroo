@@ -15,7 +15,7 @@ PouchReply.propTypes = {
 };
 
 function PouchReply(prop) {
-  const [pouchClicked, setPouchClicked] = useState(null);
+  const [pouchClicked, setPouchClicked] = useState(0);
   const [commentScore, setCommentScore] = useState(0);
   const { authState } = useContext(AuthContext);
 
@@ -55,7 +55,7 @@ function PouchReply(prop) {
   };
 
   const handleClick = (buttonID) => {
-    setPouchClicked(buttonID);
+    setPouchClicked(prev => prev === buttonID ? 0 : buttonID);
   };
 
   useEffect(() => {

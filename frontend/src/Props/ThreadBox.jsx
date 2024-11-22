@@ -18,18 +18,12 @@ function ThreadBox(props) {
     timestamp: propTypes.string,
     replyCount: propTypes.number,
     score: propTypes.number,
+    isLiked: propTypes.string,
   };
+
+  console.log(props.isLiked);
   const { authState } = useContext(AuthContext);
   const navTo = useNavigate();
-  const [isClicked, setIsClicked] = useState(0);
-
-  const handleClick = (buttonID) => {
-    if (authState.status) {
-      setIsClicked(prev => prev === buttonID ? 0 : buttonID); 
-    } else {
-      navTo("/");
-    }
-  };
 
   const rateThread = (rate) => {
     axios
@@ -81,9 +75,8 @@ function ThreadBox(props) {
               <button
                 onClick={() => {
                   rateThread("l");
-                  handleClick(1);
                 }}
-                className={`likeBtn ${isClicked === 1 ? "liked" : ""}`}
+                className={`likeBtn ${props.isLiked === "l" ? "liked" : ""}`}
               >
                 <img src={like} alt="like-img" />
               </button>
@@ -95,9 +88,10 @@ function ThreadBox(props) {
               <button
                 onClick={() => {
                   rateThread("d");
-                  handleClick(2);
                 }}
-                className={`dislikeBtn ${isClicked === 2 ? "disliked" : ""}`}
+                className={`dislikeBtn ${
+                  props.isLiked === "d" ? "disliked" : ""
+                }`}
               >
                 <img src={dislike} alt="dislike-img" />
               </button>

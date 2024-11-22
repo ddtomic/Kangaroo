@@ -45,9 +45,9 @@ function PouchPage(props) {
       });
   };
 
-  /*const ratingRefresh = async () => {
+  const ratingRefresh = () => {
     getRatings();
-  };*/
+  };
 
   const getComments = async () => {
     axios
@@ -107,8 +107,9 @@ function PouchPage(props) {
         timestamp={formatDate(props.timestamp)}
         replycount={threadReplies.length}
         likecount={threadScore}
+        refreshRating={() => getRatings()}
       />
-     
+
       {authState.status ? (
         <div className="reply-container">
           <h2>Reply</h2>
@@ -160,7 +161,7 @@ function PouchPage(props) {
         </div>
       )}
 
-    <div className="comment-box">
+      <div className="comment-box">
         {threadReplies.map((value, key) => {
           return (
             <PouchReply

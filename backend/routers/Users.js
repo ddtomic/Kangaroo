@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Users } = require("../models");
+const { Users, threadRate } = require("../models");
 const bcrypt = require("bcrypt");
 const { validateToken } = require("../middleware/AuthMiddleware");
 const { sign } = require("jsonwebtoken");
@@ -61,15 +61,22 @@ router.get("/users", async (req, res) => {
 });
 
 //Get all threads liked by a specific user
-router.get("/threadlikes/:userID", async (req, res) => {
+router.get("/threadlikes/:userID/:threadID", async (req, res) => {
   try {
-    const user = req.params;
-    const threadLikes = await threadRate.findAll({ where: { userID: user } });
-    return res.json(threadLikes);
+    const { userID, threadID } = req.params;
+    const threadLike = await threadRate.findOne({
+      where: { userID: userID, threadID: threadID },
+      attributes: ["rating"],
+    });
+    if (!threadLike) {
+      return res.status(404).send("Never been rated");
+    }
+    return res.json(threadLike.rating);
   } catch (error) {
     return res.status(500).send("Could not get thread likes for user");
   }
 });
+
 //Verify login token
 router.get("/", validateToken, (req, res) => {
   return res.json(req.user);

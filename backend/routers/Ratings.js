@@ -96,7 +96,7 @@ router.post("/comment", async (req, res) => {
         return res.status(200).send("Rating updated");
       }
     } else {
-      await threadRate.create({
+      await commentRate.create({
         userID: userID,
         rating: rating,
         commentID: commentID,

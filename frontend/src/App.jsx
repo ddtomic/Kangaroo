@@ -61,9 +61,6 @@ const App = () => {
                   comment={value.content}
                   title={value.title}
                   timestamp={value.createdAt}
-                  replycount={value.comments.length}
-                  likecount={value.threadScore}
-                  comments={value.comments}
                   key={key}
                 />
               }

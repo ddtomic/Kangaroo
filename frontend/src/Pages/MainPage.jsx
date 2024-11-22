@@ -5,13 +5,10 @@ import Navbar from "../Components/Navbar";
 import design from "../assets/images/pngegg.png";
 import search from "../assets/images/icons8-search-50.png";
 import ThreadBox from "../Props/ThreadBox";
-import bell from "../assets/images/bell.png";
-import { Link } from "react-router-dom";
 import Leaderbaord from "../Props/Leaderboard";
 import "../CSS/Pages/CreatePage.css";
 import { useState, useEffect } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useNavigate } from "react-router-dom";
+import { Formik, Form, Field } from "formik";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import * as Yup from "yup";
@@ -27,7 +24,6 @@ const MainPage = () => {
     }).format(date);
   };
 
-  const navTo = useNavigate();
   const { authState } = useContext(AuthContext);
 
   const initialValues = {

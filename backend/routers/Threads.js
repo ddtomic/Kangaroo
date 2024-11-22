@@ -12,7 +12,7 @@ router.post("/create", async (req, res) => {
     });
     return res.json("Thread created");
   } catch (error) {
-    res.status(500).send("Could not create thread:", error);
+    return res.status(500).send("Could not create thread:", error);
   }
 });
 
@@ -24,8 +24,6 @@ data = {
   content -> Content of a thread,
   userID -> ID of the user who made the thread,
   userThread.username -> username of the user who made the thread
-  comment -> Array of all comments owned by the thread,
-  threadRatings -> Array of all ratings owned by thread,
 }
 */
 router.get("/date", async (req, res) => {
@@ -35,31 +33,9 @@ router.get("/date", async (req, res) => {
       order: [["createdAt", "DESC"]],
     });
 
-    const finalData = await Promise.all(
-      threadListDates.map(async (thread) => {
-        const comments = await Comment.findAll({
-          where: {
-            threadID: thread.threadID,
-          },
-          include: [
-            {
-              model: Users,
-              attributes: ["userID", "username"],
-              as: "userComment",
-            },
-          ],
-        });
-
-        return {
-          ...thread.toJSON(),
-          comments: comments.map((comment) => comment.toJSON()),
-        };
-      })
-    );
-
-    res.json(finalData);
+    return res.json(threadListDates);
   } catch (error) {
-    res.status(500).send("Failed to get threads:", error);
+    return res.status(500).send("Failed to get threads:", error);
   }
 });
 

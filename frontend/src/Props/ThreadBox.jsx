@@ -3,7 +3,6 @@ import like from "../assets/images/like.png";
 import dislike from "../assets/images/dislike.png";
 import propTypes from "prop-types";
 import message from "../assets/images/message.png";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
@@ -15,10 +14,10 @@ const ThreadBox = React.memo((props) => {
     name: propTypes.string,
     title: propTypes.string,
     timestamp: propTypes.string,
-    commentcount: propTypes.number,
   };
 
-  const [threadScore, setThreadScore] = useState(0);
+  const [threadScore, setThreadScore] = useState();
+  const [threadReplies, setThreadReplies] = useState();
   const { authState } = useContext(AuthContext);
 
   const getRatings = async () => {
@@ -34,6 +33,17 @@ const ThreadBox = React.memo((props) => {
 
   const ratingRefresh = async () => {
     getRatings();
+  };
+
+  const getComments = async () => {
+    axios
+      .get(`http://18.119.120.175:3002/comment/comms/${props.threadID}`)
+      .then((response) => {
+        setThreadReplies(response.data.length);
+      })
+      .catch((error) => {
+        console.log("Could not get comments:", error);
+      });
   };
 
   const rateThread = (rate) => {
@@ -57,6 +67,7 @@ const ThreadBox = React.memo((props) => {
   };
 
   useEffect(() => {
+    getComments();
     getRatings();
   }, []);
 
@@ -73,7 +84,7 @@ const ThreadBox = React.memo((props) => {
                 <img src={message} alt="message-img"></img>
               </div>
               <div className="right-comment">
-                <p>{props.commentcount}</p>
+                <p>{threadReplies}</p>
               </div>
             </div>
           </div>

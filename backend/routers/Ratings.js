@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
       } else {
         existingRate.rating = rating;
         await existingRate.save();
-        res.status(200).send("Rating updated");
+        return res.status(200).send("Rating updated");
       }
     } else {
       await threadRate.create({
@@ -25,13 +25,13 @@ router.post("/", async (req, res) => {
         rating: rating,
         threadID: threadID,
       });
-      res.status(201).send("Rating created");
+      return res.status(201).send("Rating created");
     }
   } catch (error) {
     if (error === "SequelizeUniqueConstraintError") {
-      res.status(500).send("User has already rated this thread:", error);
+      return res.status(500).send("User has already rated this thread:", error);
     } else {
-      res.status(500).send("Could not like thread:", error);
+      return res.status(500).send("Could not like thread:", error);
     }
   }
 });
@@ -61,9 +61,9 @@ router.get("/threadrates/:threadID", async (req, res) => {
       score: scoring ? scoring : 0,
     };
 
-    res.json(finalData);
+    return res.json(finalData);
   } catch (error) {
-    res.status(400).send("Could not get thread ratings");
+    return res.status(400).send("Could not get thread ratings");
   }
 });
 //Get all thread ratings
@@ -71,9 +71,9 @@ router.get("/threadrates", async (req, res) => {
   try {
     const threadRates = await threadRate.findAll();
 
-    res.json(threadRates);
+    return res.json(threadRates);
   } catch (error) {
-    res.status(500).send("Could not get thread ratings:", error);
+    return res.status(500).send("Could not get thread ratings:", error);
   }
 });
 

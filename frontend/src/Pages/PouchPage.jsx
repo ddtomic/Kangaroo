@@ -15,16 +15,13 @@ PouchPage.propTypes = {
   keyer: propTypes.number,
   threadID: propTypes.number,
   name: propTypes.string,
-  comment: propTypes.string,
   title: propTypes.string,
   timestamp: propTypes.string,
-  commentName: propTypes.string,
-  commentContent: propTypes.string,
 };
 
 function PouchPage(props) {
   const { authState } = useContext(AuthContext);
-  const [threadReplies, setThreadReplies] = useState(0);
+  const [threadReplies, setThreadReplies] = useState([]);
   const [threadScore, setThreadScore] = useState(0);
 
   const initialValues = {
@@ -48,8 +45,23 @@ function PouchPage(props) {
       });
   };
 
-  const ratingRefresh = async () => {
+  /*const ratingRefresh = async () => {
     getRatings();
+  };*/
+
+  const getComments = async () => {
+    axios
+      .get(`http://18.119.120.175:3002/comment/comms/${props.threadID}`)
+      .then((response) => {
+        setThreadReplies(response.data);
+      })
+      .catch((error) => {
+        console.log("Could not get comments:", error);
+      });
+  };
+
+  const commentRefresh = async () => {
+    getComments();
   };
 
   const onSubmit = (data, { resetForm }) => {
@@ -62,20 +74,20 @@ function PouchPage(props) {
           userID: authState.id,
         })
       )
-      .then(() => {
-        console.log("Comment posted successfully:", data);
+      .then((response) => {
+        console.log(response.data);
         resetForm();
-        window.location.reload();
+        commentRefresh();
       })
       .catch((error) => {
-        console.log(data);
         console.error("Error posting comment:", error);
       });
   };
 
   useEffect(() => {
+    getComments();
     getRatings();
-  });
+  }, []);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString); // Parse the incoming date string
@@ -93,12 +105,12 @@ function PouchPage(props) {
         comment={props.comment}
         title={props.title}
         timestamp={formatDate(props.timestamp)}
-        replycount={threadReplies}
+        replycount={threadReplies.length}
         likecount={threadScore}
       />
 
       <div className="comment-box">
-        {props.comments.map((value, key) => {
+        {threadReplies.map((value, key) => {
           return (
             <PouchReply
               name={value.userComment.username}

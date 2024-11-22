@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { all } from "axios";
 import React from "react";
 import "../CSS/Pages/MainPage.css";
 import Navbar from "../Components/Navbar";
@@ -64,15 +64,39 @@ const MainPage = () => {
   };
 
   const getThreads = async () => {
-    console.log("Fetching threads...");
-    axios
-      .get("http://18.119.120.175:3002/thread/date")
-      .then((response) => {
-        setThreadList(response.data);
-      })
-      .catch((error) => {
-        console.log("Failed to get threads:", error);
-      });
+    try {
+      console.log("Fetching threads...");
+
+      const threadResponse = await axios.get(
+        "http://18.119.120.175:3002/thread/date"
+      );
+      const threads = threadResponse.data;
+
+      const threadsWithReplies = await Promise.all(
+        threads.map(async (thread) => {
+          try {
+            const commentResponse = await axios.get(
+              `http://18.119.120.175:3002/comment/comms/${thread.threadID}`
+            );
+            return {
+              ...thread,
+              replyCount: commentResponse.data.length,
+            };
+          } catch (error) {
+            console.error(
+              `Could not get comment counts for threadID ${thread.threadID}:`,
+              error
+            );
+            return { ...thread, replyCount: 0 };
+          }
+        })
+      );
+
+      // Update the state with the final array
+      setThreadList(threadsWithReplies);
+    } catch (error) {
+      console.error("Failed to get threads:", error);
+    }
   };
 
   const threadRefresh = () => {
@@ -122,6 +146,7 @@ const MainPage = () => {
                   name={value.userThread.username}
                   title={value.title}
                   timestamp={formatDate(value.createdAt)}
+                  replyCount={value.replyCount}
                 ></ThreadBox>
               );
             })}

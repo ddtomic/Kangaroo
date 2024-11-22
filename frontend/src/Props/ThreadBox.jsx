@@ -14,10 +14,10 @@ const ThreadBox = React.memo((props) => {
     name: propTypes.string,
     title: propTypes.string,
     timestamp: propTypes.string,
+    replyCount: propTypes.number,
   };
 
-  const [threadScore, setThreadScore] = useState();
-  const [threadReplies, setThreadReplies] = useState();
+  const [threadScore, setThreadScore] = useState(0);
   const { authState } = useContext(AuthContext);
 
   const [isClicked, setIsClicked] = useState(null);
@@ -41,17 +41,6 @@ const ThreadBox = React.memo((props) => {
     getRatings();
   };
 
-  const getComments = async () => {
-    axios
-      .get(`http://18.119.120.175:3002/comment/comms/${props.threadID}`)
-      .then((response) => {
-        setThreadReplies(response.data.length);
-      })
-      .catch((error) => {
-        console.log("Could not get comments:", error);
-      });
-  };
-
   const rateThread = (rate) => {
     axios
       .post("http://18.119.120.175:3002/rate/", {
@@ -73,7 +62,6 @@ const ThreadBox = React.memo((props) => {
   };
 
   useEffect(() => {
-    getComments();
     getRatings();
   }, []);
 
@@ -90,7 +78,7 @@ const ThreadBox = React.memo((props) => {
                 <img src={message} alt="message-img"></img>
               </div>
               <div className="right-comment">
-                <p>{threadReplies}</p>
+                <p>{props.replyCount}</p>
               </div>
             </div>
           </div>
@@ -109,7 +97,7 @@ const ThreadBox = React.memo((props) => {
               </button>
             </div>
             <div className="middle-feedback">
-              <p>{props.ratingcount}</p>
+              <p>{threadScore}</p>
             </div>
             <div className="right-feedback">
               <button

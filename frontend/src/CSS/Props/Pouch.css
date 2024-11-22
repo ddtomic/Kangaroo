@@ -44,6 +44,9 @@
     border-bottom-right-radius: 10px;
     border-width: thin;
     background-color: white;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
   }
   
   .bottom-pouch h3 {

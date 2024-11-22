@@ -145,6 +145,7 @@ function PouchPage(props) {
           </Form>
         </Formik>
       </div>
+
       <Footer />
     </div>
   );

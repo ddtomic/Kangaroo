@@ -78,7 +78,7 @@ function ProfilePage(props) {
                         title="Hello world"
                         timestamp="11/2/3023"
                         commentcount="45"
-                        ratingcount="24"
+                        ratingcount="13"
                     />
                 )}
 

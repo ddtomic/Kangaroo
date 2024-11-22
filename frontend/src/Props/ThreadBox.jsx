@@ -20,6 +20,12 @@ const ThreadBox = React.memo((props) => {
   const [threadReplies, setThreadReplies] = useState();
   const { authState } = useContext(AuthContext);
 
+  const [isClicked, setIsClicked] = useState(null);
+
+  const handleClick = (buttonID) => {
+    setIsClicked(buttonID);
+  };
+
   const getRatings = async () => {
     axios
       .get(`http://18.119.120.175:3002/rate/threadrates/${props.threadID}`)
@@ -92,15 +98,27 @@ const ThreadBox = React.memo((props) => {
         <div className="bottom">
           <div className="feedback">
             <div className="left-feedback">
-              <button onClick={() => rateThread("l")}>
+              <button
+                onClick={() => {
+                  rateThread("l");
+                  handleClick(1);
+                }}
+                className={`likeBtn ${isClicked === 1 ? "liked" : ""}`}
+              >
                 <img src={like} alt="like-img" />
               </button>
             </div>
             <div className="middle-feedback">
-              <p>{threadScore}</p>
+              <p>{props.ratingcount}</p>
             </div>
             <div className="right-feedback">
-              <button onClick={() => rateThread("d")}>
+              <button
+                onClick={() => {
+                  rateThread("d");
+                  handleClick(2);
+                }}
+                className={`dislikeBtn ${isClicked === 2 ? "disliked" : ""}`}
+              >
                 <img src={dislike} alt="dislike-img" />
               </button>
             </div>

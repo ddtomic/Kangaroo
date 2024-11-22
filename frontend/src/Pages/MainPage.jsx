@@ -122,7 +122,6 @@ const MainPage = () => {
                   name={value.userThread.username}
                   title={value.title}
                   timestamp={formatDate(value.createdAt)}
-                  commentcount={value.comments.length}
                 ></ThreadBox>
               );
             })}

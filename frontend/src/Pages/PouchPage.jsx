@@ -116,6 +116,7 @@ function PouchPage(props) {
               name={value.userComment.username}
               comment={value.content}
               date={formatDate(value.createdAt)}
+              commentID={value.commentID}
               key={key}
             />
           );

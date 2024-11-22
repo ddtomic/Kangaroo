@@ -156,18 +156,22 @@ const MainPage = () => {
             <div className="create-container">
               <h2>New Conversation</h2>
               <h4>Ask a question, start a discussion or start an idea.</h4>
-              <p>Title</p>
+
               <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={postThread}
               >
                 <Form>
-                  <ErrorMessage
-                    name="threadTitle"
-                    className="error"
-                    component="span"
-                  />
+                <div className="title-error">
+                    <p>Title</p>
+                    <ErrorMessage
+                      name="threadTitle"
+                      className="error"
+                      component="span"
+                    />
+                </div>
+
                   <Field
                     className="title-input"
                     autoComplete="off"
@@ -175,12 +179,15 @@ const MainPage = () => {
                     placeholder="Enter title here..."
                   />
 
-                  <p>Thread Content</p>
-                  <ErrorMessage
-                    name="threadContent"
-                    className="error"
-                    component="span"
-                  />
+                  <div className="message-error">
+                    <p>Thread Content</p>
+                    <ErrorMessage
+                      name="threadContent"
+                      className="error"
+                      component="span"
+                    />
+                    </div>
+                    
                   <Field
                     className="desc-input"
                     as="textarea"

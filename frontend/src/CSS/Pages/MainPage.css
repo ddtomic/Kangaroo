@@ -172,5 +172,14 @@
 }
 
 .error {
-  color: red;
+  color:#6300f8;
+  font-weight: bold;
+  margin-top: 5vh;
 }
+
+.message-error, .title-error{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+} 

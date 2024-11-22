@@ -16,8 +16,12 @@ const App = () => {
     status: false,
   });
 
-  const urlSetup = (title) => {
-    return title.substring(0, title.size || 10);
+  const urlSetup = (currThread) => {
+    let final =
+      currThread.threadID.toString() +
+      "/" +
+      currThread.title.replace(/\s+/g, "_");
+    return final;
   };
 
   const getThreads = async () => {
@@ -56,7 +60,7 @@ const App = () => {
           return (
             <Route
               key={key}
-              path={urlSetup(value.title)}
+              path={urlSetup(value)}
               element={
                 <PouchPage
                   threadID={value.threadID}
@@ -72,6 +76,7 @@ const App = () => {
         })}
         ;
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="*" element={<AuthPage />} />
         <Route path="signup" element={<SignUp />} />
       </Routes>
     </AuthContext.Provider>

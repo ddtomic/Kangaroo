@@ -8,7 +8,7 @@ import ThreadBox from "../Props/ThreadBox";
 import Leaderbaord from "../Props/Leaderboard";
 import "../CSS/Pages/CreatePage.css";
 import { useState, useEffect } from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import * as Yup from "yup";
@@ -37,7 +37,7 @@ const MainPage = () => {
       .max(99, "Thread title is too long!")
       .required("Thread title is required!"),
     threadContent: Yup.string()
-      .min(10, "Threads need at least 10 characters!")
+      .min(1, "Threads need at least 1 character!")
       //.max(1200, "Thread content too long!")
       .required("Thread content is required!"),
   });
@@ -163,13 +163,24 @@ const MainPage = () => {
                 onSubmit={postThread}
               >
                 <Form>
+                  <ErrorMessage
+                    name="threadTitle"
+                    className="error"
+                    component="span"
+                  />
                   <Field
                     className="title-input"
                     autoComplete="off"
                     name="threadTitle"
                     placeholder="Enter title here..."
                   />
+
                   <p>Thread Content</p>
+                  <ErrorMessage
+                    name="threadContent"
+                    className="error"
+                    component="span"
+                  />
                   <Field
                     className="desc-input"
                     as="textarea"
@@ -180,7 +191,11 @@ const MainPage = () => {
                     placeholder="Be specific enough to intrigue but vague enough to invite curiosity."
                   />
 
-                  <button type="submit" className="create-button">
+                  <button
+                    disabled={!authState.status}
+                    type="submit"
+                    className="create-button"
+                  >
                     Create
                   </button>
                 </Form>

@@ -7,6 +7,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import "../CSS/Props/ThreadBox.css";
+import { useNavigate } from "react-router-dom";
 
 const ThreadBox = React.memo((props) => {
   ThreadBox.propTypes = {
@@ -15,15 +16,20 @@ const ThreadBox = React.memo((props) => {
     title: propTypes.string,
     timestamp: propTypes.string,
     replyCount: propTypes.number,
+    pathTo: propTypes.string,
   };
 
   const [threadScore, setThreadScore] = useState(0);
   const { authState } = useContext(AuthContext);
-
+  const navTo = useNavigate();
   const [isClicked, setIsClicked] = useState(null);
 
   const handleClick = (buttonID) => {
-    setIsClicked(buttonID);
+    if (authState.status) {
+      setIsClicked(buttonID);
+    } else {
+      navTo("/");
+    }
   };
 
   const getRatings = async () => {
@@ -65,10 +71,16 @@ const ThreadBox = React.memo((props) => {
     getRatings();
   }, []);
 
+  const urlSetup = (currThread) => {
+    let final =
+      props.threadID.toString() + "/" + currThread.replace(/\s+/g, "_");
+    return final;
+  };
+
   return (
     <div>
       <li className="row">
-        <a href={props.title.substring(0, props.title.size || 10)}>
+        <a href={urlSetup(props.title)}>
           <div className="top">
             <h4 className="username">{props.name}</h4>
             <h2 className="title">{props.title}</h2>

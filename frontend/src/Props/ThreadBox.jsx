@@ -9,17 +9,16 @@ import { AuthContext } from "../helpers/AuthContext";
 import "../CSS/Props/ThreadBox.css";
 import { useNavigate } from "react-router-dom";
 
-const ThreadBox = React.memo((props) => {
+function ThreadBox(props) {
+  const { refreshThread } = props;
   ThreadBox.propTypes = {
     threadID: propTypes.number,
     name: propTypes.string,
     title: propTypes.string,
     timestamp: propTypes.string,
     replyCount: propTypes.number,
-    pathTo: propTypes.string,
+    score: propTypes.number,
   };
-
-  const [threadScore, setThreadScore] = useState(0);
   const { authState } = useContext(AuthContext);
   const navTo = useNavigate();
   const [isClicked, setIsClicked] = useState(null);
@@ -30,21 +29,6 @@ const ThreadBox = React.memo((props) => {
     } else {
       navTo("/");
     }
-  };
-
-  const getRatings = async () => {
-    axios
-      .get(`http://18.119.120.175:3002/rate/threadrates/${props.threadID}`)
-      .then((response) => {
-        return setThreadScore(response.data.score);
-      })
-      .catch((error) => {
-        return console.log("Could not get thread score:", error);
-      });
-  };
-
-  const ratingRefresh = async () => {
-    getRatings();
   };
 
   const rateThread = (rate) => {
@@ -60,16 +44,12 @@ const ThreadBox = React.memo((props) => {
         } else {
           console.log("Dislike:", response.data);
         }
-        ratingRefresh();
+        refreshThread();
       })
       .catch((error) => {
         console.log("Thread could not be liked:", error);
       });
   };
-
-  useEffect(() => {
-    getRatings();
-  }, []);
 
   const urlSetup = (currThread) => {
     let final =
@@ -109,7 +89,7 @@ const ThreadBox = React.memo((props) => {
               </button>
             </div>
             <div className="middle-feedback">
-              <p>{threadScore}</p>
+              <p>{props.score}</p>
             </div>
             <div className="right-feedback">
               <button
@@ -127,6 +107,6 @@ const ThreadBox = React.memo((props) => {
       </li>
     </div>
   );
-});
+}
 
 export default ThreadBox;

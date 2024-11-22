@@ -12,7 +12,7 @@ router.post("/create", async (req, res) => {
     });
     return res.json("Thread created");
   } catch (error) {
-    res.status(500).send("Could not create thread:", error);
+    return res.status(500).send("Could not create thread:", error);
   }
 });
 
@@ -24,66 +24,18 @@ data = {
   content -> Content of a thread,
   userID -> ID of the user who made the thread,
   userThread.username -> username of the user who made the thread
-  comment -> Array of all comments owned by the thread,
-  threadRatings -> Array of all ratings owned by thread,
 }
 */
 router.get("/date", async (req, res) => {
   try {
     const threadListDates = await Thread.findAll({
-      include: [
-        {
-          model: threadRate,
-          attributes: ["rating"],
-          as: "threadRatings",
-        },
-        { model: Users, attributes: ["username"], as: "userThread" },
-      ],
+      include: [{ model: Users, attributes: ["username"], as: "userThread" }],
       order: [["createdAt", "DESC"]],
     });
 
-    const finalData = await Promise.all(
-      threadListDates.map(async (thread) => {
-        const comments = await Comment.findAll({
-          where: {
-            threadID: thread.threadID,
-          },
-          include: [
-            {
-              model: Users,
-              attributes: ["userID", "username"],
-              as: "userComment",
-            },
-          ],
-        });
-
-        const likescore = await threadRate.count({
-          where: {
-            threadID: thread.threadID,
-            rating: "l",
-          },
-        });
-
-        const dlikescore = await threadRate.count({
-          where: {
-            threadID: thread.threadID,
-            rating: "d",
-          },
-        });
-
-        const threadscores = likescore - dlikescore;
-
-        return {
-          ...thread.toJSON(),
-          comments: comments.map((comment) => comment.toJSON()),
-          threadScore: threadscores ? threadscores : 0,
-        };
-      })
-    );
-
-    res.json(finalData);
+    return res.json(threadListDates);
   } catch (error) {
-    res.status(500).send("Failed to get threads:", error);
+    return res.status(500).send("Failed to get threads:", error);
   }
 });
 

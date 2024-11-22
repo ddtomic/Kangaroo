@@ -5,13 +5,10 @@ import Navbar from "../Components/Navbar";
 import design from "../assets/images/pngegg.png";
 import search from "../assets/images/icons8-search-50.png";
 import ThreadBox from "../Props/ThreadBox";
-import bell from "../assets/images/bell.png";
-import { Link } from "react-router-dom";
 import Leaderbaord from "../Props/Leaderboard";
 import "../CSS/Pages/CreatePage.css";
 import { useState, useEffect } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useNavigate } from "react-router-dom";
+import { Formik, Form, Field } from "formik";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import * as Yup from "yup";
@@ -27,7 +24,6 @@ const MainPage = () => {
     }).format(date);
   };
 
-  const navTo = useNavigate();
   const { authState } = useContext(AuthContext);
 
   const initialValues = {
@@ -59,7 +55,7 @@ const MainPage = () => {
       .then((data) => {
         console.log("Thread created successfully:", data);
         resetForm();
-        window.location.reload();
+        threadRefresh();
       })
       .catch((error) => {
         console.log(data);
@@ -67,7 +63,7 @@ const MainPage = () => {
       });
   };
 
-  useEffect(() => {
+  const getThreads = async () => {
     console.log("Fetching threads...");
     axios
       .get("http://18.119.120.175:3002/thread/date")
@@ -77,7 +73,15 @@ const MainPage = () => {
       .catch((error) => {
         console.log("Failed to get threads:", error);
       });
-  }, [setThreadList]);
+  };
+
+  const threadRefresh = () => {
+    getThreads();
+  };
+
+  useEffect(() => {
+    getThreads();
+  }, []);
 
   return (
     <div className="main">
@@ -112,7 +116,6 @@ const MainPage = () => {
           <div className="container">
             {threadList.map((value, key) => {
               return (
-                
                 <ThreadBox
                   key={key}
                   threadID={value.threadID}
@@ -120,7 +123,6 @@ const MainPage = () => {
                   title={value.title}
                   timestamp={formatDate(value.createdAt)}
                   commentcount={value.comments.length}
-                  ratingcount={value.threadScore}
                 ></ThreadBox>
               );
             })}

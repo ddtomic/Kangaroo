@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import like from "../assets/images/like.png";
 import dislike from "../assets/images/dislike.png";
 import propTypes from "prop-types";
 import message from "../assets/images/message.png";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
@@ -15,35 +14,62 @@ const ThreadBox = React.memo((props) => {
     name: propTypes.string,
     title: propTypes.string,
     timestamp: propTypes.string,
-    ratingcount: propTypes.number,
-    commentcount: propTypes.number,
   };
+
+  const [threadScore, setThreadScore] = useState();
+  const [threadReplies, setThreadReplies] = useState();
   const { authState } = useContext(AuthContext);
-  //console.log(props.title.substring(0, props.title.size || 10));
+
+  const getRatings = async () => {
+    axios
+      .get(`http://18.119.120.175:3002/rate/threadrates/${props.threadID}`)
+      .then((response) => {
+        return setThreadScore(response.data.score);
+      })
+      .catch((error) => {
+        return console.log("Could not get thread score:", error);
+      });
+  };
+
+  const ratingRefresh = async () => {
+    getRatings();
+  };
+
+  const getComments = async () => {
+    axios
+      .get(`http://18.119.120.175:3002/comment/comms/${props.threadID}`)
+      .then((response) => {
+        setThreadReplies(response.data.length);
+      })
+      .catch((error) => {
+        console.log("Could not get comments:", error);
+      });
+  };
+
   const rateThread = (rate) => {
-    console.log({
-      userID: authState.id,
-      threadID: props.threadID,
-      rating: rate,
-    });
     axios
       .post("http://18.119.120.175:3002/rate/", {
         userID: authState.id,
         threadID: props.threadID,
         rating: rate,
       })
-      .then(() => {
+      .then((response) => {
         if (rate === "l") {
-          console.log("Thread liked");
+          console.log("Like:", response.data);
         } else {
-          console.log("Thread disliked");
+          console.log("Dislike:", response.data);
         }
-        window.location.reload();
+        ratingRefresh();
       })
       .catch((error) => {
         console.log("Thread could not be liked:", error);
       });
   };
+
+  useEffect(() => {
+    getComments();
+    getRatings();
+  }, []);
 
   return (
     <div>
@@ -58,30 +84,28 @@ const ThreadBox = React.memo((props) => {
                 <img src={message} alt="message-img"></img>
               </div>
               <div className="right-comment">
-                <p>{props.commentcount}</p>
+                <p>{threadReplies}</p>
               </div>
             </div>
           </div>
         </a>
         <div className="bottom">
           <div className="feedback">
-              
-                <div className="left-feedback">
-                  <button onClick={() => rateThread("l")}>
-                    <img src={like} alt="like-img" />
-                  </button>
-                </div>
-                <div className="middle-feedback">
-                  <p>{props.ratingcount}</p>
-                </div>
-                <div className="right-feedback">
-                  <button onClick={() => rateThread("d")}>
-                    <img src={dislike} alt="dislike-img" />
-                  </button>
-                </div>
-              </div>
+            <div className="left-feedback">
+              <button onClick={() => rateThread("l")}>
+                <img src={like} alt="like-img" />
+              </button>
             </div>
-
+            <div className="middle-feedback">
+              <p>{threadScore}</p>
+            </div>
+            <div className="right-feedback">
+              <button onClick={() => rateThread("d")}>
+                <img src={dislike} alt="dislike-img" />
+              </button>
+            </div>
+          </div>
+        </div>
       </li>
     </div>
   );

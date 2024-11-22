@@ -16,10 +16,10 @@ router.post("/", (req, res) => {
         password: hash,
         bio: bio,
       });
-      res.json("Success!");
+      return res.json("Success!");
     });
   } catch (error) {
-    res.status(500).send("Can't create user:", error);
+    return res.status(500).send("Can't create user:", error);
   }
 });
 
@@ -46,7 +46,7 @@ router.post("/signin", async (req, res) => {
       });
     });
   } catch (error) {
-    res.status(500).send("Login failed:", error);
+    return res.status(500).send("Login failed:", error);
   }
 });
 
@@ -54,15 +54,15 @@ router.post("/signin", async (req, res) => {
 router.get("/users", async (req, res) => {
   try {
     const users = await Users.findAll(); // Sequelize method to fetch all records
-    res.json(users);
+    return res.json(users);
   } catch (error) {
-    res.status(500).send("Error fetching users");
+    return res.status(500).send("Error fetching users");
   }
 });
 
 //Verify login token
 router.get("/", validateToken, (req, res) => {
-  res.json(req.user);
+  return res.json(req.user);
 });
 
 module.exports = router;

@@ -20,7 +20,7 @@
 
 .reply-container {
   padding: 3vh;
-  margin-top: 0vh;
+
   border-style: solid;
   border-radius: 10px;
   border-width: thin;
@@ -67,6 +67,7 @@
   border-width: thin;
   border-radius: 10px;
   background-color: white;
+ 
 }
 
 .pouch-button,

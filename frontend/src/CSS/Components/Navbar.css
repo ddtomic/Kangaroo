@@ -2,8 +2,9 @@
     text-decoration: none;
     margin: 0; 
     padding: 0; 
+    box-sizing: border-box;
 }
-.navbar img{
+.navbar img, .signUpBtn img{
     height: auto;
     width: 3vh;
 }
@@ -37,7 +38,7 @@
 
 }
 
-.navbar a{
+.navbar a, .signUpBtn a{
     position: relative;
     font-size: 18px;
     color: white;
@@ -46,7 +47,7 @@
     text-align: center;
 }
 
-.navbar a::before{
+.navbar a::before, .signUpBtn a::before{
     content: '';
     position: absolute;
     top: 100%;
@@ -57,7 +58,7 @@
     transition: 0.3s;
 }
 
-.navbar a:hover::before{
+.navbar a:hover::before, .signUpBtn a:hover::before{
     width: 100%;
 }
 

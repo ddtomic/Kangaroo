@@ -22,19 +22,39 @@
     border-top-right-radius: 10px;
     border-width: thin;
     background-color: white;
+
+  }
+
+  .pouch-info{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
   }
   
   .pouch-feedback {
     display: flex;
     text-align: center;
     margin-top: 2vh;
+    width: 20vh;
+    justify-content: space-between;
+  }
+
+  .pouch-feedback img{
+    height: auto;
+    width: 3vh;
+  }
+
+  .pouch-comment{
+    display: flex;
+    width: 5vh;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .pouch-comment p{
+    font-weight: bold;
   }
   
-  .pouch-feedback h5 {
-    margin-right: 5vh;
-    font-style: normal;
-    font-weight: normal;
-  }
   
   .bottom-pouch {
     padding: 2vh;
@@ -53,3 +73,4 @@
     font-weight: normal;
     width: 95%;
   }
+  

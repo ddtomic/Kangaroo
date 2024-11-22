@@ -22,11 +22,11 @@ const ThreadBox = React.memo((props) => {
   const [threadScore, setThreadScore] = useState(0);
   const { authState } = useContext(AuthContext);
   const navTo = useNavigate();
-  const [isClicked, setIsClicked] = useState(null);
+  const [isClicked, setIsClicked] = useState(0);
 
   const handleClick = (buttonID) => {
     if (authState.status) {
-      setIsClicked(buttonID);
+      setIsClicked(prev => prev === buttonID ? 0 : buttonID); 
     } else {
       navTo("/");
     }

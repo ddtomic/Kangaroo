@@ -134,7 +134,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: black;
+  background:#8338f5;
   transition: 0.3s;
 }
 
@@ -150,7 +150,7 @@
 
 .link.active{
   font-weight: bold;
-  color:#ba92f5
+  color:#8338f5
 }
 
 .container {
@@ -185,5 +185,5 @@
 } 
 
 .left-container{
-  width: 30vh;
+  width: 35vh;
 }

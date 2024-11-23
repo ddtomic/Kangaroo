@@ -15,6 +15,11 @@ import * as Yup from "yup";
 import Footer from "../Components/Footer";
 const MainPage = () => {
   const [threadList, setThreadList] = useState([]);
+  const [activeLink, setActiveLink] = useState(1);
+
+  const handleLinkClick = (linkNumber) => {
+    setActiveLink(linkNumber);
+  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString); // Parse the incoming date string
@@ -63,44 +68,109 @@ const MainPage = () => {
       });
   };
 
+  const authUser = async () => {
+    const state = await axios
+      .get("http://18.119.120.175:3002/auth/", {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .catch((error) => {
+        console.log("error:", error);
+      });
+    if (state.data.error) {
+      return "no user";
+    } else {
+      return state;
+    }
+  };
+
   const getThreads = async () => {
-    try {
-      console.log("Fetching threads...");
+    const userInfo = await authUser();
+    if (userInfo === "no user") {
+      try {
+        const threadResponse = await axios.get(
+          "http://18.119.120.175:3002/thread/date"
+        );
+        const threads = threadResponse.data;
 
-      const threadResponse = await axios.get(
-        "http://18.119.120.175:3002/thread/date"
-      );
-      const threads = threadResponse.data;
+        const threadsWithReplies = await Promise.all(
+          threads.map(async (thread) => {
+            try {
+              const commentResponse = await axios.get(
+                `http://18.119.120.175:3002/comment/comms/${thread.threadID}`
+              );
 
-      const threadsWithReplies = await Promise.all(
-        threads.map(async (thread) => {
-          try {
-            const commentResponse = await axios.get(
-              `http://18.119.120.175:3002/comment/comms/${thread.threadID}`
-            );
+              const ratingResponse = await axios.get(
+                `http://18.119.120.175:3002/rate/threadrates/${thread.threadID}`
+              );
 
-            const ratingResponse = await axios.get(
-              `http://18.119.120.175:3002/rate/threadrates/${thread.threadID}`
-            );
-            return {
-              ...thread,
-              replyCount: commentResponse.data.length,
-              score: ratingResponse.data.score,
-            };
-          } catch (error) {
-            console.error(
-              `Could not get comment counts for threadID ${thread.threadID}:`,
-              error
-            );
-            return { ...thread, replyCount: 0, score: 0 };
-          }
-        })
-      );
+              return {
+                ...thread,
+                replyCount: commentResponse.data.length,
+                score: ratingResponse.data.score,
+                rating: "g",
+              };
+            } catch (error) {
+              console.error(
+                `Could not get comment counts for threadID ${thread.threadID}:`,
+                error
+              );
+            }
+          })
+        );
 
-      // Update the state with the final array
-      setThreadList(threadsWithReplies);
-    } catch (error) {
-      console.error("Failed to get threads:", error);
+        // Update the state with the final array
+        setThreadList(threadsWithReplies);
+      } catch (error) {
+        console.error("Failed to get threads:", error);
+      }
+    } else {
+      try {
+        const threadResponse = await axios.get(
+          "http://18.119.120.175:3002/thread/date"
+        );
+        const threads = threadResponse.data;
+
+        const threadsWithReplies = await Promise.all(
+          threads.map(async (thread) => {
+            try {
+              const commentResponse = await axios.get(
+                `http://18.119.120.175:3002/comment/comms/${thread.threadID}`
+              );
+
+              const ratingResponse = await axios.get(
+                `http://18.119.120.175:3002/rate/threadrates/${thread.threadID}`
+              );
+
+              const rating = await axios
+                .get(
+                  `http://18.119.120.175:3002/auth/threadlikes/${userInfo.data.id}/${thread.threadID}`
+                )
+                .catch((error) => {
+                  if (error.status === 404) {
+                    return { data: "n" };
+                  }
+                });
+
+              return {
+                ...thread,
+                replyCount: commentResponse.data.length,
+                score: ratingResponse.data.score,
+                rating: rating.data,
+              };
+            } catch (error) {
+              console.error(
+                `Could not get comment counts for threadID ${thread.threadID}:`,
+                error
+              );
+            }
+          })
+        );
+
+        // Update the state with the final array
+        setThreadList(threadsWithReplies);
+      } catch (error) {
+        console.error("Failed to get threads:", error);
+      }
     }
   };
 
@@ -110,6 +180,7 @@ const MainPage = () => {
   };
 
   useEffect(() => {
+    authUser();
     getThreads();
   }, []);
 
@@ -134,9 +205,24 @@ const MainPage = () => {
           <p>Roo's</p>
         </div>
         <div className="roo-catagories">
-          <a href="/">Most liked</a>
-          <a href="/">Most Commented</a>
-          <a href="/">Most Relavent</a>
+          <a
+            onClick={() => handleLinkClick(1)}
+            className={`link ${activeLink === 1 ? "active" : ""}`}
+          >
+            Most Recent
+          </a>
+          <a
+            onClick={() => handleLinkClick(2)}
+            className={`link ${activeLink === 2 ? "active" : ""}`}
+          >
+            Most Liked
+          </a>
+          <a
+            onClick={() => handleLinkClick(3)}
+            className={`link ${activeLink === 3 ? "active" : ""}`}
+          >
+            Most Commented
+          </a>
         </div>
         <div className="middle-container">
           <div className="left-container">
@@ -154,6 +240,7 @@ const MainPage = () => {
                   timestamp={formatDate(value.createdAt)}
                   replyCount={value.replyCount}
                   score={value.score}
+                  isLiked={value.rating}
                   refreshThread={() => threadRefresh()}
                 ></ThreadBox>
               );

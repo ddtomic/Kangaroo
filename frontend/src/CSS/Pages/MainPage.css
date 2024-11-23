@@ -142,6 +142,16 @@
   width: 100%;
 }
 
+.link{
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link.active{
+  text-decoration: underline;
+  text-underline-offset: 1vh;
+}
+
 .create-roo {
   width: 20vh;
   border-radius: 10px;
@@ -172,5 +182,14 @@
 }
 
 .error {
-  color: red;
+  color:#6300f8;
+  font-weight: bold;
+  margin-top: 5vh;
 }
+
+.message-error, .title-error{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+} 

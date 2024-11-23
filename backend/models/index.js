@@ -80,11 +80,11 @@ Comment.belongsTo(Thread, { foreignKey: "threadID", as: "threadComments" });
 //Comment assoc.
 Comment.hasMany(commentRate, {
   foreignKey: "commentID",
-  as: "commentRate",
+  as: "commentRating",
 });
 commentRate.belongsTo(Comment, {
   foreignKey: "commentID",
-  as: "commentRate",
+  as: "commentRating",
 });
 //commentRate -> Comment via commentID
 

@@ -7,7 +7,7 @@ import logout from "../assets/images/logout.png";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
-import addUser from '../assets/images/add-user.png'
+import addUser from "../assets/images/add-user.png";
 
 const Navbar = () => {
   const [DropDown, setDropDown] = useState(false);
@@ -19,7 +19,7 @@ const Navbar = () => {
   };
   return (
     <header className="header">
-      <a href="*" className="logo">
+      <a href="/" className="logo">
         Kangaroo
       </a>
       {authState.status ? (
@@ -44,7 +44,9 @@ const Navbar = () => {
         </nav>
       ) : (
         <div className="signUpBtn">
-          <a href="/signup"><img src={addUser} alt='add-user'></img></a>
+          <a href="/signup">
+            <img src={addUser} alt="add-user"></img>
+          </a>
         </div>
       )}
 

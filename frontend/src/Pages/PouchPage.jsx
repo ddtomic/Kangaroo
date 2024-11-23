@@ -53,28 +53,46 @@ function PouchPage(props) {
     const userInfo = await authUser();
     if (userInfo === "no user") {
       console.log("Not signed in error!");
+      try {
+        const score = await axios
+          .get(`http://18.119.120.175:3002/rate/threadrates/${props.threadID}`)
+          .catch((error) => {
+            return console.log("Could not get thread score:", error);
+          });
+        setThreadInfo({
+          score: score.data.score,
+          rating: "g",
+        });
+        return;
+      } catch (error) {
+        console.log("error:", error);
+      }
       return;
     }
-    const score = await axios
-      .get(`http://18.119.120.175:3002/rate/threadrates/${props.threadID}`)
-      .catch((error) => {
-        return console.log("Could not get thread score:", error);
-      });
+    try {
+      const score = await axios
+        .get(`http://18.119.120.175:3002/rate/threadrates/${props.threadID}`)
+        .catch((error) => {
+          return console.log("Could not get thread score:", error);
+        });
 
-    const rating = await axios
-      .get(
-        `http://18.119.120.175:3002/auth/threadlikes/${userInfo.data.id}/${props.threadID}`
-      )
-      .catch((error) => {
-        if (error.status === 404) {
-          return { data: "n" };
-        }
+      const rating = await axios
+        .get(
+          `http://18.119.120.175:3002/auth/threadlikes/${userInfo.data.id}/${props.threadID}`
+        )
+        .catch((error) => {
+          if (error.status === 404) {
+            return { data: "n" };
+          }
+        });
+      setThreadInfo({
+        score: score.data.score,
+        rating: rating.data,
       });
-    setThreadInfo({
-      score: score.data.score,
-      rating: rating.data,
-    });
-    return;
+      return;
+    } catch (error) {
+      console.log("error:", error);
+    }
   };
 
   const ratingRefresh = () => {
@@ -85,35 +103,65 @@ function PouchPage(props) {
     const userInfo = await authUser();
     if (userInfo === "no user") {
       console.log("Not signed in error!");
-      return;
+      try {
+        const commsResponse = await axios
+          .get(`http://18.119.120.175:3002/comment/comms/${props.threadID}`)
+          .catch((error) => {
+            console.log("Could not get comments:", error);
+          });
+        const comments = commsResponse.data;
+
+        const ratings = [];
+
+        const finalComments = comments.map((comment) => {
+          const isRating = ratings.find(
+            (rating) => rating.commentID === comment.commentID
+          );
+          return {
+            ...comment,
+            isLiked: "g",
+          };
+        });
+        console.log(finalComments);
+        return setThreadReplies(finalComments);
+      } catch (error) {
+        console.log("error:", error);
+      }
     }
-    const commsResponse = await axios
-      .get(`http://18.119.120.175:3002/comment/comms/${props.threadID}`)
-      .catch((error) => {
-        console.log("Could not get comments:", error);
-      });
-    const comments = commsResponse.data;
+    try {
+      const commsResponse = await axios
+        .get(`http://18.119.120.175:3002/comment/comms/${props.threadID}`)
+        .catch((error) => {
+          console.log("Could not get comments:", error);
+        });
+      const comments = commsResponse.data;
 
-    const ratingResponse = await axios
-      .get(
-        `http://18.119.120.175:3002/auth/commentlikes/${userInfo.data.id}/${props.threadID}`
-      )
-      .catch((error) => {
-        console.log(error);
-      });
-    const ratings = ratingResponse.data;
+      const ratingResponse = await axios
+        .get(
+          `http://18.119.120.175:3002/auth/commentlikes/${userInfo.data.id}/${props.threadID}`
+        )
+        .catch((error) => {
+          if (error.status === 404) {
+            return { data: [] };
+          }
+          console.log(error);
+        });
+      const ratings = ratingResponse.data;
 
-    const finalComments = comments.map((comment) => {
-      const isRating = ratings.find(
-        (rating) => rating.commentID === comment.commentID
-      );
-      return {
-        ...comment,
-        isLiked: isRating ? isRating.rating : "n",
-      };
-    });
-    console.log(finalComments);
-    return setThreadReplies(finalComments);
+      const finalComments = comments.map((comment) => {
+        const isRating = ratings.find(
+          (rating) => rating.commentID === comment.commentID
+        );
+        return {
+          ...comment,
+          isLiked: isRating ? isRating.rating : "n",
+        };
+      });
+      console.log(finalComments);
+      return setThreadReplies(finalComments);
+    } catch (error) {
+      console.log("error:", error);
+    }
   };
 
   const commentRefresh = async () => {

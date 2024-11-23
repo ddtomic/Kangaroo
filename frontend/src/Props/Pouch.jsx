@@ -66,6 +66,7 @@ function Pouch(prop) {
                     console.log(prop.likecount);
                   }}
                   className={`likePouch ${prop.isLiked === "l" ? "liked" : ""}`}
+                  disabled={prop.isLiked === "g"}
                 >
                   <img src={like} alt="like-pouch-btn"></img>
                 </button>
@@ -82,6 +83,7 @@ function Pouch(prop) {
                   className={`dislikePouch ${
                     prop.isLiked === "d" ? "disliked" : ""
                   }`}
+                  disabled={prop.isLiked === "g"}
                 >
                   <img src={dislike} alt="dislike-pouch-btn"></img>
                 </button>

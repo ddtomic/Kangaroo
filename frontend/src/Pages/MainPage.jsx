@@ -15,6 +15,11 @@ import * as Yup from "yup";
 import Footer from "../Components/Footer";
 const MainPage = () => {
   const [threadList, setThreadList] = useState([]);
+  const [activeLink, setActiveLink] = useState(1);
+
+  const handleLinkClick = (linkNumber) => {
+    setActiveLink(linkNumber);
+  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString); // Parse the incoming date string
@@ -200,9 +205,24 @@ const MainPage = () => {
           <p>Roo's</p>
         </div>
         <div className="roo-catagories">
-          <a href="/">Most liked</a>
-          <a href="/">Most Commented</a>
-          <a href="/">Most Relavent</a>
+          <a
+            onClick={() => handleLinkClick(1)}
+            className={`link ${activeLink === 1 ? "active" : ""}`}
+          >
+            Most Recent
+          </a>
+          <a
+            onClick={() => handleLinkClick(2)}
+            className={`link ${activeLink === 2 ? "active" : ""}`}
+          >
+            Most Liked
+          </a>
+          <a
+            onClick={() => handleLinkClick(3)}
+            className={`link ${activeLink === 3 ? "active" : ""}`}
+          >
+            Most Commented
+          </a>
         </div>
         <div className="middle-container">
           <div className="left-container">

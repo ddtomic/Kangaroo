@@ -58,7 +58,7 @@ const App = () => {
   return (
     <AuthContext.Provider value={{ authState, setAuthState }}>
       <Routes>
-        <Route path="/home" element={<MainPage />} />
+        <Route path="*" element={<MainPage />} />
         {threadList.map((value, key) => {
           return (
             <Route

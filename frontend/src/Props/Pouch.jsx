@@ -5,6 +5,7 @@ import like from '../assets/images/like.png'
 import dislike from '../assets/images/dislike.png'
 import '../CSS/Props/PouchReply.css'
 import message from '../assets/images/message.png'
+import trash from '../assets/images/trash-bin.png'
 
 
 Pouch.propTypes = {
@@ -36,10 +37,13 @@ function Pouch(prop) {
                 </div>
             </div>
               <div className="pouch-feedback">
-                    <div className="right-pouch">
+              <div className="like-comment-feedback">
+                  <div className="right-pouch">
+                    <div className="right-pouch-feedback">
                       <div>
                         <button
                           onClick={() => {
+                            
                             handleClick(1);
                           }}
                           className={`likePouch ${pouchClicked === 1 ? "liked" : ""}`}
@@ -48,25 +52,33 @@ function Pouch(prop) {
                         </button>
                       </div>
                       <div>
-                        <p>{prop.likecount}</p>
+                        <p>{prop.replycount}</p>
                       </div>
                       <div>
                         <button
                           onClick={() => {
+                            
                             handleClick(2);
                           }}
                           className={`dislikePouch ${pouchClicked === 2 ? "disliked" : ""}`}
                         >
                           <img src={dislike} alt="dislike-pouch-btn"></img>
                         </button>
-                    </div>
-                  </div> 
-                  <div className="pouch-comment">
-                  <img src={message} alt='pouch-message'></img>
-                  <p>{prop.replycount}</p>
+                      </div>
+                    </div>   
                   </div>
+                      <div className="pouch-comment">
+                        <img src={message} alt='pouch-message'></img>
+                        <p>{prop.replycount}</p>
+                      </div>
               </div>
-        </div>
+              <div className="left-pouch-feedback">
+                <button>
+                  <img src={ trash } alt='trash-image'></img>
+                </button>
+              </div>
+              </div>
+          </div>
             <div className="bottom-pouch">
               <h3 className="pouch-comment">{prop.comment}</h3>
             </div>

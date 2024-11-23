@@ -5,6 +5,7 @@ import like from "../assets/images/like.png";
 import dislike from "../assets/images/dislike.png";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
+import trash from '../assets/images/trash-bin.png'
 
 PouchReply.propTypes = {
   name: propTypes.string,
@@ -74,31 +75,39 @@ function PouchReply(prop) {
         </div>
       </div>
       <div className="right-pouch">
-        <div>
-          <button
-            onClick={() => {
-              rateComment("l");
-              handleClick(1);
-            }}
-            className={`likePouch ${pouchClicked === 1 ? "liked" : ""}`}
-          >
-            <img src={like} alt="like-pouch-btn"></img>
+        <div className="right-pouch-feedback">
+          <div>
+            <button
+              onClick={() => {
+                rateComment("l");
+                handleClick(1);
+              }}
+              className={`likePouch ${pouchClicked === 1 ? "liked" : ""}`}
+            >
+              <img src={like} alt="like-pouch-btn"></img>
+            </button>
+          </div>
+          <div>
+            <p>{commentScore}</p>
+          </div>
+          <div>
+            <button
+              onClick={() => {
+                rateComment("d");
+                handleClick(2);
+              }}
+              className={`dislikePouch ${pouchClicked === 2 ? "disliked" : ""}`}
+            >
+              <img src={dislike} alt="dislike-pouch-btn"></img>
+            </button>
+          </div>
+        </div>
+        <div className="left-pouch-feedback">
+          <button>
+            <img src={ trash } alt='trash-image'></img>
           </button>
         </div>
-        <div>
-          <p>{commentScore}</p>
-        </div>
-        <div>
-          <button
-            onClick={() => {
-              rateComment("d");
-              handleClick(2);
-            }}
-            className={`dislikePouch ${pouchClicked === 2 ? "disliked" : ""}`}
-          >
-            <img src={dislike} alt="dislike-pouch-btn"></img>
-          </button>
-        </div>
+        
       </div>
     </div>
   );

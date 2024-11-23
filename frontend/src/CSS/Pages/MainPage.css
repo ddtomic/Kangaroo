@@ -100,7 +100,7 @@
 
 .roo-header {
   margin-top: 10vh;
-  width: 105vh;
+  width: 115vh;
   display: flex;
   margin-bottom: 2vh;
   justify-content: space-between;
@@ -112,7 +112,7 @@
 }
 
 .roo-catagories {
-  width: 105vh;
+  width: 115vh;
   display: flex;
   justify-content: start;
   align-items: center;
@@ -121,40 +121,34 @@
 
 .roo-catagories a {
   position: relative;
-  margin-right: 3vh;
+  margin-right: 2.5vh;
   color: black;
   font-weight: normal;
   font-size: 2.5vh;
 }
 
-.roo-catagories a::before {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background:#8338f5;
-  transition: 0.3s;
-}
 
-.roo-catagories a:hover::before {
-  width: 100%;
+
+.roo-catagories a:hover {
+  background-color: #ba92f5;
 }
 
 .link{
   text-decoration: none;
   cursor: pointer;
   color: black;
+  border-radius: 5px;
+  padding: 1.5vh;
 }
 
 .link.active{
-  font-weight: bold;
-  color:#8338f5
+  font-weight: normal;
+  color: white;
+  background-color: #ba92f5;
 }
 
 .container {
-  width: 90vh;
+  width: 100vh;
   height: 100vh;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -168,7 +162,7 @@
 .middle-container {
   display: flex;
   justify-content: space-evenly;
-  width: 200vh;
+  width: 100%;
 }
 
 .error {

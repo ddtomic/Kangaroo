@@ -5,23 +5,45 @@ import like from "../assets/images/like.png";
 import dislike from "../assets/images/dislike.png";
 import "../CSS/Props/PouchReply.css";
 import message from "../assets/images/message.png";
+import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../helpers/AuthContext";
 
 Pouch.propTypes = {
   name: propTypes.string,
+  threadID: propTypes.number,
   comment: propTypes.string,
   title: propTypes.string,
   timestamp: propTypes.string,
   replycount: propTypes.number,
   likecount: propTypes.number,
+  isLiked: propTypes.string,
 };
 
 function Pouch(prop) {
-  const [pouchClicked, setPouchClicked] = useState(0);
   const { refreshRating } = prop;
+  const { authState } = useContext(AuthContext);
 
-  const handleClick = (buttonID) => {
-    setPouchClicked((prev) => (prev === buttonID ? 0 : buttonID));
+  const rateThread = (rate) => {
+    axios
+      .post("http://18.119.120.175:3002/rate/thread", {
+        userID: authState.id,
+        threadID: prop.threadID,
+        rating: rate,
+      })
+      .then((response) => {
+        if (rate === "l") {
+          console.log("Like:", response.data);
+        } else {
+          console.log("Dislike:", response.data);
+        }
+        refreshRating();
+      })
+      .catch((error) => {
+        console.log("Thread could not be liked:", error);
+      });
   };
+
   return (
     <div className="pouch-container">
       <div>
@@ -40,11 +62,10 @@ function Pouch(prop) {
               <div>
                 <button
                   onClick={() => {
-                    refreshRating();
+                    rateThread("l");
                     console.log(prop.likecount);
-                    handleClick(1);
                   }}
-                  className={`likePouch ${pouchClicked === 1 ? "liked" : ""}`}
+                  className={`likePouch ${prop.isLiked === "l" ? "liked" : ""}`}
                 >
                   <img src={like} alt="like-pouch-btn"></img>
                 </button>
@@ -55,12 +76,11 @@ function Pouch(prop) {
               <div>
                 <button
                   onClick={() => {
-                    refreshRating();
+                    rateThread("d");
                     console.log(prop.likecount);
-                    handleClick(2);
                   }}
                   className={`dislikePouch ${
-                    pouchClicked === 2 ? "disliked" : ""
+                    prop.isLiked === "d" ? "disliked" : ""
                   }`}
                 >
                   <img src={dislike} alt="dislike-pouch-btn"></img>

@@ -12,10 +12,11 @@ PouchReply.propTypes = {
   date: propTypes.string,
   likes: propTypes.number,
   commentID: propTypes.number,
+  rating: propTypes.string,
 };
 
 function PouchReply(prop) {
-  const [pouchClicked, setPouchClicked] = useState(0);
+  const { refreshComments } = prop;
   const [commentScore, setCommentScore] = useState(0);
   const { authState } = useContext(AuthContext);
 
@@ -33,6 +34,7 @@ function PouchReply(prop) {
           console.log("Dislike:", response.data);
         }
         ratingRefresh();
+        refreshComments();
       })
       .catch((error) => {
         console.log("Could not rate comment:", error);
@@ -52,10 +54,6 @@ function PouchReply(prop) {
 
   const ratingRefresh = async () => {
     getRatings();
-  };
-
-  const handleClick = (buttonID) => {
-    setPouchClicked(prev => prev === buttonID ? 0 : buttonID);
   };
 
   useEffect(() => {
@@ -78,9 +76,9 @@ function PouchReply(prop) {
           <button
             onClick={() => {
               rateComment("l");
-              handleClick(1);
             }}
-            className={`likePouch ${pouchClicked === 1 ? "liked" : ""}`}
+            className={`likePouch ${prop.rating === "l" ? "liked" : ""}`}
+            disabled={prop.rating === "g"}
           >
             <img src={like} alt="like-pouch-btn"></img>
           </button>
@@ -92,9 +90,9 @@ function PouchReply(prop) {
           <button
             onClick={() => {
               rateComment("d");
-              handleClick(2);
             }}
-            className={`dislikePouch ${pouchClicked === 2 ? "disliked" : ""}`}
+            className={`dislikePouch ${prop.rating === "d" ? "disliked" : ""}`}
+            disabled={prop.rating === "g"}
           >
             <img src={dislike} alt="dislike-pouch-btn"></img>
           </button>

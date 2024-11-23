@@ -71,7 +71,6 @@ const MainPage = () => {
       .catch((error) => {
         console.log("error:", error);
       });
-    console.log("state:", state);
     if (state.data.error) {
       return "no user";
     } else {
@@ -81,9 +80,7 @@ const MainPage = () => {
 
   const getThreads = async () => {
     const userInfo = await authUser();
-    console.log("Auth state at the start of getThreads:", userInfo);
     if (userInfo === "no user") {
-      console.log("ur not signed in buddy");
       try {
         const threadResponse = await axios.get(
           "http://18.119.120.175:3002/thread/date"
@@ -117,7 +114,6 @@ const MainPage = () => {
         );
 
         // Update the state with the final array
-        console.log(threadsWithReplies);
         setThreadList(threadsWithReplies);
       } catch (error) {
         console.error("Failed to get threads:", error);
@@ -166,7 +162,6 @@ const MainPage = () => {
         );
 
         // Update the state with the final array
-        console.log(threadsWithReplies);
         setThreadList(threadsWithReplies);
       } catch (error) {
         console.error("Failed to get threads:", error);

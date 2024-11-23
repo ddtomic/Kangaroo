@@ -20,8 +20,6 @@ function ThreadBox(props) {
     score: propTypes.number,
     isLiked: propTypes.string,
   };
-
-  console.log(props.isLiked);
   const { authState } = useContext(AuthContext);
   const navTo = useNavigate();
 
@@ -77,6 +75,7 @@ function ThreadBox(props) {
                   rateThread("l");
                 }}
                 className={`likeBtn ${props.isLiked === "l" ? "liked" : ""}`}
+                disabled={props.isLiked === "g"}
               >
                 <img src={like} alt="like-img" />
               </button>
@@ -92,6 +91,7 @@ function ThreadBox(props) {
                 className={`dislikeBtn ${
                   props.isLiked === "d" ? "disliked" : ""
                 }`}
+                disabled={props.isLiked === "g"}
               >
                 <img src={dislike} alt="dislike-img" />
               </button>

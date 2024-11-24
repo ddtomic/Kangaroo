@@ -19,6 +19,7 @@ function ThreadBox(props) {
     replyCount: propTypes.number,
     score: propTypes.number,
     isLiked: propTypes.string,
+    pathTo: propTypes.string,
   };
   const { authState } = useContext(AuthContext);
   const navTo = useNavigate();
@@ -44,9 +45,13 @@ function ThreadBox(props) {
   };
 
   const urlSetup = (currThread) => {
-    let final =
-      props.threadID.toString() + "/" + currThread.replace(/\s+/g, "_");
-    return final;
+    if (props.threadID) {
+      let final =
+        props.threadID.toString() + "/" + currThread.replace(/\s+/g, "_");
+      return final;
+    } else {
+      return;
+    }
   };
 
   return (

@@ -1,31 +1,36 @@
-import defaultImage from '../assets/images/ProfilePics/kangaroo.jpg'; // Import the default image
-
+import React from "react";
+import propTypes from "prop-types";
 
 function Profilepic(props) {
+  Profilepic.propTypes = {
+    pfpUrl: propTypes.string,
+  };
+
   return (
     <>
       <div
         className="pfp-container"
         style={{
-            //set pfp, using kangaroo as default
-          backgroundImage: `url(${props.imageUrl || defaultImage})`, 
-          height: '100px', 
-          width: '100px',
-          borderRadius: '50%',
-          backgroundSize: '100% 100%',
-          margin: '10px',
-          position: 'relative',
+          height: "100px",
+          width: "100px",
+          margin: "10px",
+          position: "relative",
         }}
         onClick={props.onClick}
       >
+        <img
+          src={props.pfpUrl}
+          alt="error"
+          style={{
+            height: "100%",
+            width: "100%",
+            borderRadius: "50%",
+            objectFit: "cover",
+          }}
+        />
       </div>
     </>
   );
 }
-
-// Setting kangaroo pic as default
-Profilepic.defaultProps = {
-  imageUrl: defaultImage,
-};
 
 export default Profilepic;

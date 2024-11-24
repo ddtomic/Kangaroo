@@ -9,6 +9,7 @@ import { AuthContext } from "./helpers/AuthContext";
 
 const App = () => {
   const [threadList, setThreadList] = useState([]);
+  const [userList, setUserList] = useState([]);
   const [authState, setAuthState] = useState({
     username: "",
     id: "",
@@ -50,15 +51,31 @@ const App = () => {
       });
   };
 
+  const getUserProfiles = async () => {
+    axios
+      .get("http://18.119.120.175:3002/auth/users")
+      .then((response) => {
+        setUserList(response.data);
+      })
+      .catch((error) => {
+        console.log("error:", error);
+      });
+  };
+
+  const refreshUserProfile = () => {
+    getUserProfiles();
+  };
+
   useEffect(() => {
     authUser();
+    getUserProfiles();
     getThreads();
   }, []);
 
   return (
     <AuthContext.Provider value={{ authState, setAuthState }}>
       <Routes>
-        <Route path="*" element={<MainPage />} />
+        <Route path="/home" element={<MainPage />} />
         {threadList.map((value, key) => {
           return (
             <Route
@@ -72,6 +89,27 @@ const App = () => {
                   title={value.title}
                   timestamp={value.createdAt}
                   key={key}
+                />
+              }
+            />
+          );
+        })}
+        ;
+        {userList.map((value, key) => {
+          return (
+            <Route
+              key={key}
+              path={`/${value.userID}/${value.username}`}
+              element={
+                <ProfilePage
+                  authUser={() => authUser()}
+                  profileRefresh={() => refreshUserProfile()}
+                  name={value.username}
+                  register_year={value.createdAt.substring(0, 4)}
+                  likes={value.userThreadScore + value.userCommentScore}
+                  bio={value.bio}
+                  pfp={`/assets/${value.pfp}.jpg`}
+                  userID={value.userID}
                 />
               }
             />

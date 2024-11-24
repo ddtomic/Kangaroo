@@ -25,6 +25,10 @@
 
   }
 
+  .pouch-title{
+    font-weight: normal;
+  }
+
   .pouch-info{
     display: flex;
     width: 100%;

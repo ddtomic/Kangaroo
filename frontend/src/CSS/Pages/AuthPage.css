@@ -191,19 +191,19 @@ body{
     color:#6300f8;
     font-weight: bold;
     position:absolute;
-    font-size: 2vh;
+    font-size: 1.2vh;
   }
   .username-error {
     color:#6300f8;
     font-weight: bold;
     position:absolute;
-    font-size: 2vh;
+    font-size: 1.2vh;
   }
   .password-error {
     color:#6300f8;
     font-weight: bold;
     position:absolute;
-    font-size: 2vh;
+    font-size:1.2vh;
   }
 
   .authpage-error{

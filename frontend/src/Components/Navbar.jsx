@@ -19,7 +19,7 @@ const Navbar = () => {
   };
   return (
     <header className="header">
-      <a href="*" className="logo">
+      <a href="/" className="logo">
         Kangaroo
       </a>
       {authState.status ? (

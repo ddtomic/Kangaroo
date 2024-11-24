@@ -9,43 +9,19 @@ import { AuthContext } from "../helpers/AuthContext";
 import "../CSS/Props/ThreadBox.css";
 import { useNavigate } from "react-router-dom";
 
-const ThreadBox = React.memo((props) => {
+function ThreadBox(props) {
+  const { refreshThread } = props;
   ThreadBox.propTypes = {
     threadID: propTypes.number,
     name: propTypes.string,
     title: propTypes.string,
     timestamp: propTypes.string,
     replyCount: propTypes.number,
-    pathTo: propTypes.string,
+    score: propTypes.number,
+    isLiked: propTypes.string,
   };
-
-  const [threadScore, setThreadScore] = useState(0);
   const { authState } = useContext(AuthContext);
   const navTo = useNavigate();
-  const [isClicked, setIsClicked] = useState(0);
-
-  const handleClick = (buttonID) => {
-    if (authState.status) {
-      setIsClicked(prev => prev === buttonID ? 0 : buttonID); 
-    } else {
-      navTo("/");
-    }
-  };
-
-  const getRatings = async () => {
-    axios
-      .get(`http://18.119.120.175:3002/rate/threadrates/${props.threadID}`)
-      .then((response) => {
-        return setThreadScore(response.data.score);
-      })
-      .catch((error) => {
-        return console.log("Could not get thread score:", error);
-      });
-  };
-
-  const ratingRefresh = async () => {
-    getRatings();
-  };
 
   const rateThread = (rate) => {
     axios
@@ -60,16 +36,12 @@ const ThreadBox = React.memo((props) => {
         } else {
           console.log("Dislike:", response.data);
         }
-        ratingRefresh();
+        refreshThread();
       })
       .catch((error) => {
         console.log("Thread could not be liked:", error);
       });
   };
-
-  useEffect(() => {
-    getRatings();
-  }, []);
 
   const urlSetup = (currThread) => {
     let final =
@@ -101,23 +73,25 @@ const ThreadBox = React.memo((props) => {
               <button
                 onClick={() => {
                   rateThread("l");
-                  handleClick(1);
                 }}
-                className={`likeBtn ${isClicked === 1 ? "liked" : ""}`}
+                className={`likeBtn ${props.isLiked === "l" ? "liked" : ""}`}
+                disabled={props.isLiked === "g"}
               >
                 <img src={like} alt="like-img" />
               </button>
             </div>
             <div className="middle-feedback">
-              <p>{threadScore}</p>
+              <p>{props.score}</p>
             </div>
             <div className="right-feedback">
               <button
                 onClick={() => {
                   rateThread("d");
-                  handleClick(2);
                 }}
-                className={`dislikeBtn ${isClicked === 2 ? "disliked" : ""}`}
+                className={`dislikeBtn ${
+                  props.isLiked === "d" ? "disliked" : ""
+                }`}
+                disabled={props.isLiked === "g"}
               >
                 <img src={dislike} alt="dislike-img" />
               </button>
@@ -127,6 +101,6 @@ const ThreadBox = React.memo((props) => {
       </li>
     </div>
   );
-});
+}
 
 export default ThreadBox;

@@ -22,7 +22,7 @@ PouchPage.propTypes = {
 function PouchPage(props) {
   const { authState } = useContext(AuthContext);
   const [threadReplies, setThreadReplies] = useState([]);
-  const [threadScore, setThreadScore] = useState(0);
+  const [threadInfo, setThreadInfo] = useState({});
 
   const initialValues = {
     replyfield: "",
@@ -34,30 +34,134 @@ function PouchPage(props) {
       .required("Comment content is required!"),
   });
 
-  const getRatings = async () => {
-    axios
-      .get(`http://18.119.120.175:3002/rate/threadrates/${props.threadID}`)
-      .then((response) => {
-        return setThreadScore(response.data.score);
+  const authUser = async () => {
+    const state = await axios
+      .get("http://18.119.120.175:3002/auth/", {
+        headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .catch((error) => {
-        return console.log("Could not get thread score:", error);
+        console.log("error:", error);
       });
+    if (state.data.error) {
+      return "no user";
+    } else {
+      return state;
+    }
   };
 
-  /*const ratingRefresh = async () => {
+  const getRatings = async () => {
+    const userInfo = await authUser();
+    if (userInfo === "no user") {
+      console.log("Not signed in error!");
+      try {
+        const score = await axios
+          .get(`http://18.119.120.175:3002/rate/threadrates/${props.threadID}`)
+          .catch((error) => {
+            return console.log("Could not get thread score:", error);
+          });
+        setThreadInfo({
+          score: score.data.score,
+          rating: "g",
+        });
+        return;
+      } catch (error) {
+        console.log("error:", error);
+      }
+      return;
+    }
+    try {
+      const score = await axios
+        .get(`http://18.119.120.175:3002/rate/threadrates/${props.threadID}`)
+        .catch((error) => {
+          return console.log("Could not get thread score:", error);
+        });
+
+      const rating = await axios
+        .get(
+          `http://18.119.120.175:3002/auth/threadlikes/${userInfo.data.id}/${props.threadID}`
+        )
+        .catch((error) => {
+          if (error.status === 404) {
+            return { data: "n" };
+          }
+        });
+      setThreadInfo({
+        score: score.data.score,
+        rating: rating.data,
+      });
+      return;
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+
+  const ratingRefresh = () => {
     getRatings();
-  };*/
+  };
 
   const getComments = async () => {
-    axios
-      .get(`http://18.119.120.175:3002/comment/comms/${props.threadID}`)
-      .then((response) => {
-        setThreadReplies(response.data);
-      })
-      .catch((error) => {
-        console.log("Could not get comments:", error);
+    const userInfo = await authUser();
+    if (userInfo === "no user") {
+      console.log("Not signed in error!");
+      try {
+        const commsResponse = await axios
+          .get(`http://18.119.120.175:3002/comment/comms/${props.threadID}`)
+          .catch((error) => {
+            console.log("Could not get comments:", error);
+          });
+        const comments = commsResponse.data;
+
+        const ratings = [];
+
+        const finalComments = comments.map((comment) => {
+          const isRating = ratings.find(
+            (rating) => rating.commentID === comment.commentID
+          );
+          return {
+            ...comment,
+            isLiked: "g",
+          };
+        });
+        console.log(finalComments);
+        return setThreadReplies(finalComments);
+      } catch (error) {
+        console.log("error:", error);
+      }
+    }
+    try {
+      const commsResponse = await axios
+        .get(`http://18.119.120.175:3002/comment/comms/${props.threadID}`)
+        .catch((error) => {
+          console.log("Could not get comments:", error);
+        });
+      const comments = commsResponse.data;
+
+      const ratingResponse = await axios
+        .get(
+          `http://18.119.120.175:3002/auth/commentlikes/${userInfo.data.id}/${props.threadID}`
+        )
+        .catch((error) => {
+          if (error.status === 404) {
+            return { data: [] };
+          }
+          console.log(error);
+        });
+      const ratings = ratingResponse.data;
+
+      const finalComments = comments.map((comment) => {
+        const isRating = ratings.find(
+          (rating) => rating.commentID === comment.commentID
+        );
+        return {
+          ...comment,
+          isLiked: isRating ? isRating.rating : "n",
+        };
       });
+      console.log(finalComments);
+      return setThreadReplies(finalComments);
+    } catch (error) {
+      console.log("error:", error);
+    }
   };
 
   const commentRefresh = async () => {
@@ -102,13 +206,16 @@ function PouchPage(props) {
       <Navbar />
       <Pouch
         name={props.name}
+        threadID={props.threadID}
         comment={props.comment}
         title={props.title}
         timestamp={formatDate(props.timestamp)}
         replycount={threadReplies.length}
-        likecount={threadScore}
+        likecount={threadInfo.score}
+        isLiked={threadInfo.rating}
+        refreshRating={() => ratingRefresh()}
       />
-     
+
       {authState.status ? (
         <div className="reply-container">
           <h2>Reply</h2>
@@ -160,7 +267,7 @@ function PouchPage(props) {
         </div>
       )}
 
-    <div className="comment-box">
+      <div className="comment-box">
         {threadReplies.map((value, key) => {
           return (
             <PouchReply
@@ -168,6 +275,8 @@ function PouchPage(props) {
               comment={value.content}
               date={formatDate(value.createdAt)}
               commentID={value.commentID}
+              rating={value.isLiked}
+              refreshComments={() => commentRefresh()}
               key={key}
             />
           );

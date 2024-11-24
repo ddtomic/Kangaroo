@@ -32,8 +32,7 @@ const App = () => {
       .catch((error) => console.log("Error getting threads:", error));
   };
 
-  useEffect(() => {
-    getThreads();
+  const authUser = async () => {
     axios
       .get("http://18.119.120.175:3002/auth/", {
         headers: { accessToken: localStorage.getItem("accessToken") },
@@ -49,6 +48,11 @@ const App = () => {
           });
         }
       });
+  };
+
+  useEffect(() => {
+    authUser();
+    getThreads();
   }, []);
 
   return (
@@ -76,7 +80,6 @@ const App = () => {
         ;
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/signup" element={<AuthPage />} />
-
       </Routes>
     </AuthContext.Provider>
   );

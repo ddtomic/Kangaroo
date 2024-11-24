@@ -15,11 +15,11 @@ import * as Yup from "yup";
 import Footer from "../Components/Footer";
 const MainPage = () => {
   const [threadList, setThreadList] = useState([]);
-  const [ activeLink, setActiveLink ] = useState(1); 
+  const [activeLink, setActiveLink] = useState(1);
 
   const handleLinkClick = (linkNumber) => {
-    setActiveLink(linkNumber); 
-  }
+    setActiveLink(linkNumber);
+  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString); // Parse the incoming date string
@@ -68,47 +68,119 @@ const MainPage = () => {
       });
   };
 
+  const authUser = async () => {
+    const state = await axios
+      .get("http://18.119.120.175:3002/auth/", {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .catch((error) => {
+        console.log("error:", error);
+      });
+    if (state.data.error) {
+      return "no user";
+    } else {
+      return state;
+    }
+  };
+
   const getThreads = async () => {
-    try {
-      console.log("Fetching threads...");
+    const userInfo = await authUser();
+    if (userInfo === "no user") {
+      try {
+        const threadResponse = await axios.get(
+          "http://18.119.120.175:3002/thread/date"
+        );
+        const threads = threadResponse.data;
 
-      const threadResponse = await axios.get(
-        "http://18.119.120.175:3002/thread/date"
-      );
-      const threads = threadResponse.data;
+        const threadsWithReplies = await Promise.all(
+          threads.map(async (thread) => {
+            try {
+              const commentResponse = await axios.get(
+                `http://18.119.120.175:3002/comment/comms/${thread.threadID}`
+              );
 
-      const threadsWithReplies = await Promise.all(
-        threads.map(async (thread) => {
-          try {
-            const commentResponse = await axios.get(
-              `http://18.119.120.175:3002/comment/comms/${thread.threadID}`
-            );
-            return {
-              ...thread,
-              replyCount: commentResponse.data.length,
-            };
-          } catch (error) {
-            console.error(
-              `Could not get comment counts for threadID ${thread.threadID}:`,
-              error
-            );
-            return { ...thread, replyCount: 0 };
-          }
-        })
-      );
+              const ratingResponse = await axios.get(
+                `http://18.119.120.175:3002/rate/threadrates/${thread.threadID}`
+              );
 
-      // Update the state with the final array
-      setThreadList(threadsWithReplies);
-    } catch (error) {
-      console.error("Failed to get threads:", error);
+              return {
+                ...thread,
+                replyCount: commentResponse.data.length,
+                score: ratingResponse.data.score,
+                rating: "g",
+              };
+            } catch (error) {
+              console.error(
+                `Could not get comment counts for threadID ${thread.threadID}:`,
+                error
+              );
+            }
+          })
+        );
+
+        // Update the state with the final array
+        setThreadList(threadsWithReplies);
+      } catch (error) {
+        console.error("Failed to get threads:", error);
+      }
+    } else {
+      try {
+        const threadResponse = await axios.get(
+          "http://18.119.120.175:3002/thread/date"
+        );
+        const threads = threadResponse.data;
+
+        const threadsWithReplies = await Promise.all(
+          threads.map(async (thread) => {
+            try {
+              const commentResponse = await axios.get(
+                `http://18.119.120.175:3002/comment/comms/${thread.threadID}`
+              );
+
+              const ratingResponse = await axios.get(
+                `http://18.119.120.175:3002/rate/threadrates/${thread.threadID}`
+              );
+
+              const rating = await axios
+                .get(
+                  `http://18.119.120.175:3002/auth/threadlikes/${userInfo.data.id}/${thread.threadID}`
+                )
+                .catch((error) => {
+                  if (error.status === 404) {
+                    return { data: "n" };
+                  }
+                });
+
+              return {
+                ...thread,
+                replyCount: commentResponse.data.length,
+                score: ratingResponse.data.score,
+                rating: rating.data,
+              };
+            } catch (error) {
+              console.error(
+                `Could not get comment counts for threadID ${thread.threadID}:`,
+                error
+              );
+            }
+          })
+        );
+
+        // Update the state with the final array
+        setThreadList(threadsWithReplies);
+      } catch (error) {
+        console.error("Failed to get threads:", error);
+      }
     }
   };
 
   const threadRefresh = () => {
+    console.log("refreshing threads");
     getThreads();
   };
 
   useEffect(() => {
+    authUser();
     getThreads();
   }, []);
 
@@ -133,9 +205,24 @@ const MainPage = () => {
           <p>Roo's</p>
         </div>
         <div className="roo-catagories">
-          <a onClick={()=>handleLinkClick(1)} className={`link ${activeLink === 1 ? 'active' : ''}`} >Most Recent</a>
-          <a onClick={()=>handleLinkClick(2)} className={`link ${activeLink === 2 ? 'active' : ''}`}>Most Liked</a>
-          <a onClick={()=>handleLinkClick(3)} className={`link ${activeLink === 3 ? 'active' : ''}`}>Most Commented</a>
+          <a
+            onClick={() => handleLinkClick(1)}
+            className={`link ${activeLink === 1 ? "active" : ""}`}
+          >
+            Most Recent
+          </a>
+          <a
+            onClick={() => handleLinkClick(2)}
+            className={`link ${activeLink === 2 ? "active" : ""}`}
+          >
+            Most Liked
+          </a>
+          <a
+            onClick={() => handleLinkClick(3)}
+            className={`link ${activeLink === 3 ? "active" : ""}`}
+          >
+            Most Commented
+          </a>
         </div>
         <div className="middle-container">
           <div className="left-container">
@@ -152,68 +239,116 @@ const MainPage = () => {
                   title={value.title}
                   timestamp={formatDate(value.createdAt)}
                   replyCount={value.replyCount}
+                  score={value.score}
+                  isLiked={value.rating}
+                  refreshThread={() => threadRefresh()}
                 ></ThreadBox>
               );
             })}
           </div>
-
-          <div className="right-container">
-            <div className="create-container">
-              <h2>New Conversation</h2>
-              <h4>Ask a question, start a discussion or start an idea.</h4>
-
-              <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={postThread}
-              >
-                <Form>
-                <div className="title-error">
-                    <p>Title</p>
+          {authState.status ? (
+            //SIGNED IN
+            <div className="right-container">
+              <div className="create-container">
+                <h2>New Conversation</h2>
+                <h4>Ask a question, start a discussion or start an idea.</h4>
+                <p>Title</p>
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema={validationSchema}
+                  onSubmit={postThread}
+                >
+                  <Form>
                     <ErrorMessage
                       name="threadTitle"
                       className="error"
                       component="span"
                     />
-                </div>
+                    <Field
+                      className="title-input"
+                      autoComplete="off"
+                      name="threadTitle"
+                      placeholder="Enter title here..."
+                    />
 
-                  <Field
-                    className="title-input"
-                    autoComplete="off"
-                    name="threadTitle"
-                    placeholder="Enter title here..."
-                  />
-
-                  <div className="message-error">
                     <p>Thread Content</p>
                     <ErrorMessage
                       name="threadContent"
                       className="error"
                       component="span"
                     />
-                    </div>
-                    
-                  <Field
-                    className="desc-input"
-                    as="textarea"
-                    rows="5"
-                    cols="30"
-                    autoComplete="off"
-                    name="threadContent"
-                    placeholder="Be specific enough to intrigue but vague enough to invite curiosity."
-                  />
+                    <Field
+                      className="desc-input"
+                      as="textarea"
+                      rows="5"
+                      cols="30"
+                      autoComplete="off"
+                      name="threadContent"
+                      placeholder="Be specific enough to intrigue but vague enough to invite curiosity."
+                    />
 
-                  <button
-                    disabled={!authState.status}
-                    type="submit"
-                    className="create-button"
-                  >
-                    Create
-                  </button>
-                </Form>
-              </Formik>
+                    <button type="submit" className="create-button">
+                      Create
+                    </button>
+                  </Form>
+                </Formik>
+              </div>
             </div>
-          </div>
+          ) : (
+            //NOT SIGNED IN
+            <div className="right-container">
+              <div className="create-container">
+                <h2>New Conversation</h2>
+                <h4>Ask a question, start a discussion or start an idea.</h4>
+                <p>Title</p>
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema={validationSchema}
+                  onSubmit={postThread}
+                >
+                  <Form>
+                    <ErrorMessage
+                      name="threadTitle"
+                      className="error"
+                      component="span"
+                    />
+                    <Field
+                      disabled={true}
+                      className="title-input"
+                      autoComplete="off"
+                      name="threadTitle"
+                      placeholder="Login or sign up to join the conversation!"
+                    />
+
+                    <p>Thread Content</p>
+                    <ErrorMessage
+                      name="threadContent"
+                      className="error"
+                      component="span"
+                    />
+                    <Field
+                      disabled={true}
+                      className="desc-input"
+                      as="textarea"
+                      rows="5"
+                      cols="30"
+                      autoComplete="off"
+                      name="threadContent"
+                      placeholder="Login or sign up to join the conversation!"
+                    />
+
+                    <button
+                      disabled={true}
+                      type="submit"
+                      className="create-button"
+                    >
+                      Create
+                    </button>
+                  </Form>
+                </Formik>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <Footer />

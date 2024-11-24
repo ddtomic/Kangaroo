@@ -25,6 +25,10 @@
 
   }
 
+  .pouch-title{
+    font-weight: normal;
+  }
+
   .pouch-info{
     display: flex;
     width: 100%;
@@ -35,7 +39,7 @@
     display: flex;
     text-align: center;
     margin-top: 2vh;
-    width: 20vh;
+    width: 100%;
     justify-content: space-between;
   }
 
@@ -44,9 +48,16 @@
     width: 3vh;
   }
 
+  .like-comment-feedback{
+    display: flex;
+    text-align: center;
+    width: 20vh;
+    justify-content: space-between;
+  }
+
   .pouch-comment{
     display: flex;
-    width: 5vh;
+    width: 7.5vh;
     justify-content: space-between;
     align-items: center;
   }

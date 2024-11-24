@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import propTypes from "prop-types";
+
 import "../CSS/Props/Pouch.css";
 import like from "../assets/images/like.png";
 import dislike from "../assets/images/dislike.png";
@@ -8,6 +9,7 @@ import message from "../assets/images/message.png";
 import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
+
 
 Pouch.propTypes = {
   name: propTypes.string,
@@ -56,6 +58,7 @@ function Pouch(prop) {
             <div>
               <h5 className="pouch-timestamp">{prop.timestamp}</h5>
             </div>
+
           </div>
           <div className="pouch-feedback">
             <div className="right-pouch">
@@ -92,6 +95,7 @@ function Pouch(prop) {
             <div className="pouch-comment">
               <img src={message} alt="pouch-message"></img>
               <p>{prop.replycount}</p>
+
             </div>
           </div>
         </div>

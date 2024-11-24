@@ -5,6 +5,7 @@ import like from "../assets/images/like.png";
 import dislike from "../assets/images/dislike.png";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
+import trash from '../assets/images/trash-bin.png'
 
 PouchReply.propTypes = {
   name: propTypes.string,
@@ -72,6 +73,7 @@ function PouchReply(prop) {
         </div>
       </div>
       <div className="right-pouch">
+
         <div>
           <button
             onClick={() => {
@@ -95,8 +97,10 @@ function PouchReply(prop) {
             disabled={prop.rating === "g"}
           >
             <img src={dislike} alt="dislike-pouch-btn"></img>
+
           </button>
         </div>
+        
       </div>
     </div>
   );

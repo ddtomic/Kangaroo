@@ -24,11 +24,12 @@
 .logo{
     font-size: 32px;
     color: white;
-    font-weight: bolder;
-    width: 0%;
+    font-weight: normal;
+   
 }
 .logo:hover{
-    font-size: 34px;
+    font-size: 32px;
+    font-weight: bold;
     transition: 0.2s;
 }
 .navbar{

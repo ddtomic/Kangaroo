@@ -1,6 +1,13 @@
 const express = require("express");
+const { Op } = require("sequelize");
 const router = express.Router();
-const { Users, threadRate, commentRate, Comment } = require("../models");
+const {
+  Users,
+  threadRate,
+  commentRate,
+  Comment,
+  Thread,
+} = require("../models");
 const bcrypt = require("bcrypt");
 const { validateToken } = require("../middleware/AuthMiddleware");
 const { sign } = require("jsonwebtoken");
@@ -36,13 +43,14 @@ router.post("/signin", async (req, res) => {
       if (!match) return res.json({ error: "Password is wrong!" });
 
       const accessToken = sign(
-        { username: user.username, id: user.userID },
+        { username: user.username, id: user.userID, pfp: user.pfp },
         "nrQaoHnpKNNi1izsQZrBhdAZU"
       );
       return res.json({
         token: accessToken,
         username: username,
         id: user.userID,
+        pfp: user.pfp,
       });
     });
   } catch (error) {
@@ -50,13 +58,62 @@ router.post("/signin", async (req, res) => {
   }
 });
 
-//Get all users (just for testing)
+//Get all users
 router.get("/users", async (req, res) => {
   try {
-    const users = await Users.findAll(); // Sequelize method to fetch all records
-    return res.json(users);
+    const users = await Users.findAll({
+      include: [
+        {
+          model: Comment,
+          attributes: ["commentID"],
+          as: "userComment",
+        },
+        { model: Thread, attributes: ["threadID"], as: "userThread" },
+      ],
+    });
+
+    const finalData = await Promise.all(
+      users.map(async (user) => {
+        let userThreadScore = 0;
+        let userCommentScore = 0;
+
+        if (user.userThread && user.userThread.length > 0) {
+          const threadIDs = user.userThread.map((thread) => thread.threadID);
+
+          const likeThreads = await threadRate.count({
+            where: { rating: "l", threadID: { [Op.in]: threadIDs } },
+          });
+          const dlikeThreads = await threadRate.count({
+            where: { rating: "d", threadID: { [Op.in]: threadIDs } },
+          });
+
+          userThreadScore = likeThreads - dlikeThreads;
+        }
+        if (user.userComment && user.userComment.length > 0) {
+          const commentIDs = user.userComment.map(
+            (comment) => comment.commentID
+          );
+
+          const likeComments = await commentRate.count({
+            where: { rating: "l", commentID: { [Op.in]: commentIDs } },
+          });
+          const dlikeComments = await commentRate.count({
+            where: { rating: "d", commentID: { [Op.in]: commentIDs } },
+          });
+
+          userCommentScore = likeComments - dlikeComments;
+        }
+
+        return {
+          ...user.toJSON(),
+          userThreadScore,
+          userCommentScore,
+        };
+      })
+    );
+    return res.json(finalData);
   } catch (error) {
-    return res.status(500).send("Error fetching users");
+    return res.status(500).send("Error fetching users:", error);
   }
 });
 
@@ -105,6 +162,22 @@ router.get("/commentlikes/:userID/:threadID", async (req, res) => {
   } catch (error) {
     console.error("Error fetching comment ratings:", error);
     return res.status(500).send("Could not fetch comment ratings");
+  }
+});
+
+//Find a specific user and update their pfp value to a specific value
+router.post("/pfp", async (req, res) => {
+  try {
+    const { userID, pfp } = req.body;
+    const userPFP = await Users.findOne({ where: { userID: userID } });
+    if (!userPFP) {
+      return res.status(404).send("User not found.");
+    }
+    userPFP.pfp = pfp;
+    await userPFP.save();
+    return res.json("PFP changed", userPFP);
+  } catch (error) {
+    return res.status(500).send("Error getting pfps:", error);
   }
 });
 

@@ -19,12 +19,18 @@
   box-shadow: 28px 32px 51px -24px rgba(0, 0, 0, 0.57);
 
   width: 70vw;
-  height: 15rem;
+  height: auto;
   background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.profile-overview h4{
+  font-size: 2.5vh;
+  font-weight: normal; 
+  margin-bottom: 1.5vh;
 }
 
 .pfp {
@@ -135,3 +141,95 @@ select {
 .pfp-container:hover {
   cursor: pointer;
 }
+
+.bio-container p{
+  color: black; 
+  margin-bottom: 3vh;
+}
+
+.edit-container button{
+  padding: 1vh;
+  border-radius: 5px;
+  background-color: #ba92f5;
+  border-style: none;
+  margin-bottom: 2vh;
+  color: white; 
+  width: 10vh;
+  cursor: pointer;
+}
+
+.edit-container button:hover{
+  background-color: #ac7cf3;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background: white;
+  padding: 2vh;
+  border-radius: 8px;
+  width: 50vh;
+  height: auto;
+  text-align: start;
+}
+
+.popup-content p{
+  margin-bottom: 1vh;
+  font-weight: bold;
+}
+
+.input-container{
+  width: 100%;
+}
+
+.bio-input{
+  height: 10vh;
+  width: 100%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  resize: none;
+  padding: 1vh; 
+}
+
+.popup-content button {
+  padding: 8px 16px;
+  margin: 1vh;
+  cursor: pointer;
+}
+
+.top-popup{
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-popup img{
+  width: 2vh; 
+  height: auto;
+}
+
+.top-popup button{
+  background-color: transparent;
+  padding: 0;
+  width: auto;
+  height: auto;
+  border-radius: 30px;
+  padding: 0.5vh;
+
+}
+
+.top-popup button:hover{
+  background-color: #ceb6f1;
+}
+

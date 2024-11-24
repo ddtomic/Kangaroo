@@ -33,19 +33,16 @@
     width: fit-content;
 }
 
-.row h5{
-    margin-top: 2vh;
-}
-
 .row h2{
     color: black;
     cursor: text; 
     width: fit-content;
+    margin-bottom: 1vh;
 }
 
 .top{
-    max-width: 75vh;
-    width: auto; 
+    max-width: 60vh;
+    width: 100%; 
     display: flex; 
     flex-direction: column;
     margin-bottom: 2vh;
@@ -104,6 +101,10 @@
     background-color: #b789fd;
 }
 
+.likeBtn:disabled, .dislikeBtn:disabled{
+    background-color:#d5b9ff;
+}
+
 .likeBtn.liked{
     background-color: #b789fd;
 }
@@ -146,6 +147,32 @@
     justify-self: center;
     align-content: center;
 }
+
+.user-picture{
+    display: flex; 
+    align-items: center;
+    margin-bottom: 1vh;
+}   
+
+.user-picture img{
+    margin-right: 1vh;
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+
+}
+
+.user-picture h4{
+    cursor: pointer;
+    font-size: 2vh;
+    border-radius: 15px;
+    padding: 1vh; 
+}
+
+
+
+
+
 
 
 

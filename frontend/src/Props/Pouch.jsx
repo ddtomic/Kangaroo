@@ -9,6 +9,8 @@ import message from "../assets/images/message.png";
 import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
+import trash from '../assets/images/trash-bin.png'
+
 
 
 Pouch.propTypes = {
@@ -52,7 +54,10 @@ function Pouch(prop) {
         <div className="top-pouch">
           <div className="pouch-info">
             <div>
+              <div className="pouch-info-picture">
+              <img className='profile-img' src={'/assets/0.jpg'} alt="shuffle-img"></img>
               <h3 className="pouch-username">{prop.name}</h3>
+              </div>
               <h2 className="pouch-title">{prop.title}</h2>
             </div>
             <div>
@@ -60,10 +65,13 @@ function Pouch(prop) {
             </div>
 
           </div>
+
           <div className="pouch-feedback">
-            <div className="right-pouch">
-              <div>
-                <button
+              <div className="like-comment-feedback">
+                  <div className="right-pouch">
+                    <div className="right-pouch-feedback">
+                      <div>
+                      <button
                   onClick={() => {
                     rateThread("l");
                     console.log(prop.likecount);
@@ -73,12 +81,12 @@ function Pouch(prop) {
                 >
                   <img src={like} alt="like-pouch-btn"></img>
                 </button>
-              </div>
-              <div>
-                <p>{prop.likecount}</p>
-              </div>
-              <div>
-                <button
+                      </div>
+                      <div>
+                        <p>{prop.likecount}</p>
+                      </div>
+                      <div>
+                      <button
                   onClick={() => {
                     rateThread("d");
                     console.log(prop.likecount);
@@ -90,15 +98,23 @@ function Pouch(prop) {
                 >
                   <img src={dislike} alt="dislike-pouch-btn"></img>
                 </button>
+                      </div>
+                    </div>   
+                  </div>
+                      <div className="pouch-comment">
+                        <img src={message} alt='pouch-message'></img>
+                        <p>{prop.replycount}</p>
+                      </div>
               </div>
-            </div>
-            <div className="pouch-comment">
-              <img src={message} alt="pouch-message"></img>
-              <p>{prop.replycount}</p>
-
-            </div>
+              <div className="left-pouch-feedback">
+                <button>
+                  <img src={ trash } alt='trash-image'></img>
+                </button>
+              </div>
+              </div>
           </div>
-        </div>
+
+
         <div className="bottom-pouch">
           <h3 className="pouch-comment">{prop.comment}</h3>
         </div>

@@ -47,7 +47,8 @@ function ThreadBox(props) {
   const urlSetup = (currThread) => {
     if (props.threadID) {
       let final =
-        props.threadID.toString() + "/" + currThread.replace(/\s+/g, "_");
+        "/" + props.threadID.toString() + "/" + currThread.replace(/\s+/g, "_");
+      console.log(final);
       return final;
     } else {
       return;

@@ -11,6 +11,7 @@ const {
 const bcrypt = require("bcrypt");
 const { validateToken } = require("../middleware/AuthMiddleware");
 const { sign } = require("jsonwebtoken");
+const sequelize = require("sequelize");
 
 //Creating an account
 router.post("/", (req, res) => {
@@ -178,6 +179,103 @@ router.post("/pfp", async (req, res) => {
     return res.json("PFP changed", userPFP);
   } catch (error) {
     return res.status(500).send("Error getting pfps:", error);
+  }
+});
+
+router.get("/profile/:userID", async (req, res) => {
+  try {
+    const { userID } = req.params;
+
+    //Check if the user exists
+    const userInfo = await Users.findOne({
+      where: { userID },
+      attributes: ["userID", "username"],
+    });
+
+    if (!userInfo) {
+      return res.status(404).send("User not found");
+    }
+
+    //Get all user's threads with their score and reply count
+    const userThreads = await Thread.findAll({
+      where: { userID },
+      order: [["threadID", "DESC"]],
+      attributes: [
+        "threadID",
+        "title",
+        [
+          sequelize.fn("COUNT", sequelize.col("threadComments.commentID")),
+          "commentCount",
+        ],
+        [
+          sequelize.literal(`
+            (
+              SELECT COUNT(*) 
+              FROM threadRates AS ratings
+              WHERE ratings.threadID = Thread.threadID AND ratings.rating = 'l'
+            ) - 
+            (
+              SELECT COUNT(*) 
+              FROM threadRates AS ratings
+              WHERE ratings.threadID = Thread.threadID AND ratings.rating = 'd'
+            )
+          `),
+          "score",
+        ],
+      ],
+      include: [
+        {
+          model: Comment,
+          as: "threadComments",
+          attributes: [],
+        },
+      ],
+      group: ["Thread.threadID"],
+    });
+
+    //Get all user's threads with their score and reply count
+    const userComments = await Comment.findAll({
+      where: { userID },
+      order: [["commentID", "DESC"]],
+      attributes: [
+        "commentID",
+        "content",
+        "createdAt",
+        [
+          sequelize.literal(`
+            (
+              SELECT COUNT(*) 
+              FROM commentRates AS ratings
+              WHERE ratings.commentID = Comment.commentID AND ratings.rating = 'l'
+            ) - 
+            (
+              SELECT COUNT(*) 
+              FROM commentRates AS ratings
+              WHERE ratings.commentID = Comment.commentID AND ratings.rating = 'd'
+            )
+          `),
+          "score",
+        ],
+      ],
+      include: [
+        {
+          model: Thread,
+          as: "threadComments",
+          attributes: ["title", "threadID"],
+        },
+      ],
+
+      group: ["Comment.commentID"],
+    });
+
+    return res.json({
+      userInfo,
+      userThreads,
+      userComments,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Could not get user profile!");
   }
 });
 

@@ -4,12 +4,13 @@ import propTypes from "prop-types";
 function Profilepic(props) {
   Profilepic.propTypes = {
     pfpUrl: propTypes.string,
+    classname: propTypes.string,
   };
 
   return (
     <>
       <div
-        className="pfp-container"
+        className={props.classname}
         style={{
           height: "100px",
           width: "100px",

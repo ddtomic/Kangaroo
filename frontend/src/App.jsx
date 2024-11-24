@@ -102,7 +102,6 @@ const App = () => {
               path={`/${value.userID}/${value.username}`}
               element={
                 <ProfilePage
-                  authUser={() => authUser()}
                   profileRefresh={() => refreshUserProfile()}
                   name={value.username}
                   register_year={value.createdAt.substring(0, 4)}
@@ -116,7 +115,6 @@ const App = () => {
           );
         })}
         ;
-        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/signup" element={<AuthPage />} />
       </Routes>
     </AuthContext.Provider>

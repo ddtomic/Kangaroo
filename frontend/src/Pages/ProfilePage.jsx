@@ -7,6 +7,7 @@ import Profilepic from "../Components/Profilepic";
 import propTypes from "prop-types";
 import { AuthContext } from "../helpers/AuthContext";
 import axios from "axios";
+import "../CSS/Props/PouchReply.css";
 
 function ProfilePage(props) {
   ProfilePage.propTypes = {
@@ -18,10 +19,12 @@ function ProfilePage(props) {
     userID: propTypes.number,
   };
   const { authState } = useContext(AuthContext);
-  const { authUser, profileRefresh } = props;
+  const { profileRefresh } = props;
 
   const [showModal, setShowModal] = useState(false);
   const [selectedContent, setSelectedContent] = useState("Pouches");
+  const [userThread, setUserThread] = useState([]);
+  const [userComment, setUserComment] = useState([]);
 
   const handlePfpClick = () => {
     setShowModal(true);
@@ -29,6 +32,18 @@ function ProfilePage(props) {
 
   const handleModalClose = () => {
     setShowModal(false);
+  };
+
+  const getUserInfo = async () => {
+    const info = await axios
+      .get(`http://18.119.120.175:3002/auth/profile/${props.userID}`)
+      .catch((error) => {
+        console.error(error);
+      });
+    console.log(info);
+    setUserThread(info.data.userThreads);
+    setUserComment(info.data.userComments);
+    return;
   };
 
   const postPFP = async (pfp) => {
@@ -57,6 +72,32 @@ function ProfilePage(props) {
     setSelectedContent(event.target.value); // Update state when dropdown changes
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("en-US", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    }).format(date);
+  };
+
+  const urlSetup = (currThread) => {
+    if (currThread.threadID) {
+      let final =
+        "/" +
+        currThread.threadID.toString() +
+        "/" +
+        currThread.title.replace(/\s+/g, "_");
+      console.log(final);
+      return final;
+    } else {
+      return;
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
   return (
     <>
       {props.userID === authState.id ? (
@@ -65,7 +106,11 @@ function ProfilePage(props) {
 
           <div className="profile-overview">
             {/* User PFP */}
-            <Profilepic pfpUrl={props.pfp} onClick={handlePfpClick} />
+            <Profilepic
+              classname={"pfp-container"}
+              pfpUrl={props.pfp}
+              onClick={handlePfpClick}
+            />
             {/* Username */}
             <h4>{props.name}</h4>
             {/* Member since year */}
@@ -90,16 +135,53 @@ function ProfilePage(props) {
             </div>
 
             {selectedContent === "Pouches" && (
-              <ThreadBox
-                name="Quadspy"
-                title="Hello world"
-                timestamp="11/2/3023"
-                commentcount="45"
-                ratingcount="13"
-              />
+              <>
+                {userThread.map((value, key) => {
+                  return (
+                    <ThreadBox
+                      key={key}
+                      name={props.name}
+                      title={value.title}
+                      timestamp={value.createdAt}
+                      replyCount={value.commentCount}
+                      score={value.score}
+                      threadID={value.threadID}
+                      pathTo={`/${value.threadID}/${value.title}`}
+                    />
+                  );
+                })}
+              </>
             )}
 
-            {selectedContent === "Comments" && <p>We render comments here.</p>}
+            {selectedContent === "Comments" && (
+              <>
+                {userComment.map((value, key) => {
+                  return (
+                    <div className="comment-container">
+                      <div className="left-pouch">
+                        <div className="top-comment">
+                          <h3 className="comment-username">{props.name}</h3>
+                          <h4 className="date-comment">
+                            {formatDate(value.createdAt)}
+                          </h4>
+                        </div>
+                        <div className="bottom-comment">
+                          <h3 className="comment-comment">{value.content}</h3>
+                        </div>
+                      </div>
+                      <div className="right-pouch">
+                        <div>
+                          <p>Score: {value.score}</p>
+                          <a href={urlSetup(value.threadComments)}>
+                            <p>{value.threadComments.title}</p>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </>
+            )}
           </div>
 
           {/* Modal */}
@@ -183,16 +265,53 @@ function ProfilePage(props) {
             </div>
 
             {selectedContent === "Pouches" && (
-              <ThreadBox
-                name="Quadspy"
-                title="Hello world"
-                timestamp="11/2/3023"
-                commentcount="45"
-                ratingcount="13"
-              />
+              <>
+                {userThread.map((value, key) => {
+                  return (
+                    <ThreadBox
+                      key={key}
+                      name={props.name}
+                      title={value.title}
+                      timestamp={value.createdAt}
+                      replyCount={value.commentCount}
+                      score={value.score}
+                      threadID={value.threadID}
+                      pathTo={`/${value.threadID}/${value.title}`}
+                    />
+                  );
+                })}
+              </>
             )}
 
-            {selectedContent === "Comments" && <p>We render comments here.</p>}
+            {selectedContent === "Comments" && (
+              <>
+                {userComment.map((value, key) => {
+                  return (
+                    <div className="comment-container">
+                      <div className="left-pouch">
+                        <div className="top-comment">
+                          <h3 className="comment-username">{props.name}</h3>
+                          <h4 className="date-comment">
+                            {formatDate(value.createdAt)}
+                          </h4>
+                        </div>
+                        <div className="bottom-comment">
+                          <h3 className="comment-comment">{value.content}</h3>
+                        </div>
+                      </div>
+                      <div className="right-pouch">
+                        <div>
+                          <p>Score: {value.score}</p>
+                          <a href={urlSetup(value.threadComments)}>
+                            <p>{value.threadComments.title}</p>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </>
+            )}
           </div>
         </div>
       )}

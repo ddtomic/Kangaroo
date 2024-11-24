@@ -27,19 +27,6 @@
   justify-content: center;
 }
 
-.pfp {
-  height: 100px;
-  width: 100px;
-  border-radius: 50%;
-  background-size: 100% 100%;
-  margin: 10px;
-  position: relative;
-}
-
-.pfp:hover::after {
-  background-image: url(../../assets/images/editpfp.png);
-}
-
 .user-pouches {
   margin-top: 10px;
   background-color: white;

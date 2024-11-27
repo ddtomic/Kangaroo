@@ -43,7 +43,6 @@ function PouchReply(prop) {
         console.log("Could not rate comment:", error);
       });
   };
-
   const getRatings = async () => {
     axios
       .get(`http://18.119.120.175:3002/rate/commentrates/${prop.commentID}`)
@@ -53,6 +52,17 @@ function PouchReply(prop) {
       .catch((error) => {
         return console.log("Could not get comment score:", error);
       });
+  };
+
+  const delComment = async () => {
+    console.log("hi");
+    await axios
+      .delete(`http://18.119.120.175:3002/comment/comments/${prop.commentID}`)
+      .then((response) => {
+        console.log(response.data);
+      });
+
+    refreshComments();
   };
 
   const ratingRefresh = async () => {
@@ -112,7 +122,7 @@ function PouchReply(prop) {
         </div>
         <div className="left-pouch-feedback">
           {prop.userID === authState.id ? (
-            <button>
+            <button onClick={() => delComment()}>
               <img src={trash} alt="trash-image"></img>
             </button>
           ) : (

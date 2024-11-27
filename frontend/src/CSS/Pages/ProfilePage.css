@@ -100,6 +100,7 @@ select {
 .pfpContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  cursor: pointer;
 }
 
 .profile-page .pfp-container:hover::after {

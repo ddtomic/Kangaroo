@@ -17,6 +17,7 @@ PouchPage.propTypes = {
   name: propTypes.string,
   title: propTypes.string,
   timestamp: propTypes.string,
+  pfp: propTypes.number,
 };
 
 function PouchPage(props) {
@@ -213,6 +214,7 @@ function PouchPage(props) {
         replycount={threadReplies.length}
         likecount={threadInfo.score}
         isLiked={threadInfo.rating}
+        pfp={props.pfp}
         refreshRating={() => ratingRefresh()}
       />
 
@@ -277,6 +279,7 @@ function PouchPage(props) {
               commentID={value.commentID}
               rating={value.isLiked}
               refreshComments={() => commentRefresh()}
+              pfp={value.userComment.pfp}
               key={key}
             />
           );

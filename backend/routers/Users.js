@@ -182,6 +182,23 @@ router.post("/pfp", async (req, res) => {
   }
 });
 
+//Find a specific user and update their bio value to a specific value
+router.post("/bio", async (req, res) => {
+  try {
+    const { userID, bio } = req.body;
+    const userBIO = await Users.findOne({ where: { userID: userID } });
+    if (!userBIO) {
+      return res.status(404).send("User not found.");
+    }
+    userBIO.bio = bio;
+    await userBIO.save();
+    return res.json("Bio changed", userBIO);
+  } catch (error) {
+    return res.status(500).send("Error updating bio:", error);
+  }
+});
+
+//Find and return a specific users profile information
 router.get("/profile/:userID", async (req, res) => {
   try {
     const { userID } = req.params;

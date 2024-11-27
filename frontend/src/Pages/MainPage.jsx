@@ -241,6 +241,7 @@ const MainPage = () => {
                   replyCount={value.replyCount}
                   score={value.score}
                   isLiked={value.rating}
+                  pfp={value.userThread.pfp}
                   refreshThread={() => threadRefresh()}
                 ></ThreadBox>
               );

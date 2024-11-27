@@ -5,8 +5,8 @@ import like from "../assets/images/like.png";
 import dislike from "../assets/images/dislike.png";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
-import trash from '../assets/images/trash-bin.png'
-import shuffle from '../assets/images/shuffle-arrows.png'
+import trash from "../assets/images/trash-bin.png";
+import shuffle from "../assets/images/shuffle-arrows.png";
 
 PouchReply.propTypes = {
   name: propTypes.string,
@@ -15,6 +15,7 @@ PouchReply.propTypes = {
   likes: propTypes.number,
   commentID: propTypes.number,
   rating: propTypes.string,
+  pfp: propTypes.number,
 };
 
 function PouchReply(prop) {
@@ -67,7 +68,7 @@ function PouchReply(prop) {
       <div className="left-pouch">
         <div className="top-comment">
           <div className="top-comment-picture">
-            <img src={'/assets/0.jpg'} alt='shuffle-img'></img>
+            <img src={`/assets/${prop.pfp}.jpg`} alt="shuffle-img"></img>
             <h3 className="comment-username">{prop.name}</h3>
           </div>
           <h4 className="date-comment">{prop.date}</h4>
@@ -80,38 +81,38 @@ function PouchReply(prop) {
       <div className="right-pouch">
         <div className="right-pouch-feedback">
           <div>
-          <button
-            onClick={() => {
-              rateComment("l");
-            }}
-            className={`likePouch ${prop.rating === "l" ? "liked" : ""}`}
-            disabled={prop.rating === "g"}
-          >
-            <img src={like} alt="like-pouch-btn"></img>
-          </button>
+            <button
+              onClick={() => {
+                rateComment("l");
+              }}
+              className={`likePouch ${prop.rating === "l" ? "liked" : ""}`}
+              disabled={prop.rating === "g"}
+            >
+              <img src={like} alt="like-pouch-btn"></img>
+            </button>
           </div>
           <div>
             <p>{commentScore}</p>
           </div>
           <div>
-          <button
-            onClick={() => {
-              rateComment("d");
-            }}
-            className={`dislikePouch ${prop.rating === "d" ? "disliked" : ""}`}
-            disabled={prop.rating === "g"}
-          >
-            <img src={dislike} alt="dislike-pouch-btn"></img>
-
-          </button>
+            <button
+              onClick={() => {
+                rateComment("d");
+              }}
+              className={`dislikePouch ${
+                prop.rating === "d" ? "disliked" : ""
+              }`}
+              disabled={prop.rating === "g"}
+            >
+              <img src={dislike} alt="dislike-pouch-btn"></img>
+            </button>
           </div>
         </div>
         <div className="left-pouch-feedback">
           <button>
-            <img src={ trash } alt='trash-image'></img>
+            <img src={trash} alt="trash-image"></img>
           </button>
         </div>
-        
       </div>
     </div>
   );

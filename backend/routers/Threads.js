@@ -29,7 +29,9 @@ data = {
 router.get("/date", async (req, res) => {
   try {
     const threadListDates = await Thread.findAll({
-      include: [{ model: Users, attributes: ["username"], as: "userThread" }],
+      include: [
+        { model: Users, attributes: ["username", "pfp"], as: "userThread" },
+      ],
       order: [["createdAt", "DESC"]],
     });
 

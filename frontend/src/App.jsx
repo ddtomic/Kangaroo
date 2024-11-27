@@ -88,6 +88,7 @@ const App = () => {
                   comment={value.content}
                   title={value.title}
                   timestamp={value.createdAt}
+                  pfp={value.userThread.pfp}
                   key={key}
                 />
               }
@@ -107,7 +108,7 @@ const App = () => {
                   register_year={value.createdAt.substring(0, 4)}
                   likes={value.userThreadScore + value.userCommentScore}
                   bio={value.bio}
-                  pfp={`/assets/${value.pfp}.jpg`}
+                  pfp={value.pfp}
                   userID={value.userID}
                 />
               }

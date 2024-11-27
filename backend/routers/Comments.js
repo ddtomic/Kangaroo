@@ -28,7 +28,7 @@ router.get("/comms/:threadID", async (req, res) => {
       include: [
         {
           model: Users,
-          attributes: ["userID", "username"],
+          attributes: ["userID", "username", "pfp"],
           as: "userComment",
         },
       ],

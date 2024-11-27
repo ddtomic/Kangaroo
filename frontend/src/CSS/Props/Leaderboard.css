@@ -5,32 +5,6 @@
     box-sizing: border-box;
   }
 
-  .leaderboard-container{
-    display: flex; 
-    justify-content: space-between;
-    width: 100vh;
-    list-style-type: decimal;
-    margin-bottom: 4vh;
-}
-
-.leaderboard-container .leaderboard{
-    align-items: start;
-    border-style: solid;
-    border-color: rgb(173, 173, 173);
-    border-width: thin;
-    border-radius: 10px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    width: 35vh;
-    height: auto;
-    max-height: 50vh;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none; 
-}
-
 .leaderboard-header{
     border-style: solid;
     border-width: thin;
@@ -48,8 +22,18 @@
     border-width: thin;
     border-style: solid;
     display: flex;
-    width: 35vh;
+    width: 100%;
     padding: 1vh;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.leaderboard-items{
+    align-items: center;
+    display: flex; 
+    width: 50%; 
+    justify-content: space-between;
 }
 
 .leaderboard-row:hover{
@@ -60,7 +44,6 @@
 
 .leaderboard-link{
     width: 100%;
-    text-align: start;
     font-size: 2vh;
     font-weight: bold;
     color: black;
@@ -72,6 +55,5 @@
     font-weight: bold;
     color: black;
     text-decoration: none;
-    margin-right: 2vh;
-    margin-left: 12vh;
+
 }

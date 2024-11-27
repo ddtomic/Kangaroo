@@ -5,6 +5,8 @@ import like from "../assets/images/like.png";
 import dislike from "../assets/images/dislike.png";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
+import trash from '../assets/images/trash-bin.png'
+import shuffle from '../assets/images/shuffle-arrows.png'
 
 PouchReply.propTypes = {
   name: propTypes.string,
@@ -64,15 +66,20 @@ function PouchReply(prop) {
     <div className="comment-container">
       <div className="left-pouch">
         <div className="top-comment">
-          <h3 className="comment-username">{prop.name}</h3>
+          <div className="top-comment-picture">
+            <img src={'/assets/0.jpg'} alt='shuffle-img'></img>
+            <h3 className="comment-username">{prop.name}</h3>
+          </div>
           <h4 className="date-comment">{prop.date}</h4>
         </div>
         <div className="bottom-comment">
           <h3 className="comment-comment">{prop.comment}</h3>
         </div>
       </div>
+
       <div className="right-pouch">
-        <div>
+        <div className="right-pouch-feedback">
+          <div>
           <button
             onClick={() => {
               rateComment("l");
@@ -82,11 +89,11 @@ function PouchReply(prop) {
           >
             <img src={like} alt="like-pouch-btn"></img>
           </button>
-        </div>
-        <div>
-          <p>{commentScore}</p>
-        </div>
-        <div>
+          </div>
+          <div>
+            <p>{commentScore}</p>
+          </div>
+          <div>
           <button
             onClick={() => {
               rateComment("d");
@@ -95,8 +102,16 @@ function PouchReply(prop) {
             disabled={prop.rating === "g"}
           >
             <img src={dislike} alt="dislike-pouch-btn"></img>
+
+          </button>
+          </div>
+        </div>
+        <div className="left-pouch-feedback">
+          <button>
+            <img src={ trash } alt='trash-image'></img>
           </button>
         </div>
+        
       </div>
     </div>
   );

@@ -7,7 +7,8 @@ import Profilepic from "../Components/Profilepic";
 import propTypes from "prop-types";
 import { AuthContext } from "../helpers/AuthContext";
 import axios from "axios";
-import "../CSS/Props/PouchReply.css";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import close from "../assets/images/close.png";
 
 function ProfilePage(props) {
   ProfilePage.propTypes = {
@@ -21,10 +22,25 @@ function ProfilePage(props) {
   const { authState } = useContext(AuthContext);
   const { profileRefresh } = props;
 
+  const [isPopupVisible, setPopupVisible] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+
   const [showModal, setShowModal] = useState(false);
   const [selectedContent, setSelectedContent] = useState("Pouches");
   const [userThread, setUserThread] = useState([]);
   const [userComment, setUserComment] = useState([]);
+
+  const handleButtonClick = () => {
+    setPopupVisible(true);
+  };
+
+  const handleClosePopup = () => {
+    setPopupVisible(false);
+  };
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
 
   const handlePfpClick = () => {
     setShowModal(true);
@@ -114,11 +130,44 @@ function ProfilePage(props) {
             {/* Username */}
             <h4>{props.name}</h4>
             {/* Member since year */}
-            <p>Member since {props.register_year}</p>
+            <p>Kangaroo Member since {props.register_year}</p>
             {/* Amount of LIkes */}
             <p>Score: {props.likes}</p>
             {/* Bio */}
-            <p className="bio">{props.bio}</p>
+            <div className="bio-container">
+              <p className="bio">Bio: {props.bio}</p>
+            </div>
+            <div className="edit-container">
+              <button onClick={handleButtonClick}>Edit bio</button>
+              {isPopupVisible && (
+                <div className="popup">
+                  <div className="popup-content">
+                    <div className="top-popup">
+                      <p>Enter bio:</p>
+                    </div>
+                    <Formik>
+                      <Form>
+                        <Field
+                          className="bio-input"
+                          as="textarea"
+                          rows="5"
+                          cols="30"
+                          autoComplete="off"
+                          name="reply-field"
+                          onChange={handleInputChange}
+                          placeholder="Enter bio..."
+                        />
+                      </Form>
+                    </Formik>
+
+                    <div className="input-container"></div>
+                    <div>
+                      <button onClick={handleClosePopup}>Submit</button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="user-pouches">
@@ -244,11 +293,13 @@ function ProfilePage(props) {
             {/* Username */}
             <h4>{props.name}</h4>
             {/* Member since year */}
-            <p>Member since {props.register_year}</p>
+            <p>Kangaroo Member since {props.register_year}</p>
             {/* Amount of LIkes */}
             <p>Score: {props.likes}</p>
             {/* Bio */}
-            <p className="bio">{props.bio}</p>
+            <div className="bio-container">
+              <p className="bio">Bio: {props.bio}</p>
+            </div>
           </div>
 
           <div className="user-pouches">

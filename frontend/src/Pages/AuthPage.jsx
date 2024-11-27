@@ -100,19 +100,40 @@ const AuthPage = () => {
         >
           <Form>
             <h1>Create Account</h1>
+
+            <div className="authpage-error">
+            <ErrorMessage
+            name="email"
+            className="email-error"
+            component="span"/>
             <Field autoComplete="off" name="email" placeholder="Email..." />
+            </div>  
+            
+            <div className="authpage-error">
+            <ErrorMessage
+            name="username"
+            className="username-error"
+            component="span"/>
             <Field
               autoComplete="off"
               name="username"
               placeholder="Username..."
             />
+            </div>
+            
+            <div className="authpage-error">
+            <ErrorMessage
+            name="password"
+            className="password-error"
+            component="span"/>
             <Field
               autoComplete="off"
               name="password"
               placeholder="Password..."
               type="password"
             />
-
+            </div>
+            
             <button type="submit">Sign Up</button>
           </Form>
         </Formik>
@@ -126,17 +147,32 @@ const AuthPage = () => {
         >
           <Form>
             <h1>Sign In</h1>
-            <Field
-              autoComplete="off"
-              name="username"
-              placeholder="Username..."
-            />
-            <Field
-              autoComplete="off"
+
+            <div className="authpage-error">
+                <ErrorMessage
+                name="username"
+                className="username-error"
+                component="span"/>
+                <Field
+                  autoComplete="off"
+                  name="username"
+                  placeholder="Username..."
+                />
+            </div>
+            
+            <div className="authpage-error">
+              <ErrorMessage
               name="password"
-              placeholder="Password..."
-              type="password"
-            />
+              className="password-error"
+              component="span"/>
+              <Field
+                autoComplete="off"
+                name="password"
+                placeholder="Password..."
+                type="password"
+              />
+            </div>
+            
             <button type="submit">Sign In</button>
           </Form>
         </Formik>

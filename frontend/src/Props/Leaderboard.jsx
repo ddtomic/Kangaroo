@@ -15,8 +15,10 @@ function Leaderbaord(prop) {
           <p>Most Point's</p>
         </div>
             <li className="leaderboard-row">
-                <p className='counter'>{prop.count}</p>
-                <a className='leaderboard-link'href='/Profile'>{prop.name}</a>
+              <div className='leaderboard-items'>
+              <p className='counter'>{prop.count}</p>
+              <a className='leaderboard-link'href='/Profile'>{prop.name}</a>
+              </div>
             </li>
     </div>
   )

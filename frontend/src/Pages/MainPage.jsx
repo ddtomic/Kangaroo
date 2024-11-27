@@ -234,6 +234,7 @@ const MainPage = () => {
               return (
                 <ThreadBox
                   key={key}
+                  main={true}
                   threadID={value.threadID}
                   name={value.userThread.username}
                   title={value.title}

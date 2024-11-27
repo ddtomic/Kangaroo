@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import propTypes from "prop-types";
-
 import "../CSS/Props/Pouch.css";
 import like from "../assets/images/like.png";
 import dislike from "../assets/images/dislike.png";
@@ -10,9 +9,11 @@ import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import trash from "../assets/images/trash-bin.png";
+import { useNavigate } from "react-router-dom";
 
 Pouch.propTypes = {
   name: propTypes.string,
+  userID: propTypes.number,
   threadID: propTypes.number,
   comment: propTypes.string,
   title: propTypes.string,
@@ -26,7 +27,7 @@ Pouch.propTypes = {
 function Pouch(prop) {
   const { refreshRating } = prop;
   const { authState } = useContext(AuthContext);
-
+  const navTo = useNavigate();
   const rateThread = (rate) => {
     axios
       .post("http://18.119.120.175:3002/rate/thread", {
@@ -47,6 +48,16 @@ function Pouch(prop) {
       });
   };
 
+  const delThread = async () => {
+    console.log("hi");
+    await axios
+      .delete(`http://18.119.120.175:3002/thread/threads/${prop.threadID}`)
+      .then((response) => {
+        console.log(response.data);
+      });
+    navTo("/home");
+  };
+
   return (
     <div className="pouch-container">
       <div>
@@ -59,7 +70,12 @@ function Pouch(prop) {
                   src={`/assets/${prop.pfp}.jpg`}
                   alt="shuffle-img"
                 ></img>
-                <h3 className="pouch-username">{prop.name}</h3>
+                <a
+                  href={`/${prop.userID}/${prop.name}`}
+                  className="profile-route"
+                >
+                  <h3 className="pouch-username">{prop.name}</h3>
+                </a>
               </div>
               <h2 className="pouch-title">{prop.title}</h2>
             </div>
@@ -111,9 +127,13 @@ function Pouch(prop) {
               </div>
             </div>
             <div className="left-pouch-feedback">
-              <button>
-                <img src={trash} alt="trash-image"></img>
-              </button>
+              {prop.userID === authState.id ? (
+                <button onClick={() => delThread()}>
+                  <img src={trash} alt="trash-image"></img>
+                </button>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>

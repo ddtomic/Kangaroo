@@ -69,7 +69,9 @@ function PouchReply(prop) {
         <div className="top-comment">
           <div className="top-comment-picture">
             <img src={`/assets/${prop.pfp}.jpg`} alt="shuffle-img"></img>
-            <h3 className="comment-username">{prop.name}</h3>
+            <a href={`/${prop.userID}/${prop.name}`} className="profile-route">
+              <h3 className="comment-username">{prop.name}</h3>
+            </a>
           </div>
           <h4 className="date-comment">{prop.date}</h4>
         </div>
@@ -109,9 +111,13 @@ function PouchReply(prop) {
           </div>
         </div>
         <div className="left-pouch-feedback">
-          <button>
-            <img src={trash} alt="trash-image"></img>
-          </button>
+          {prop.userID === authState.id ? (
+            <button>
+              <img src={trash} alt="trash-image"></img>
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>

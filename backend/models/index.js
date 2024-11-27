@@ -70,17 +70,28 @@ Users.hasMany(Comment, { foreignKey: "userID", as: "userComment" });
 Comment.belongsTo(Users, { foreignKey: "userID", as: "userComment" });
 
 //Thread assoc.
-Thread.hasMany(threadRate, { foreignKey: "threadID", as: "threadRatings" });
+Thread.hasMany(threadRate, {
+  foreignKey: "threadID",
+  as: "threadRatings",
+  onDelete: "CASCADE",
+});
 threadRate.belongsTo(Thread, { foreignKey: "threadID", as: "threadRatings" });
-//threadRate -> Thread via threadID
-Thread.hasMany(Comment, { foreignKey: "threadID", as: "threadComments" });
+//threadRate -> Thread via threadID + CASCADE all associated thread ratings on deletion of thread
+
+Thread.hasMany(Comment, {
+  foreignKey: "threadID",
+  as: "threadComments",
+  onDelete: "CASCADE",
+});
 Comment.belongsTo(Thread, { foreignKey: "threadID", as: "threadComments" });
-//Comment -> Thread via threadID
+
+//Comment -> Thread via threadID + CASCADE all associated comments on deletion of thread
 
 //Comment assoc.
 Comment.hasMany(commentRate, {
   foreignKey: "commentID",
   as: "commentRating",
+  onDelete: "CASCADE",
 });
 commentRate.belongsTo(Comment, {
   foreignKey: "commentID",

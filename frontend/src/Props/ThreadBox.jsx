@@ -21,6 +21,7 @@ function ThreadBox(props) {
     isLiked: propTypes.string,
     pathTo: propTypes.string,
     pfp: propTypes.number,
+    main: propTypes.bool,
   };
   const { authState } = useContext(AuthContext);
   const navTo = useNavigate();
@@ -61,7 +62,7 @@ function ThreadBox(props) {
         <a href={urlSetup(props.title)}>
           <div className="top">
             <div className="user-picture">
-              <img src={`/assets/${props.pfp}.jpg`}></img>
+              <img src={`/assets/${props.pfp}.jpg`} alt="shuffle"></img>
               <h4 className="username">{props.name}</h4>
             </div>
 
@@ -81,31 +82,39 @@ function ThreadBox(props) {
         <div className="bottom">
           <div className="feedback">
             <div className="left-feedback">
-              <button
-                onClick={() => {
-                  rateThread("l");
-                }}
-                className={`likeBtn ${props.isLiked === "l" ? "liked" : ""}`}
-                disabled={props.isLiked === "g"}
-              >
-                <img src={like} alt="like-img" />
-              </button>
+              {props.main ? (
+                <button
+                  onClick={() => {
+                    rateThread("l");
+                  }}
+                  className={`likeBtn ${props.isLiked === "l" ? "liked" : ""}`}
+                  disabled={props.isLiked === "g"}
+                >
+                  <img src={like} alt="like-img" />
+                </button>
+              ) : (
+                <></>
+              )}
             </div>
             <div className="middle-feedback">
               <p>{props.score}</p>
             </div>
             <div className="right-feedback">
-              <button
-                onClick={() => {
-                  rateThread("d");
-                }}
-                className={`dislikeBtn ${
-                  props.isLiked === "d" ? "disliked" : ""
-                }`}
-                disabled={props.isLiked === "g"}
-              >
-                <img src={dislike} alt="dislike-img" />
-              </button>
+              {props.main ? (
+                <button
+                  onClick={() => {
+                    rateThread("d");
+                  }}
+                  className={`dislikeBtn ${
+                    props.isLiked === "d" ? "disliked" : ""
+                  }`}
+                  disabled={props.isLiked === "g"}
+                >
+                  <img src={dislike} alt="dislike-img" />
+                </button>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>

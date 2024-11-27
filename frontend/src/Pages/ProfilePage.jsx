@@ -15,7 +15,7 @@ function ProfilePage(props) {
     register_year: propTypes.string,
     likes: propTypes.number,
     bio: propTypes.string,
-    pfp: propTypes.string,
+    pfp: propTypes.number,
     userID: propTypes.number,
   };
   const { authState } = useContext(AuthContext);
@@ -217,6 +217,7 @@ function ProfilePage(props) {
               return (
                 <ThreadBox
                   key={key}
+                  main={false}
                   name={props.name}
                   title={value.title}
                   timestamp={value.createdAt}
@@ -235,7 +236,7 @@ function ProfilePage(props) {
           <>
             {userComment.map((value, key) => {
               return (
-                <div className>
+                <div key={key}>
                   <div className="left-pouch">
                     <div className="top-comment">
                       <div className="top-comment-picture">
@@ -257,7 +258,10 @@ function ProfilePage(props) {
                   <div className="right-pouch">
                     <div>
                       <p>Score: {value.score}</p>
-                      <a href={urlSetup(value.threadComments)}>
+                      <a
+                        href={urlSetup(value.threadComments)}
+                        className="comment-route"
+                      >
                         <p>{value.threadComments.title}</p>
                       </a>
                     </div>

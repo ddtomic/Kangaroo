@@ -85,6 +85,7 @@ const App = () => {
                 <PouchPage
                   threadID={value.threadID}
                   name={value.userThread.username}
+                  userID={value.userID}
                   comment={value.content}
                   title={value.title}
                   timestamp={value.createdAt}

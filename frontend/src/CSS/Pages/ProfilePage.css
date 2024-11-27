@@ -232,3 +232,8 @@ select {
 .top-popup button:hover {
   background-color: #ceb6f1;
 }
+
+.comment-route {
+  color: black;
+  text-decoration: underline;
+}

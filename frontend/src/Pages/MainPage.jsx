@@ -13,9 +13,11 @@ import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import * as Yup from "yup";
 import Footer from "../Components/Footer";
+
 const MainPage = () => {
   const [threadList, setThreadList] = useState([]);
   const [activeLink, setActiveLink] = useState(1);
+  const [leaderboard, setLeaderboard] = useState([]);
 
   const handleLinkClick = (linkNumber) => {
     setActiveLink(linkNumber);
@@ -81,6 +83,17 @@ const MainPage = () => {
     } else {
       return state;
     }
+  };
+
+  const getLeaderBoard = async () => {
+    await axios
+      .get("http://18.119.120.175:3002/auth/leaderboard")
+      .then((response) => {
+        setLeaderboard(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const getThreads = async () => {
@@ -182,6 +195,7 @@ const MainPage = () => {
   useEffect(() => {
     authUser();
     getThreads();
+    getLeaderBoard();
   }, []);
 
   return (
@@ -202,7 +216,7 @@ const MainPage = () => {
           of online conversations
         </p>
         <div className="roo-header">
-          <p>Roo's</p>
+          <p>Pouches</p>
         </div>
         <div className="roo-catagories">
           <a
@@ -226,7 +240,21 @@ const MainPage = () => {
         </div>
         <div className="middle-container">
           <div className="left-container">
-            <Leaderbaord name="bem" count={3}></Leaderbaord>
+            <div className="leaderboard-header">
+              <p>Leaderboard</p>
+            </div>
+            {leaderboard.map((value, key) => {
+              console.log(leaderboard);
+              return (
+                <Leaderbaord
+                  key={key}
+                  userID={value.userID}
+                  name={value.username}
+                  count={value.score}
+                  pfp={value.pfp}
+                ></Leaderbaord>
+              );
+            })}
           </div>
 
           <div className="container">

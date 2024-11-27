@@ -52,7 +52,7 @@ const App = () => {
   };
 
   const getUserProfiles = async () => {
-    axios
+    await axios
       .get("http://18.119.120.175:3002/auth/users")
       .then((response) => {
         setUserList(response.data);

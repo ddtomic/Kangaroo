@@ -296,6 +296,49 @@ router.get("/profile/:userID", async (req, res) => {
   }
 });
 
+//Get all users and sort in desc order based on score (LEADERBOARD)
+router.get("/leaderboard", async (req, res) => {
+  try {
+    const leaderboard = await Users.findAll({
+      attributes: [
+        "userID",
+        "username",
+        "pfp",
+        [
+          sequelize.literal(`
+            (
+              SELECT 
+                COALESCE(SUM(
+                  (SELECT COUNT(*) FROM threadRates WHERE threadRates.threadID = Threads.threadID AND threadRates.rating = 'l') -
+                  (SELECT COUNT(*) FROM threadRates WHERE threadRates.threadID = Threads.threadID AND threadRates.rating = 'd')
+                ), 0)
+              FROM Threads
+              WHERE Threads.userID = Users.userID
+            ) +
+            (
+              SELECT 
+                COALESCE(SUM(
+                  (SELECT COUNT(*) FROM commentRates WHERE commentRates.commentID = Comments.commentID AND commentRates.rating = 'l') -
+                  (SELECT COUNT(*) FROM commentRates WHERE commentRates.commentID = Comments.commentID AND commentRates.rating = 'd')
+                ), 0)
+              FROM Comments
+              WHERE Comments.userID = Users.userID
+            )
+          `),
+          "score",
+        ],
+      ],
+      order: [[sequelize.literal("score"), "DESC"]],
+      limit: 10,
+    });
+
+    return res.json(leaderboard);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Could not get leaderboard!");
+  }
+});
+
 //Verify login token
 router.get("/", validateToken, (req, res) => {
   return res.json(req.user);

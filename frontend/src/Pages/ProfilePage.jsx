@@ -8,6 +8,8 @@ import propTypes from "prop-types";
 import { AuthContext } from "../helpers/AuthContext";
 import axios from "axios";
 import { Formik, Form, Field } from "formik";
+import Footer from "../Components/Footer";
+
 
 function ProfilePage(props) {
   ProfilePage.propTypes = {
@@ -236,7 +238,8 @@ function ProfilePage(props) {
           <>
             {userComment.map((value, key) => {
               return (
-                <div key={key}>
+                <div className='comment-container' key={key}>
+                  <a href={urlSetup(value.threadComments)}>
                   <div className="left-pouch">
                     <div className="top-comment">
                       <div className="top-comment-picture">
@@ -258,14 +261,9 @@ function ProfilePage(props) {
                   <div className="right-pouch">
                     <div>
                       <p>Score: {value.score}</p>
-                      <a
-                        href={urlSetup(value.threadComments)}
-                        className="comment-route"
-                      >
-                        <p>{value.threadComments.title}</p>
-                      </a>
                     </div>
                   </div>
+                  </a>
                 </div>
               );
             })}
@@ -322,6 +320,9 @@ function ProfilePage(props) {
           </div>
         </div>
       )}
+      
+
+      <Footer/>
     </div>
   );
 }

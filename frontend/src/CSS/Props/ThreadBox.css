@@ -70,13 +70,15 @@
     justify-content: space-between;
     align-items: center;
     color: black;
-    padding: 0 5vh;
+    
     background-color: #d5b9ff;
+    width: 20vh;
 }
 
 .bottom p{
     font-size: 20px;
     font-weight: bold;
+    
 }
 
 .bottom img{
@@ -116,7 +118,7 @@
 .feedback{
     display: flex;
     flex-direction: column;
-    
+    width: 100%;
 }
 
 .feedback p{
@@ -134,10 +136,12 @@
 
 .right-feedback{
     margin-top: 2vh;
+    margin-left: 5vh;
 }
 
 .left-feedback{
     margin-bottom: 1vh;
+    margin-left: 5vh;
 }
 
 .middle-feedback, .right-feedback, .left-feedback {

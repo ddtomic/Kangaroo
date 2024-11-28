@@ -19,7 +19,6 @@
 
 .reply-container {
   padding: 3vh;
-
   border-style: solid;
   border-radius: 10px;
   border-width: thin;
@@ -27,6 +26,7 @@
   display: flex;
   flex-direction: column;
   width: 150vh;
+  
 }
 
 .pouch-input {

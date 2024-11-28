@@ -21,6 +21,7 @@ const MainPage = () => {
 
   const handleLinkClick = (linkNumber) => {
     setActiveLink(linkNumber);
+    threadRefresh(linkNumber);
   };
 
   const formatDate = (dateString) => {
@@ -62,7 +63,7 @@ const MainPage = () => {
       .then((data) => {
         console.log("Thread created successfully:", data);
         resetForm();
-        threadRefresh();
+        threadRefresh(activeLink);
       })
       .catch((error) => {
         console.log(data);
@@ -96,7 +97,7 @@ const MainPage = () => {
       });
   };
 
-  const getThreads = async () => {
+  const getThreads = async (link) => {
     const userInfo = await authUser();
     if (userInfo === "no user") {
       try {
@@ -131,8 +132,23 @@ const MainPage = () => {
           })
         );
 
-        // Update the state with the final array
-        setThreadList(threadsWithReplies);
+        if (link === 3) {
+          const replycountSortList = [...threadsWithReplies].sort(
+            (a, b) => b.replyCount - a.replyCount
+          );
+          console.log("reply count sorted:", replycountSortList);
+          return setThreadList(replycountSortList);
+        } else if (link === 2) {
+          const ratingSortList = [...threadsWithReplies].sort(
+            (a, b) => b.score - a.score
+          );
+          console.log("rating sorted:", ratingSortList);
+          return setThreadList(ratingSortList);
+        } else {
+          //Sorted by date desc.
+          console.log("date sorted:", threadsWithReplies);
+          return setThreadList(threadsWithReplies);
+        }
       } catch (error) {
         console.error("Failed to get threads:", error);
       }
@@ -179,22 +195,37 @@ const MainPage = () => {
           })
         );
 
-        // Update the state with the final array
-        setThreadList(threadsWithReplies);
+        if (link === 3) {
+          const replycountSortList = [...threadsWithReplies].sort(
+            (a, b) => b.replyCount - a.replyCount
+          );
+          console.log("reply count sorted:", replycountSortList);
+          return setThreadList(replycountSortList);
+        } else if (link === 2) {
+          const ratingSortList = [...threadsWithReplies].sort(
+            (a, b) => b.score - a.score
+          );
+          console.log("rating sorted:", ratingSortList);
+          return setThreadList(ratingSortList);
+        } else {
+          //Sorted by date desc.
+          console.log("date sorted:", threadsWithReplies);
+          return setThreadList(threadsWithReplies);
+        }
       } catch (error) {
         console.error("Failed to get threads:", error);
       }
     }
   };
 
-  const threadRefresh = () => {
+  const threadRefresh = (link) => {
     console.log("refreshing threads");
-    getThreads();
+    getThreads(link);
   };
 
   useEffect(() => {
     authUser();
-    getThreads();
+    getThreads(1);
     getLeaderBoard();
   }, []);
 
@@ -206,7 +237,11 @@ const MainPage = () => {
         <p>Welcome to Kangaroo!</p>
         <div className="upper-search">
           <img src={search} alt="search-img"></img>
-          <input type="text" placeholder="Search Roo..." />
+          <Formik>
+            <Form>
+              <Field type="text" placeholder="Search Roo..." name="searchBar" />
+            </Form>
+          </Formik>
         </div>
       </div>
 
@@ -244,7 +279,6 @@ const MainPage = () => {
               <p>Leaderboard</p>
             </div>
             {leaderboard.map((value, key) => {
-              console.log(leaderboard);
               return (
                 <Leaderbaord
                   key={key}
@@ -271,7 +305,7 @@ const MainPage = () => {
                   score={value.score}
                   isLiked={value.rating}
                   pfp={value.userThread.pfp}
-                  refreshThread={() => threadRefresh()}
+                  refreshThread={() => threadRefresh(activeLink)}
                 ></ThreadBox>
               );
             })}

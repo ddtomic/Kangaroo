@@ -6,6 +6,7 @@ import PouchPage from "./Pages/PouchPage";
 import ProfilePage from "./Pages/ProfilePage";
 import axios from "axios";
 import { AuthContext } from "./helpers/AuthContext";
+import SearchPage from "./Pages/SearchPage";
 
 const App = () => {
   const [threadList, setThreadList] = useState([]);
@@ -75,6 +76,7 @@ const App = () => {
   return (
     <AuthContext.Provider value={{ authState, setAuthState }}>
       <Routes>
+        <Route path="/search/:query" element={<SearchPage />} />
         <Route path="/home" element={<MainPage />} />
         {threadList.map((value, key) => {
           return (

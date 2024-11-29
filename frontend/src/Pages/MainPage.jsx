@@ -1,4 +1,4 @@
-import axios, { all } from "axios";
+import axios from "axios";
 import React from "react";
 import "../CSS/Pages/MainPage.css";
 import Navbar from "../Components/Navbar";
@@ -13,11 +13,14 @@ import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import * as Yup from "yup";
 import Footer from "../Components/Footer";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
   const [threadList, setThreadList] = useState([]);
   const [activeLink, setActiveLink] = useState(1);
   const [leaderboard, setLeaderboard] = useState([]);
+
+  const navTo = useNavigate();
 
   const handleLinkClick = (linkNumber) => {
     setActiveLink(linkNumber);
@@ -33,6 +36,21 @@ const MainPage = () => {
   };
 
   const { authState } = useContext(AuthContext);
+
+  const searchInitialValues = {
+    searchBar: "",
+  };
+
+  const searchValidationSchema = Yup.object().shape({
+    searchBar: Yup.string()
+      .min(1, "Search needs at least 1 character!")
+      .required("Search content is required!"),
+  });
+
+  const submitSearch = (query, { resetForm }) => {
+    navTo(`/search/${query.searchBar}`);
+    resetForm();
+  };
 
   const initialValues = {
     threadTitle: "",
@@ -237,9 +255,18 @@ const MainPage = () => {
         <p>Welcome to Kangaroo!</p>
         <div className="upper-search">
           <img src={search} alt="search-img"></img>
-          <Formik>
+          <Formik
+            initialValues={searchInitialValues}
+            validationSchema={searchValidationSchema}
+            onSubmit={submitSearch}
+          >
             <Form>
-              <Field type="text" placeholder="Search Roo..." name="searchBar" />
+              <Field
+                autoComplete="off"
+                type="text"
+                placeholder="Search Roo..."
+                name="searchBar"
+              />
             </Form>
           </Formik>
         </div>

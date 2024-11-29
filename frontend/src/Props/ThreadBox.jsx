@@ -24,7 +24,6 @@ function ThreadBox(props) {
     main: propTypes.bool,
   };
   const { authState } = useContext(AuthContext);
-  const navTo = useNavigate();
 
   const rateThread = (rate) => {
     axios

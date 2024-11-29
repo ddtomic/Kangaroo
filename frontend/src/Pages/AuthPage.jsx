@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import '../CSS/Pages/AuthPage.css'
+import "../CSS/Pages/AuthPage.css";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -54,7 +54,7 @@ const AuthPage = () => {
 
   const onSubmitSignUp = (data, { resetForm }) => {
     axios
-      .post("http://18.119.120.175:3002/auth/", data)
+      .post("https://kangaroo.click:3002/auth/", data)
       .then(() => {
         console.log("User created successfully");
         setIsActive(false);
@@ -68,7 +68,7 @@ const AuthPage = () => {
   const onSubmitSignIn = (data, { resetForm }) => {
     const userData = { username: data.username, password: data.password };
     axios
-      .post("http://18.119.120.175:3002/auth/signin", userData)
+      .post("https://kangaroo.click:3002/auth/signin", userData)
       .then((response) => {
         if (response.data.error) {
           alert(response.data.error);
@@ -87,7 +87,6 @@ const AuthPage = () => {
   };
 
   return (
-    
     <div
       className={`auth-container${isActive ? " active" : ""}`}
       id="auth-container"
@@ -102,38 +101,41 @@ const AuthPage = () => {
             <h1>Create Account</h1>
 
             <div className="authpage-error">
-            <ErrorMessage
-            name="email"
-            className="email-error"
-            component="span"/>
-            <Field autoComplete="off" name="email" placeholder="Email..." />
-            </div>  
-            
-            <div className="authpage-error">
-            <ErrorMessage
-            name="username"
-            className="username-error"
-            component="span"/>
-            <Field
-              autoComplete="off"
-              name="username"
-              placeholder="Username..."
-            />
+              <ErrorMessage
+                name="email"
+                className="email-error"
+                component="span"
+              />
+              <Field autoComplete="off" name="email" placeholder="Email..." />
             </div>
-            
+
             <div className="authpage-error">
-            <ErrorMessage
-            name="password"
-            className="password-error"
-            component="span"/>
-            <Field
-              autoComplete="off"
-              name="password"
-              placeholder="Password..."
-              type="password"
-            />
+              <ErrorMessage
+                name="username"
+                className="username-error"
+                component="span"
+              />
+              <Field
+                autoComplete="off"
+                name="username"
+                placeholder="Username..."
+              />
             </div>
-            
+
+            <div className="authpage-error">
+              <ErrorMessage
+                name="password"
+                className="password-error"
+                component="span"
+              />
+              <Field
+                autoComplete="off"
+                name="password"
+                placeholder="Password..."
+                type="password"
+              />
+            </div>
+
             <button type="submit">Sign Up</button>
           </Form>
         </Formik>
@@ -149,22 +151,24 @@ const AuthPage = () => {
             <h1>Sign In</h1>
 
             <div className="authpage-error">
-                <ErrorMessage
+              <ErrorMessage
                 name="username"
                 className="username-error"
-                component="span"/>
-                <Field
-                  autoComplete="off"
-                  name="username"
-                  placeholder="Username..."
-                />
+                component="span"
+              />
+              <Field
+                autoComplete="off"
+                name="username"
+                placeholder="Username..."
+              />
             </div>
-            
+
             <div className="authpage-error">
               <ErrorMessage
-              name="password"
-              className="password-error"
-              component="span"/>
+                name="password"
+                className="password-error"
+                component="span"
+              />
               <Field
                 autoComplete="off"
                 name="password"
@@ -172,7 +176,7 @@ const AuthPage = () => {
                 type="password"
               />
             </div>
-            
+
             <button type="submit">Sign In</button>
           </Form>
         </Formik>

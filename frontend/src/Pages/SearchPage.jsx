@@ -21,7 +21,7 @@ const SearchPage = () => {
 
   const getResults = async () => {
     await axios
-      .get(`http://18.119.120.175:3002/thread/search/${query}`)
+      .get(`https://kangaroo.click:3002/thread/search/${query}`)
       .then((response) => {
         console.log(response);
         return setResults(response.data);

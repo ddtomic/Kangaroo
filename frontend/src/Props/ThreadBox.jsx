@@ -27,7 +27,7 @@ function ThreadBox(props) {
 
   const rateThread = (rate) => {
     axios
-      .post("http://18.119.120.175:3002/rate/thread", {
+      .post("https://kangaroo.click:3002/rate/thread", {
         userID: authState.id,
         threadID: props.threadID,
         rating: rate,

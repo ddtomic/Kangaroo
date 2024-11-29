@@ -25,7 +25,7 @@ function PouchReply(prop) {
 
   const rateComment = async (rating) => {
     axios
-      .post("http://18.119.120.175:3002/rate/comment", {
+      .post("https://kangaroo.click:3002/rate/comment", {
         userID: authState.id,
         commentID: prop.commentID,
         rating: rating,
@@ -45,7 +45,7 @@ function PouchReply(prop) {
   };
   const getRatings = async () => {
     axios
-      .get(`http://18.119.120.175:3002/rate/commentrates/${prop.commentID}`)
+      .get(`https://kangaroo.click:3002/rate/commentrates/${prop.commentID}`)
       .then((response) => {
         return setCommentScore(response.data.score);
       })
@@ -57,7 +57,7 @@ function PouchReply(prop) {
   const delComment = async () => {
     console.log("hi");
     await axios
-      .delete(`http://18.119.120.175:3002/comment/comments/${prop.commentID}`)
+      .delete(`https://kangaroo.click:3002/comment/comments/${prop.commentID}`)
       .then((response) => {
         console.log(response.data);
       });

@@ -5,6 +5,8 @@ import "../CSS/Pages/SearchPage.css";
 import ThreadBox from "../Props/ThreadBox";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import search from "../assets/images/icons8-search-50.png";
 
 const SearchPage = () => {
   const [results, setResults] = useState([]);
@@ -35,11 +37,30 @@ const SearchPage = () => {
     getResults();
   }, []);
   return (
-    <div>
+    <div className="search-container">
       <Navbar />
       <div className="main-container">
         <div className="heading-container">
-          <h1>Search: {query}</h1>
+        <div className="search-search">
+          <img src={search} alt="search-img"></img>
+          <Formik
+            initialValues={{searchBar: query}}
+            //validationSchema={searchValidationSchema}
+            //onSubmit={submitSearch}
+          >
+            <Form>
+              <Field
+                autoComplete="off"
+                type="text"
+                placeholder="Search Roo..."
+                name="searchBar"
+              />
+            </Form>
+          </Formik>
+          </div>
+        </div>
+        <div className="post-header">
+          <p>Posts</p>
         </div>
         <div className="result-container">
           {results.map((value, key) => {

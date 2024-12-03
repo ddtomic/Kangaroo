@@ -248,8 +248,9 @@ const MainPage = () => {
   }, []);
 
   return (
-    <div className="main">
+    <div>
       <Navbar />
+      <div className="main">
       <div className="upper-body">
         <img src={design} alt="background-image"></img>
         <p>Welcome to Kangaroo!</p>
@@ -444,6 +445,8 @@ const MainPage = () => {
       </div>
       <Footer />
     </div>
+    </div>
+    
   );
 };
 

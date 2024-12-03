@@ -10,13 +10,13 @@
     display: flex;
     flex-direction: column;
     align-items: start;
-    width: 150vh;
+    width: 75vw;
     margin-bottom: 5vh;
   }
   
   .top-pouch {
     padding: 2vh;
-    width: 150vh;
+    width: 75vw;
     border-style: solid;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -51,7 +51,7 @@
   .like-comment-feedback{
     display: flex;
     text-align: center;
-    width: 20vh;
+    width: 10vw;
     justify-content: space-between;
   }
 

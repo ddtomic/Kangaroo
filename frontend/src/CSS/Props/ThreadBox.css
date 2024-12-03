@@ -41,7 +41,7 @@
 }
 
 .top{
-    max-width: 60vh;
+    max-width: 30vw;
     width: 100%; 
     display: flex; 
     flex-direction: column;
@@ -72,7 +72,7 @@
     color: black;
     
     background-color: #d5b9ff;
-    width: 20vh;
+    width: 10vw;
 }
 
 .bottom p{

@@ -6,7 +6,7 @@
 }
 
 .pouch-background {
-  margin-top: 20vh;
+  margin-top: 10vw;
   position: absolute;
   display: flex;
   top: 0;
@@ -25,7 +25,7 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  width: 150vh;
+  width: 75vw;
   
 }
 
@@ -57,7 +57,7 @@
 }
 
 .comment-box {
-  width: 150vh;
+  width: 75vw;
   min-height: 50vh;
   height: auto;
   margin-top: 5vh;

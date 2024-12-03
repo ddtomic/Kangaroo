@@ -8,7 +8,7 @@
 .comment-container {
     display: flex;
     flex-direction: column;
-    width: 150vh;
+    width: 75vw;
     height: auto;  
     white-space: pre;
     word-break:break-all;

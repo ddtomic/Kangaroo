@@ -5,7 +5,8 @@ import like from "../assets/images/like.png";
 import dislike from "../assets/images/dislike.png";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
-import trash from '../assets/images/trash-bin.png'
+import trash from "../assets/images/trash-bin.png";
+import shuffle from "../assets/images/shuffle-arrows.png";
 
 PouchReply.propTypes = {
   name: propTypes.string,
@@ -14,6 +15,7 @@ PouchReply.propTypes = {
   likes: propTypes.number,
   commentID: propTypes.number,
   rating: propTypes.string,
+  pfp: propTypes.number,
 };
 
 function PouchReply(prop) {
@@ -41,7 +43,6 @@ function PouchReply(prop) {
         console.log("Could not rate comment:", error);
       });
   };
-
   const getRatings = async () => {
     axios
       .get(`http://18.119.120.175:3002/rate/commentrates/${prop.commentID}`)
@@ -51,6 +52,17 @@ function PouchReply(prop) {
       .catch((error) => {
         return console.log("Could not get comment score:", error);
       });
+  };
+
+  const delComment = async () => {
+    console.log("hi");
+    await axios
+      .delete(`http://18.119.120.175:3002/comment/comments/${prop.commentID}`)
+      .then((response) => {
+        console.log(response.data);
+      });
+
+    refreshComments();
   };
 
   const ratingRefresh = async () => {
@@ -65,42 +77,58 @@ function PouchReply(prop) {
     <div className="comment-container">
       <div className="left-pouch">
         <div className="top-comment">
-          <h3 className="comment-username">{prop.name}</h3>
+          <div className="top-comment-picture">
+            <img src={`/assets/${prop.pfp}.jpg`} alt="shuffle-img"></img>
+            <a href={`/${prop.userID}/${prop.name}`} className="profile-route">
+              <h3 className="comment-username">{prop.name}</h3>
+            </a>
+          </div>
           <h4 className="date-comment">{prop.date}</h4>
         </div>
         <div className="bottom-comment">
           <h3 className="comment-comment">{prop.comment}</h3>
         </div>
       </div>
+
       <div className="right-pouch">
-
-        <div>
-          <button
-            onClick={() => {
-              rateComment("l");
-            }}
-            className={`likePouch ${prop.rating === "l" ? "liked" : ""}`}
-            disabled={prop.rating === "g"}
-          >
-            <img src={like} alt="like-pouch-btn"></img>
-          </button>
+        <div className="right-pouch-feedback">
+          <div>
+            <button
+              onClick={() => {
+                rateComment("l");
+              }}
+              className={`likePouch ${prop.rating === "l" ? "liked" : ""}`}
+              disabled={prop.rating === "g"}
+            >
+              <img src={like} alt="like-pouch-btn"></img>
+            </button>
+          </div>
+          <div>
+            <p>{commentScore}</p>
+          </div>
+          <div>
+            <button
+              onClick={() => {
+                rateComment("d");
+              }}
+              className={`dislikePouch ${
+                prop.rating === "d" ? "disliked" : ""
+              }`}
+              disabled={prop.rating === "g"}
+            >
+              <img src={dislike} alt="dislike-pouch-btn"></img>
+            </button>
+          </div>
         </div>
-        <div>
-          <p>{commentScore}</p>
+        <div className="left-pouch-feedback">
+          {prop.userID === authState.id ? (
+            <button onClick={() => delComment()}>
+              <img src={trash} alt="trash-image"></img>
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
-        <div>
-          <button
-            onClick={() => {
-              rateComment("d");
-            }}
-            className={`dislikePouch ${prop.rating === "d" ? "disliked" : ""}`}
-            disabled={prop.rating === "g"}
-          >
-            <img src={dislike} alt="dislike-pouch-btn"></img>
-
-          </button>
-        </div>
-        
       </div>
     </div>
   );

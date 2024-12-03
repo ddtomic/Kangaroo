@@ -6,7 +6,7 @@
 }
 
 .pouch-background {
-  margin-top: 20vh;
+  margin-top: 10vw;
   position: absolute;
   display: flex;
   top: 0;
@@ -17,18 +17,16 @@
   width: 100%;
 }
 
-
 .reply-container {
   padding: 3vh;
-
   border-style: solid;
   border-radius: 10px;
   border-width: thin;
   background-color: white;
   display: flex;
   flex-direction: column;
-  width: 150vh;
-
+  width: 75vw;
+  
 }
 
 .pouch-input {
@@ -58,8 +56,8 @@
   background-color: #ac7cf3;
 }
 
-.comment-box{
-  width: 150vh;
+.comment-box {
+  width: 75vw;
   min-height: 50vh;
   height: auto;
   margin-top: 5vh;
@@ -67,7 +65,6 @@
   border-width: thin;
   border-radius: 10px;
   background-color: white;
- 
 }
 
 .pouch-button,
@@ -75,4 +72,7 @@
   margin-top: 2vh;
 }
 
-
+.profile-route {
+  color: black;
+  text-decoration: underline;
+}

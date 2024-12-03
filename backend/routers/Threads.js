@@ -16,6 +16,29 @@ router.post("/create", async (req, res) => {
   }
 });
 
+//Delete a specific thread
+router.delete("/threads/:threadID", async (req, res) => {
+  try {
+    const { threadID } = req.params;
+    const thread = await Thread.destroy({
+      where: { threadID: threadID },
+    });
+
+    if (thread) {
+      res.status(200).json({
+        message: "Thread and associated comments deleted successfully",
+      });
+    } else {
+      res.status(404).json({ message: "Thread not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while deleting the thread" });
+  }
+});
+
 /*
 Get threads from newest to oldest (descending)
 data = {
@@ -29,7 +52,9 @@ data = {
 router.get("/date", async (req, res) => {
   try {
     const threadListDates = await Thread.findAll({
-      include: [{ model: Users, attributes: ["username"], as: "userThread" }],
+      include: [
+        { model: Users, attributes: ["username", "pfp"], as: "userThread" },
+      ],
       order: [["createdAt", "DESC"]],
     });
 

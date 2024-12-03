@@ -19,6 +19,9 @@ function ThreadBox(props) {
     replyCount: propTypes.number,
     score: propTypes.number,
     isLiked: propTypes.string,
+    pathTo: propTypes.string,
+    pfp: propTypes.number,
+    main: propTypes.bool,
   };
   const { authState } = useContext(AuthContext);
   const navTo = useNavigate();
@@ -44,9 +47,13 @@ function ThreadBox(props) {
   };
 
   const urlSetup = (currThread) => {
-    let final =
-      props.threadID.toString() + "/" + currThread.replace(/\s+/g, "_");
-    return final;
+    if (props.threadID) {
+      let final =
+        "/" + props.threadID.toString() + "/" + currThread.replace(/\s+/g, "_");
+      return final;
+    } else {
+      return;
+    }
   };
 
   return (
@@ -54,9 +61,14 @@ function ThreadBox(props) {
       <li className="row">
         <a href={urlSetup(props.title)}>
           <div className="top">
-            <h4 className="username">{props.name}</h4>
+            <div className="user-picture">
+              <img src={`/assets/${props.pfp}.jpg`} alt="shuffle"></img>
+              <h4 className="username">{props.name}</h4>
+            </div>
+
             <h2 className="title">{props.title}</h2>
             <h5 className="timestamp">{props.timestamp}</h5>
+
             <div className="comment-feedback">
               <div className="left-comment">
                 <img src={message} alt="message-img"></img>
@@ -70,31 +82,39 @@ function ThreadBox(props) {
         <div className="bottom">
           <div className="feedback">
             <div className="left-feedback">
-              <button
-                onClick={() => {
-                  rateThread("l");
-                }}
-                className={`likeBtn ${props.isLiked === "l" ? "liked" : ""}`}
-                disabled={props.isLiked === "g"}
-              >
-                <img src={like} alt="like-img" />
-              </button>
+              {props.main ? (
+                <button
+                  onClick={() => {
+                    rateThread("l");
+                  }}
+                  className={`likeBtn ${props.isLiked === "l" ? "liked" : ""}`}
+                  disabled={props.isLiked === "g"}
+                >
+                  <img src={like} alt="like-img" />
+                </button>
+              ) : (
+                <></>
+              )}
             </div>
             <div className="middle-feedback">
               <p>{props.score}</p>
             </div>
             <div className="right-feedback">
-              <button
-                onClick={() => {
-                  rateThread("d");
-                }}
-                className={`dislikeBtn ${
-                  props.isLiked === "d" ? "disliked" : ""
-                }`}
-                disabled={props.isLiked === "g"}
-              >
-                <img src={dislike} alt="dislike-img" />
-              </button>
+              {props.main ? (
+                <button
+                  onClick={() => {
+                    rateThread("d");
+                  }}
+                  className={`dislikeBtn ${
+                    props.isLiked === "d" ? "disliked" : ""
+                  }`}
+                  disabled={props.isLiked === "g"}
+                >
+                  <img src={dislike} alt="dislike-img" />
+                </button>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>

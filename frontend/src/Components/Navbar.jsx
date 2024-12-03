@@ -4,29 +4,31 @@ import Dropdown from "./Dropdown.jsx";
 import usericonwhite from "../assets/images/usericonwhite.png";
 import bell from "../assets/images/bell.png";
 import logout from "../assets/images/logout.png";
-import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import addUser from "../assets/images/add-user.png";
+import kangaroo from '../assets/images/kgroo.png'
 
 const Navbar = () => {
   const [DropDown, setDropDown] = useState(false);
   const { authState } = useContext(AuthContext);
   const { setAuthState } = useContext(AuthContext);
+
   const signOut = () => {
     localStorage.removeItem("accessToken");
     setAuthState({ username: "", id: 0, status: false });
   };
   return (
     <header className="header">
-      <a href="/" className="logo">
+      <a href="/home" className="logo">
+      <img src={ kangaroo }></img>
         Kangaroo
       </a>
       {authState.status ? (
         <nav className="navbar">
-          <Link to="/Profile">
+          <a href={`/${authState.id}/${authState.username}`}>
             <img src={usericonwhite} alt="user-icon-white"></img>
-          </Link>
+          </a>
 
           <a
             className="notification"

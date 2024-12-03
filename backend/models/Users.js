@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 0,
       },
     },
-    { timestamps: false }
+    { timestamps: true }
   );
 
   return Users;

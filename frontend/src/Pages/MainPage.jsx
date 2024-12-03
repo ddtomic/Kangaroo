@@ -13,12 +13,15 @@ import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import * as Yup from "yup";
 import Footer from "../Components/Footer";
+
 const MainPage = () => {
   const [threadList, setThreadList] = useState([]);
   const [activeLink, setActiveLink] = useState(1);
+  const [leaderboard, setLeaderboard] = useState([]);
 
   const handleLinkClick = (linkNumber) => {
     setActiveLink(linkNumber);
+    threadRefresh(linkNumber);
   };
 
   const formatDate = (dateString) => {
@@ -60,7 +63,7 @@ const MainPage = () => {
       .then((data) => {
         console.log("Thread created successfully:", data);
         resetForm();
-        threadRefresh();
+        threadRefresh(activeLink);
       })
       .catch((error) => {
         console.log(data);
@@ -83,7 +86,18 @@ const MainPage = () => {
     }
   };
 
-  const getThreads = async () => {
+  const getLeaderBoard = async () => {
+    await axios
+      .get("http://18.119.120.175:3002/auth/leaderboard")
+      .then((response) => {
+        setLeaderboard(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const getThreads = async (link) => {
     const userInfo = await authUser();
     if (userInfo === "no user") {
       try {
@@ -118,8 +132,23 @@ const MainPage = () => {
           })
         );
 
-        // Update the state with the final array
-        setThreadList(threadsWithReplies);
+        if (link === 3) {
+          const replycountSortList = [...threadsWithReplies].sort(
+            (a, b) => b.replyCount - a.replyCount
+          );
+          console.log("reply count sorted:", replycountSortList);
+          return setThreadList(replycountSortList);
+        } else if (link === 2) {
+          const ratingSortList = [...threadsWithReplies].sort(
+            (a, b) => b.score - a.score
+          );
+          console.log("rating sorted:", ratingSortList);
+          return setThreadList(ratingSortList);
+        } else {
+          //Sorted by date desc.
+          console.log("date sorted:", threadsWithReplies);
+          return setThreadList(threadsWithReplies);
+        }
       } catch (error) {
         console.error("Failed to get threads:", error);
       }
@@ -166,22 +195,38 @@ const MainPage = () => {
           })
         );
 
-        // Update the state with the final array
-        setThreadList(threadsWithReplies);
+        if (link === 3) {
+          const replycountSortList = [...threadsWithReplies].sort(
+            (a, b) => b.replyCount - a.replyCount
+          );
+          console.log("reply count sorted:", replycountSortList);
+          return setThreadList(replycountSortList);
+        } else if (link === 2) {
+          const ratingSortList = [...threadsWithReplies].sort(
+            (a, b) => b.score - a.score
+          );
+          console.log("rating sorted:", ratingSortList);
+          return setThreadList(ratingSortList);
+        } else {
+          //Sorted by date desc.
+          console.log("date sorted:", threadsWithReplies);
+          return setThreadList(threadsWithReplies);
+        }
       } catch (error) {
         console.error("Failed to get threads:", error);
       }
     }
   };
 
-  const threadRefresh = () => {
+  const threadRefresh = (link) => {
     console.log("refreshing threads");
-    getThreads();
+    getThreads(link);
   };
 
   useEffect(() => {
     authUser();
-    getThreads();
+    getThreads(1);
+    getLeaderBoard();
   }, []);
 
   return (
@@ -192,7 +237,11 @@ const MainPage = () => {
         <p>Welcome to Kangaroo!</p>
         <div className="upper-search">
           <img src={search} alt="search-img"></img>
-          <input type="text" placeholder="Search Roo..." />
+          <Formik>
+            <Form>
+              <Field type="text" placeholder="Search Roo..." name="searchBar" />
+            </Form>
+          </Formik>
         </div>
       </div>
 
@@ -202,7 +251,7 @@ const MainPage = () => {
           of online conversations
         </p>
         <div className="roo-header">
-          <p>Roo's</p>
+          <p>Pouches</p>
         </div>
         <div className="roo-catagories">
           <a
@@ -226,7 +275,20 @@ const MainPage = () => {
         </div>
         <div className="middle-container">
           <div className="left-container">
-            <Leaderbaord name="bem" count={3}></Leaderbaord>
+            <div className="leaderboard-header">
+              <p>Leaderboard</p>
+            </div>
+            {leaderboard.map((value, key) => {
+              return (
+                <Leaderbaord
+                  key={key}
+                  userID={value.userID}
+                  name={value.username}
+                  count={value.score}
+                  pfp={value.pfp}
+                ></Leaderbaord>
+              );
+            })}
           </div>
 
           <div className="container">
@@ -234,6 +296,7 @@ const MainPage = () => {
               return (
                 <ThreadBox
                   key={key}
+                  main={true}
                   threadID={value.threadID}
                   name={value.userThread.username}
                   title={value.title}
@@ -241,7 +304,8 @@ const MainPage = () => {
                   replyCount={value.replyCount}
                   score={value.score}
                   isLiked={value.rating}
-                  refreshThread={() => threadRefresh()}
+                  pfp={value.userThread.pfp}
+                  refreshThread={() => threadRefresh(activeLink)}
                 ></ThreadBox>
               );
             })}

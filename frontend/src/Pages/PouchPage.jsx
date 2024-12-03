@@ -13,10 +13,12 @@ import axios from "axios";
 
 PouchPage.propTypes = {
   keyer: propTypes.number,
+  userID: propTypes.number,
   threadID: propTypes.number,
   name: propTypes.string,
   title: propTypes.string,
   timestamp: propTypes.string,
+  pfp: propTypes.number,
 };
 
 function PouchPage(props) {
@@ -122,7 +124,6 @@ function PouchPage(props) {
             isLiked: "g",
           };
         });
-        console.log(finalComments);
         return setThreadReplies(finalComments);
       } catch (error) {
         console.log("error:", error);
@@ -157,7 +158,6 @@ function PouchPage(props) {
           isLiked: isRating ? isRating.rating : "n",
         };
       });
-      console.log(finalComments);
       return setThreadReplies(finalComments);
     } catch (error) {
       console.log("error:", error);
@@ -206,6 +206,7 @@ function PouchPage(props) {
       <Navbar />
       <Pouch
         name={props.name}
+        userID={props.userID}
         threadID={props.threadID}
         comment={props.comment}
         title={props.title}
@@ -213,6 +214,7 @@ function PouchPage(props) {
         replycount={threadReplies.length}
         likecount={threadInfo.score}
         isLiked={threadInfo.rating}
+        pfp={props.pfp}
         refreshRating={() => ratingRefresh()}
       />
 
@@ -277,6 +279,8 @@ function PouchPage(props) {
               commentID={value.commentID}
               rating={value.isLiked}
               refreshComments={() => commentRefresh()}
+              pfp={value.userComment.pfp}
+              userID={value.userID}
               key={key}
             />
           );

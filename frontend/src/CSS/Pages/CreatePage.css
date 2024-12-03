@@ -12,7 +12,7 @@
   border-style: solid;
   border-width: thin;
   padding: 2vh;
-  width: 50vh;
+  width: 100%;
   height: auto;
 }
 
@@ -58,4 +58,9 @@
 
 .create-container button:hover {
   background-color: #ae7afc;
+}
+
+.create-container button:disabled{
+  background-color: #ae7afc;
+  cursor: not-allowed;
 }

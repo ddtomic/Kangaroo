@@ -6,6 +6,7 @@ import PouchPage from "./Pages/PouchPage";
 import ProfilePage from "./Pages/ProfilePage";
 import axios from "axios";
 import { AuthContext } from "./helpers/AuthContext";
+import SearchPage from "./Pages/SearchPage";
 
 const App = () => {
   const [threadList, setThreadList] = useState([]);
@@ -26,7 +27,7 @@ const App = () => {
 
   const getThreads = async () => {
     axios
-      .get("http://18.119.120.175:3002/thread/date")
+      .get("https://kangaroo.click:3002/thread/date")
       .then((response) => {
         setThreadList(response.data);
       })
@@ -35,7 +36,7 @@ const App = () => {
 
   const authUser = async () => {
     axios
-      .get("http://18.119.120.175:3002/auth/", {
+      .get("https://kangaroo.click:3002/auth/", {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then((response) => {
@@ -53,7 +54,7 @@ const App = () => {
 
   const getUserProfiles = async () => {
     await axios
-      .get("http://18.119.120.175:3002/auth/users")
+      .get("https://kangaroo.click:3002/auth/users")
       .then((response) => {
         setUserList(response.data);
       })
@@ -75,7 +76,8 @@ const App = () => {
   return (
     <AuthContext.Provider value={{ authState, setAuthState }}>
       <Routes>
-        <Route path="/home" element={<MainPage />} />
+        <Route path="/search/:query" element={<SearchPage />} />
+        <Route path="*" element={<MainPage />} />
         {threadList.map((value, key) => {
           return (
             <Route

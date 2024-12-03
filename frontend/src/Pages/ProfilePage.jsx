@@ -54,7 +54,7 @@ function ProfilePage(props) {
 
   const getUserInfo = async () => {
     const info = await axios
-      .get(`http://18.119.120.175:3002/auth/profile/${props.userID}`)
+      .get(`https://kangaroo.click:3002/auth/profile/${props.userID}`)
       .catch((error) => {
         console.error(error);
       });
@@ -66,7 +66,7 @@ function ProfilePage(props) {
   const postPFP = async (pfp) => {
     //updates users pfp value
     await axios
-      .post("http://18.119.120.175:3002/auth/pfp", {
+      .post("https://kangaroo.click:3002/auth/pfp", {
         userID: props.userID,
         pfp: pfp,
       })
@@ -81,7 +81,7 @@ function ProfilePage(props) {
 
   const postBio = async (bio) => {
     await axios
-      .post("http://18.119.120.175:3002/auth/bio", {
+      .post("https://kangaroo.click:3002/auth/bio", {
         userID: props.userID,
         bio: bio,
       })

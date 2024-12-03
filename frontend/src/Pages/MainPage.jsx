@@ -1,4 +1,4 @@
-import axios, { all } from "axios";
+import axios from "axios";
 import React from "react";
 import "../CSS/Pages/MainPage.css";
 import Navbar from "../Components/Navbar";
@@ -13,11 +13,14 @@ import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import * as Yup from "yup";
 import Footer from "../Components/Footer";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
   const [threadList, setThreadList] = useState([]);
   const [activeLink, setActiveLink] = useState(1);
   const [leaderboard, setLeaderboard] = useState([]);
+
+  const navTo = useNavigate();
 
   const handleLinkClick = (linkNumber) => {
     setActiveLink(linkNumber);
@@ -33,6 +36,21 @@ const MainPage = () => {
   };
 
   const { authState } = useContext(AuthContext);
+
+  const searchInitialValues = {
+    searchBar: "",
+  };
+
+  const searchValidationSchema = Yup.object().shape({
+    searchBar: Yup.string()
+      .min(1, "Search needs at least 1 character!")
+      .required("Search content is required!"),
+  });
+
+  const submitSearch = (query, { resetForm }) => {
+    navTo(`/search/${query.searchBar}`);
+    resetForm();
+  };
 
   const initialValues = {
     threadTitle: "",
@@ -53,7 +71,7 @@ const MainPage = () => {
   const postThread = (data, { resetForm }) => {
     axios
       .post(
-        "http://18.119.120.175:3002/thread/create",
+        "https://kangaroo.click:3002/thread/create",
         (data = {
           threadTitle: data.threadTitle,
           threadContent: data.threadContent,
@@ -73,7 +91,7 @@ const MainPage = () => {
 
   const authUser = async () => {
     const state = await axios
-      .get("http://18.119.120.175:3002/auth/", {
+      .get("https://kangaroo.click:3002/auth/", {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .catch((error) => {
@@ -88,7 +106,7 @@ const MainPage = () => {
 
   const getLeaderBoard = async () => {
     await axios
-      .get("http://18.119.120.175:3002/auth/leaderboard")
+      .get("https://kangaroo.click:3002/auth/leaderboard")
       .then((response) => {
         setLeaderboard(response.data);
       })
@@ -102,7 +120,7 @@ const MainPage = () => {
     if (userInfo === "no user") {
       try {
         const threadResponse = await axios.get(
-          "http://18.119.120.175:3002/thread/date"
+          "https://kangaroo.click:3002/thread/date"
         );
         const threads = threadResponse.data;
 
@@ -110,11 +128,11 @@ const MainPage = () => {
           threads.map(async (thread) => {
             try {
               const commentResponse = await axios.get(
-                `http://18.119.120.175:3002/comment/comms/${thread.threadID}`
+                `https://kangaroo.click:3002/comment/comms/${thread.threadID}`
               );
 
               const ratingResponse = await axios.get(
-                `http://18.119.120.175:3002/rate/threadrates/${thread.threadID}`
+                `https://kangaroo.click:3002/rate/threadrates/${thread.threadID}`
               );
 
               return {
@@ -155,7 +173,7 @@ const MainPage = () => {
     } else {
       try {
         const threadResponse = await axios.get(
-          "http://18.119.120.175:3002/thread/date"
+          "https://kangaroo.click:3002/thread/date"
         );
         const threads = threadResponse.data;
 
@@ -163,16 +181,16 @@ const MainPage = () => {
           threads.map(async (thread) => {
             try {
               const commentResponse = await axios.get(
-                `http://18.119.120.175:3002/comment/comms/${thread.threadID}`
+                `https://kangaroo.click:3002/comment/comms/${thread.threadID}`
               );
 
               const ratingResponse = await axios.get(
-                `http://18.119.120.175:3002/rate/threadrates/${thread.threadID}`
+                `https://kangaroo.click:3002/rate/threadrates/${thread.threadID}`
               );
 
               const rating = await axios
                 .get(
-                  `http://18.119.120.175:3002/auth/threadlikes/${userInfo.data.id}/${thread.threadID}`
+                  `https://kangaroo.click:3002/auth/threadlikes/${userInfo.data.id}/${thread.threadID}`
                 )
                 .catch((error) => {
                   if (error.status === 404) {
@@ -237,9 +255,18 @@ const MainPage = () => {
         <p>Welcome to Kangaroo!</p>
         <div className="upper-search">
           <img src={search} alt="search-img"></img>
-          <Formik>
+          <Formik
+            initialValues={searchInitialValues}
+            validationSchema={searchValidationSchema}
+            onSubmit={submitSearch}
+          >
             <Form>
-              <Field type="text" placeholder="Search Roo..." name="searchBar" />
+              <Field
+                autoComplete="off"
+                type="text"
+                placeholder="Search Roo..."
+                name="searchBar"
+              />
             </Form>
           </Formik>
         </div>

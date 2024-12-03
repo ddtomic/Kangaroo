@@ -1,0 +1,12 @@
+.result-container {
+  border-radius: 5px;
+  border-width: 15px;
+  margin-top: 5vh;
+  height: 100vh;
+  min-width: 75vh;
+  background-color: white;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}

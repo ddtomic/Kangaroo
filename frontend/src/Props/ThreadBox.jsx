@@ -24,11 +24,10 @@ function ThreadBox(props) {
     main: propTypes.bool,
   };
   const { authState } = useContext(AuthContext);
-  const navTo = useNavigate();
 
   const rateThread = (rate) => {
     axios
-      .post("http://18.119.120.175:3002/rate/thread", {
+      .post("https://kangaroo.click:3002/rate/thread", {
         userID: authState.id,
         threadID: props.threadID,
         rating: rate,

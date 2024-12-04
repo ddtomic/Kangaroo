@@ -26,7 +26,7 @@ app.use("/rate", rateRouter);
 
 // Sync and start the server
 db.db.sequelize
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => {
     app.listen(3002, "0.0.0.0", () => {
       console.log("Server running on port 3002");

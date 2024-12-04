@@ -17,7 +17,7 @@ const db = {};
 //     port: 3002,
 //   };
 const sequelize = new Sequelize(
-  procss.env.DB_NAME,
+  process.env.DB_NAME,
   process.env.DB_USERNAME,
   process.env.DB_PASSWORD,
   {

@@ -4,14 +4,22 @@ import Footer from "../Components/Footer";
 import "../CSS/Pages/SearchPage.css";
 import ThreadBox from "../Props/ThreadBox";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useParams, useNavigate } from "react-router-dom";
+import { Formik, Form, Field } from "formik";
 import search from "../assets/images/icons8-search-50.png";
+import * as Yup from "yup";
 
 const SearchPage = () => {
   const [results, setResults] = useState([]);
 
   const { query } = useParams();
+  const navTo = useNavigate();
+
+  const searchValidationSchema = Yup.object().shape({
+    searchBar: Yup.string()
+      .min(1, "Search needs at least 1 character!")
+      .required("Search content is required!"),
+  });
 
   const formatDate = (dateString) => {
     const date = new Date(dateString); // Parse the incoming date string
@@ -21,9 +29,14 @@ const SearchPage = () => {
     }).format(date);
   };
 
-  const getResults = async () => {
+  const reSearch = (data) => {
+    navTo(`/search/${data.searchBar}`);
+    getResults(data.searchBar);
+  };
+
+  const getResults = async (q) => {
     await axios
-      .get(`http://localhost:3002/thread/search/${query}`)
+      .get(`http://localhost:3002/thread/search/${q}`)
       .then((response) => {
         return setResults(response.data);
       })
@@ -33,7 +46,7 @@ const SearchPage = () => {
   };
 
   useEffect(() => {
-    getResults();
+    getResults(query);
   }, []);
   return (
     <div className="search-container">
@@ -41,13 +54,13 @@ const SearchPage = () => {
       <div className="main-container">
         <div className="heading-container">
           <h2>Search Our Community!</h2>
-          <h4>Showing reusts for 'Hello'.</h4>
+          <h4>Showing reusts for "{query}".</h4>
           <div className="search-search">
             <img src={search} alt="search-img"></img>
             <Formik
               initialValues={{ searchBar: query }}
-              //validationSchema={searchValidationSchema}
-              //onSubmit={submitSearch}
+              validationSchema={searchValidationSchema}
+              onSubmit={reSearch}
             >
               <Form>
                 <Field

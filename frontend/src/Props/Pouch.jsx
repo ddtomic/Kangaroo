@@ -36,11 +36,6 @@ function Pouch(prop) {
         rating: rate,
       })
       .then((response) => {
-        if (rate === "l") {
-          console.log("Like:", response.data);
-        } else {
-          console.log("Dislike:", response.data);
-        }
         refreshRating();
       })
       .catch((error) => {
@@ -49,7 +44,6 @@ function Pouch(prop) {
   };
 
   const delThread = async () => {
-    console.log("hi");
     await axios
       .delete(`http://localhost:3002/thread/threads/${prop.threadID}`)
       .then((response) => {
@@ -92,7 +86,6 @@ function Pouch(prop) {
                     <button
                       onClick={() => {
                         rateThread("l");
-                        console.log(prop.likecount);
                       }}
                       className={`likePouch ${
                         prop.isLiked === "l" ? "liked" : ""
@@ -109,7 +102,6 @@ function Pouch(prop) {
                     <button
                       onClick={() => {
                         rateThread("d");
-                        console.log(prop.likecount);
                       }}
                       className={`dislikePouch ${
                         prop.isLiked === "d" ? "disliked" : ""

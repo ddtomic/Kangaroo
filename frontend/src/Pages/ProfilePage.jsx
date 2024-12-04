@@ -10,7 +10,6 @@ import axios from "axios";
 import { Formik, Form, Field } from "formik";
 import Footer from "../Components/Footer";
 
-
 function ProfilePage(props) {
   ProfilePage.propTypes = {
     name: propTypes.string,
@@ -70,9 +69,7 @@ function ProfilePage(props) {
         userID: props.userID,
         pfp: pfp,
       })
-      .then((response) => {
-        console.log(response);
-      })
+      .then((response) => {})
       .catch((error) => {
         console.error(error);
       });
@@ -86,7 +83,6 @@ function ProfilePage(props) {
         bio: bio,
       })
       .then((response) => {
-        console.log(response.data);
         return;
       })
       .catch((error) => {
@@ -238,31 +234,31 @@ function ProfilePage(props) {
           <>
             {userComment.map((value, key) => {
               return (
-                <div className='comment-container' key={key}>
+                <div className="comment-container" key={key}>
                   <a href={urlSetup(value.threadComments)}>
-                  <div className="left-pouch">
-                    <div className="top-comment">
-                      <div className="top-comment-picture">
-                        <img
-                          src={`/assets/${props.pfp}.jpg`}
-                          alt="shuffle-img"
-                        ></img>
-                        <h3 className="comment-username">{props.name}</h3>
-                      </div>
+                    <div className="left-pouch">
+                      <div className="top-comment">
+                        <div className="top-comment-picture">
+                          <img
+                            src={`/assets/${props.pfp}.jpg`}
+                            alt="shuffle-img"
+                          ></img>
+                          <h3 className="comment-username">{props.name}</h3>
+                        </div>
 
-                      <h4 className="date-comment">
-                        {formatDate(value.createdAt)}
-                      </h4>
+                        <h4 className="date-comment">
+                          {formatDate(value.createdAt)}
+                        </h4>
+                      </div>
+                      <div className="bottom-comment">
+                        <h3 className="comment-comment">{value.content}</h3>
+                      </div>
                     </div>
-                    <div className="bottom-comment">
-                      <h3 className="comment-comment">{value.content}</h3>
+                    <div className="right-pouch">
+                      <div>
+                        <p>Score: {value.score}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="right-pouch">
-                    <div>
-                      <p>Score: {value.score}</p>
-                    </div>
-                  </div>
                   </a>
                 </div>
               );
@@ -320,9 +316,8 @@ function ProfilePage(props) {
           </div>
         </div>
       )}
-      
 
-      <Footer/>
+      <Footer />
     </div>
   );
 }

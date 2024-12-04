@@ -79,12 +79,10 @@ const MainPage = () => {
         })
       )
       .then((data) => {
-        console.log("Thread created successfully:", data);
         resetForm();
         threadRefresh(activeLink);
       })
       .catch((error) => {
-        console.log(data);
         console.error("Error creating thread:", error);
       });
   };
@@ -154,17 +152,14 @@ const MainPage = () => {
           const replycountSortList = [...threadsWithReplies].sort(
             (a, b) => b.replyCount - a.replyCount
           );
-          console.log("reply count sorted:", replycountSortList);
           return setThreadList(replycountSortList);
         } else if (link === 2) {
           const ratingSortList = [...threadsWithReplies].sort(
             (a, b) => b.score - a.score
           );
-          console.log("rating sorted:", ratingSortList);
           return setThreadList(ratingSortList);
         } else {
           //Sorted by date desc.
-          console.log("date sorted:", threadsWithReplies);
           return setThreadList(threadsWithReplies);
         }
       } catch (error) {
@@ -217,17 +212,14 @@ const MainPage = () => {
           const replycountSortList = [...threadsWithReplies].sort(
             (a, b) => b.replyCount - a.replyCount
           );
-          console.log("reply count sorted:", replycountSortList);
           return setThreadList(replycountSortList);
         } else if (link === 2) {
           const ratingSortList = [...threadsWithReplies].sort(
             (a, b) => b.score - a.score
           );
-          console.log("rating sorted:", ratingSortList);
           return setThreadList(ratingSortList);
         } else {
           //Sorted by date desc.
-          console.log("date sorted:", threadsWithReplies);
           return setThreadList(threadsWithReplies);
         }
       } catch (error) {
@@ -237,7 +229,6 @@ const MainPage = () => {
   };
 
   const threadRefresh = (link) => {
-    console.log("refreshing threads");
     getThreads(link);
   };
 
@@ -274,180 +265,179 @@ const MainPage = () => {
         </div>
       </div>
 
-      <div className="middle-body">
-        <p className="middle-p">
-          Collaborate with a community of creators who are building the future
-          of online conversations
-        </p>
-        <div className="roo-header">
-          <p>Pouches</p>
-        </div>
-        <div className="roo-catagories">
-          <a
-            onClick={() => handleLinkClick(1)}
-            className={`link ${activeLink === 1 ? "active" : ""}`}
-          >
-            Most Recent
-          </a>
-          <a
-            onClick={() => handleLinkClick(2)}
-            className={`link ${activeLink === 2 ? "active" : ""}`}
-          >
-            Most Liked
-          </a>
-          <a
-            onClick={() => handleLinkClick(3)}
-            className={`link ${activeLink === 3 ? "active" : ""}`}
-          >
-            Most Commented
-          </a>
-        </div>
-        <div className="middle-container">
-          <div className="left-container">
-            <div className="leaderboard-header">
-              <p>Leaderboard</p>
-            </div>
-            {leaderboard.map((value, key) => {
-              return (
-                <Leaderbaord
-                  key={key}
-                  userID={value.userID}
-                  name={value.username}
-                  count={value.score}
-                  pfp={value.pfp}
-                ></Leaderbaord>
-              );
-            })}
+        <div className="middle-body">
+          <p className="middle-p">
+            Collaborate with a community of creators who are building the future
+            of online conversations
+          </p>
+          <div className="roo-header">
+            <p>Pouches</p>
           </div>
-
-          <div className="container">
-            {threadList.map((value, key) => {
-              return (
-                <ThreadBox
-                  key={key}
-                  main={true}
-                  threadID={value.threadID}
-                  name={value.userThread.username}
-                  title={value.title}
-                  timestamp={formatDate(value.createdAt)}
-                  replyCount={value.replyCount}
-                  score={value.score}
-                  isLiked={value.rating}
-                  pfp={value.userThread.pfp}
-                  refreshThread={() => threadRefresh(activeLink)}
-                ></ThreadBox>
-              );
-            })}
+          <div className="roo-catagories">
+            <a
+              onClick={() => handleLinkClick(1)}
+              className={`link ${activeLink === 1 ? "active" : ""}`}
+            >
+              Most Recent
+            </a>
+            <a
+              onClick={() => handleLinkClick(2)}
+              className={`link ${activeLink === 2 ? "active" : ""}`}
+            >
+              Most Liked
+            </a>
+            <a
+              onClick={() => handleLinkClick(3)}
+              className={`link ${activeLink === 3 ? "active" : ""}`}
+            >
+              Most Commented
+            </a>
           </div>
-          {authState.status ? (
-            //SIGNED IN
-            <div className="right-container">
-              <div className="create-container">
-                <h2>New Conversation</h2>
-                <h4>Ask a question, start a discussion or start an idea.</h4>
-                <p>Title</p>
-                <Formik
-                  initialValues={initialValues}
-                  validationSchema={validationSchema}
-                  onSubmit={postThread}
-                >
-                  <Form>
-                    <ErrorMessage
-                      name="threadTitle"
-                      className="error"
-                      component="span"
-                    />
-                    <Field
-                      className="title-input"
-                      autoComplete="off"
-                      name="threadTitle"
-                      placeholder="Enter title here..."
-                    />
-
-                    <p>Thread Content</p>
-                    <ErrorMessage
-                      name="threadContent"
-                      className="error"
-                      component="span"
-                    />
-                    <Field
-                      className="desc-input"
-                      as="textarea"
-                      rows="5"
-                      cols="30"
-                      autoComplete="off"
-                      name="threadContent"
-                      placeholder="Be specific enough to intrigue but vague enough to invite curiosity."
-                    />
-
-                    <button type="submit" className="create-button">
-                      Create
-                    </button>
-                  </Form>
-                </Formik>
+          <div className="middle-container">
+            <div className="left-container">
+              <div className="leaderboard-header">
+                <p>Leaderboard</p>
               </div>
+              {leaderboard.map((value, key) => {
+                return (
+                  <Leaderbaord
+                    key={key}
+                    userID={value.userID}
+                    name={value.username}
+                    count={value.score}
+                    pfp={value.pfp}
+                  ></Leaderbaord>
+                );
+              })}
             </div>
-          ) : (
-            //NOT SIGNED IN
-            <div className="right-container">
-              <div className="create-container">
-                <h2>New Conversation</h2>
-                <h4>Ask a question, start a discussion or start an idea.</h4>
-                <p>Title</p>
-                <Formik
-                  initialValues={initialValues}
-                  validationSchema={validationSchema}
-                  onSubmit={postThread}
-                >
-                  <Form>
-                    <ErrorMessage
-                      name="threadTitle"
-                      className="error"
-                      component="span"
-                    />
-                    <Field
-                      disabled={true}
-                      className="title-input"
-                      autoComplete="off"
-                      name="threadTitle"
-                      placeholder="Login or sign up to join the conversation!"
-                    />
 
-                    <p>Thread Content</p>
-                    <ErrorMessage
-                      name="threadContent"
-                      className="error"
-                      component="span"
-                    />
-                    <Field
-                      disabled={true}
-                      className="desc-input"
-                      as="textarea"
-                      rows="5"
-                      cols="30"
-                      autoComplete="off"
-                      name="threadContent"
-                      placeholder="Login or sign up to join the conversation!"
-                    />
+            <div className="container">
+              {threadList.map((value, key) => {
+                return (
+                  <ThreadBox
+                    key={key}
+                    main={true}
+                    threadID={value.threadID}
+                    name={value.userThread.username}
+                    title={value.title}
+                    timestamp={formatDate(value.createdAt)}
+                    replyCount={value.replyCount}
+                    score={value.score}
+                    isLiked={value.rating}
+                    pfp={value.userThread.pfp}
+                    refreshThread={() => threadRefresh(activeLink)}
+                  ></ThreadBox>
+                );
+              })}
+            </div>
+            {authState.status ? (
+              //SIGNED IN
+              <div className="right-container">
+                <div className="create-container">
+                  <h2>New Conversation</h2>
+                  <h4>Ask a question, start a discussion or start an idea.</h4>
+                  <p>Title</p>
+                  <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={postThread}
+                  >
+                    <Form>
+                      <ErrorMessage
+                        name="threadTitle"
+                        className="error"
+                        component="span"
+                      />
+                      <Field
+                        className="title-input"
+                        autoComplete="off"
+                        name="threadTitle"
+                        placeholder="Enter title here..."
+                      />
 
-                    <button
-                      disabled={true}
-                      type="submit"
-                      className="create-button"
-                    >
-                      Create
-                    </button>
-                  </Form>
-                </Formik>
+                      <p>Thread Content</p>
+                      <ErrorMessage
+                        name="threadContent"
+                        className="error"
+                        component="span"
+                      />
+                      <Field
+                        className="desc-input"
+                        as="textarea"
+                        rows="5"
+                        cols="30"
+                        autoComplete="off"
+                        name="threadContent"
+                        placeholder="Be specific enough to intrigue but vague enough to invite curiosity."
+                      />
+
+                      <button type="submit" className="create-button">
+                        Create
+                      </button>
+                    </Form>
+                  </Formik>
+                </div>
               </div>
-            </div>
-          )}
+            ) : (
+              //NOT SIGNED IN
+              <div className="right-container">
+                <div className="create-container">
+                  <h2>New Conversation</h2>
+                  <h4>Ask a question, start a discussion or start an idea.</h4>
+                  <p>Title</p>
+                  <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={postThread}
+                  >
+                    <Form>
+                      <ErrorMessage
+                        name="threadTitle"
+                        className="error"
+                        component="span"
+                      />
+                      <Field
+                        disabled={true}
+                        className="title-input"
+                        autoComplete="off"
+                        name="threadTitle"
+                        placeholder="Login or sign up to join the conversation!"
+                      />
+
+                      <p>Thread Content</p>
+                      <ErrorMessage
+                        name="threadContent"
+                        className="error"
+                        component="span"
+                      />
+                      <Field
+                        disabled={true}
+                        className="desc-input"
+                        as="textarea"
+                        rows="5"
+                        cols="30"
+                        autoComplete="off"
+                        name="threadContent"
+                        placeholder="Login or sign up to join the conversation!"
+                      />
+
+                      <button
+                        disabled={true}
+                        type="submit"
+                        className="create-button"
+                      >
+                        Create
+                      </button>
+                    </Form>
+                  </Formik>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
-    </div>
-    
   );
 };
 

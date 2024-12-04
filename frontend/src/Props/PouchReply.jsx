@@ -31,11 +31,6 @@ function PouchReply(prop) {
         rating: rating,
       })
       .then((response) => {
-        if (rating === "l") {
-          console.log("Like:", response.data);
-        } else {
-          console.log("Dislike:", response.data);
-        }
         ratingRefresh();
         refreshComments();
       })
@@ -55,7 +50,6 @@ function PouchReply(prop) {
   };
 
   const delComment = async () => {
-    console.log("hi");
     await axios
       .delete(`http://localhost:3002/comment/comments/${prop.commentID}`)
       .then((response) => {

@@ -33,11 +33,6 @@ function ThreadBox(props) {
         rating: rate,
       })
       .then((response) => {
-        if (rate === "l") {
-          console.log("Like:", response.data);
-        } else {
-          console.log("Dislike:", response.data);
-        }
         refreshThread();
       })
       .catch((error) => {

@@ -339,6 +339,8 @@ router.get("/leaderboard", async (req, res) => {
   }
 });
 
+//Get all notifications (thread likes + comments + comment likes)
+
 //Verify login token
 router.get("/", validateToken, (req, res) => {
   return res.json(req.user);

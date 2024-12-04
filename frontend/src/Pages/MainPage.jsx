@@ -242,28 +242,30 @@ const MainPage = () => {
     <div>
       <Navbar />
       <div className="main">
-      <div className="upper-body">
-        <img src={design} alt="background-image"></img>
-        <p>Hi <span class="username-main">{authState.username}</span>,</p>
-        <p>welcome to Kangaroo!</p>
-        <div className="upper-search">
-          <img src={search} alt="search-img"></img>
-          <Formik
-            initialValues={searchInitialValues}
-            validationSchema={searchValidationSchema}
-            onSubmit={submitSearch}
-          >
-            <Form>
-              <Field
-                autoComplete="off"
-                type="text"
-                placeholder="Search Roo..."
-                name="searchBar"
-              />
-            </Form>
-          </Formik>
+        <div className="upper-body">
+          <img src={design} alt="background-image"></img>
+          <p>
+            Hi <span class="username-main">{authState.username}</span>,
+          </p>
+          <p>welcome to Kangaroo!</p>
+          <div className="upper-search">
+            <img src={search} alt="search-img"></img>
+            <Formik
+              initialValues={searchInitialValues}
+              validationSchema={searchValidationSchema}
+              onSubmit={submitSearch}
+            >
+              <Form>
+                <Field
+                  autoComplete="off"
+                  type="text"
+                  placeholder="Search Roo..."
+                  name="searchBar"
+                />
+              </Form>
+            </Formik>
+          </div>
         </div>
-      </div>
 
         <div className="middle-body">
           <p className="middle-p">

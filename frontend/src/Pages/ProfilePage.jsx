@@ -8,6 +8,7 @@ import propTypes from "prop-types";
 import { AuthContext } from "../helpers/AuthContext";
 import axios from "axios";
 import { Formik, Form, Field } from "formik";
+import Footer from "../Components/Footer";
 
 function ProfilePage(props) {
   ProfilePage.propTypes = {
@@ -52,7 +53,7 @@ function ProfilePage(props) {
 
   const getUserInfo = async () => {
     const info = await axios
-      .get(`https://kangarooo.click:3002/auth/profile/${props.userID}`)
+      .get(`http://localhost:3002/auth/profile/${props.userID}`)
       .catch((error) => {
         console.error(error);
       });
@@ -64,7 +65,7 @@ function ProfilePage(props) {
   const postPFP = async (pfp) => {
     //updates users pfp value
     await axios
-      .post("https://kangarooo.click:3002/auth/pfp", {
+      .post("http://localhost:3002/auth/pfp", {
         userID: props.userID,
         pfp: pfp,
       })
@@ -77,7 +78,7 @@ function ProfilePage(props) {
 
   const postBio = async (bio) => {
     await axios
-      .post("https://kangarooo.click:3002/auth/bio", {
+      .post("http://localhost:3002/auth/bio", {
         userID: props.userID,
         bio: bio,
       })
@@ -233,36 +234,32 @@ function ProfilePage(props) {
           <>
             {userComment.map((value, key) => {
               return (
-                <div key={key}>
-                  <div className="left-pouch">
-                    <div className="top-comment">
-                      <div className="top-comment-picture">
-                        <img
-                          src={`/assets/${props.pfp}.jpg`}
-                          alt="shuffle-img"
-                        ></img>
-                        <h3 className="comment-username">{props.name}</h3>
-                      </div>
+                <div className="comment-container" key={key}>
+                  <a href={urlSetup(value.threadComments)}>
+                    <div className="left-pouch">
+                      <div className="top-comment">
+                        <div className="top-comment-picture">
+                          <img
+                            src={`/assets/${props.pfp}.jpg`}
+                            alt="shuffle-img"
+                          ></img>
+                          <h3 className="comment-username">{props.name}</h3>
+                        </div>
 
-                      <h4 className="date-comment">
-                        {formatDate(value.createdAt)}
-                      </h4>
+                        <h4 className="date-comment">
+                          {formatDate(value.createdAt)}
+                        </h4>
+                      </div>
+                      <div className="bottom-comment">
+                        <h3 className="comment-comment">{value.content}</h3>
+                      </div>
                     </div>
-                    <div className="bottom-comment">
-                      <h3 className="comment-comment">{value.content}</h3>
+                    <div className="right-pouch">
+                      <div>
+                        <p>Score: {value.score}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="right-pouch">
-                    <div>
-                      <p>Score: {value.score}</p>
-                      <a
-                        href={urlSetup(value.threadComments)}
-                        className="comment-route"
-                      >
-                        <p>{value.threadComments.title}</p>
-                      </a>
-                    </div>
-                  </div>
+                  </a>
                 </div>
               );
             })}
@@ -319,6 +316,8 @@ function ProfilePage(props) {
           </div>
         </div>
       )}
+
+      <Footer />
     </div>
   );
 }

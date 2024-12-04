@@ -7,6 +7,7 @@ import logout from "../assets/images/logout.png";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import addUser from "../assets/images/add-user.png";
+import kangaroo from '../assets/images/kgroo.png'
 
 const Navbar = () => {
   const [DropDown, setDropDown] = useState(false);
@@ -20,6 +21,7 @@ const Navbar = () => {
   return (
     <header className="header">
       <a href="/home" className="logo">
+      <img src={ kangaroo }></img>
         Kangaroo
       </a>
       {authState.status ? (

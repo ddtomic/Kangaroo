@@ -6,7 +6,7 @@
 }
 
 .pouch-background {
-  margin-top: 20vh;
+  margin-top: 10vw;
   position: absolute;
   display: flex;
   top: 0;
@@ -19,14 +19,14 @@
 
 .reply-container {
   padding: 3vh;
-
   border-style: solid;
   border-radius: 10px;
   border-width: thin;
   background-color: white;
   display: flex;
   flex-direction: column;
-  width: 150vh;
+  width: 75vw;
+  
 }
 
 .pouch-input {
@@ -57,7 +57,7 @@
 }
 
 .comment-box {
-  width: 150vh;
+  width: 75vw;
   min-height: 50vh;
   height: auto;
   margin-top: 5vh;

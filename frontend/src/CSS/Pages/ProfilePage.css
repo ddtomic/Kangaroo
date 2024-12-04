@@ -9,6 +9,12 @@
   color: gray;
 }
 
+.profile-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .profile-overview {
   margin-top: 20px;
   border-radius: 10px;
@@ -47,7 +53,7 @@
 }
 
 .user-pouches {
-  margin-top: 10px;
+  margin-top: 5vh;
   background-color: white;
   border-radius: 10px;
 
@@ -55,6 +61,8 @@
   -webkit-box-shadow: 28px 32px 51px -24px rgba(0, 0, 0, 0.57);
   -moz-box-shadow: 28px 32px 51px -24px rgba(0, 0, 0, 0.57);
   box-shadow: 28px 32px 51px -24px rgba(0, 0, 0, 0.57);
+  margin-bottom: 20vh;
+  width: 70vw;
 }
 
 .heading-container {
@@ -64,6 +72,7 @@
   justify-content: space-around;
   align-items: center;
 }
+
 .bio {
   color: darkgray;
 }
@@ -237,3 +246,22 @@ select {
   color: black;
   text-decoration: underline;
 }
+
+.comment-container{
+  width: 100%;
+  padding: 2vh 5vh;
+  display: flex;
+}
+
+.comment-container a{
+  color: black
+}
+
+.comment-container:hover{
+  background-color: rgb(238, 236, 236);
+}
+
+
+
+
+

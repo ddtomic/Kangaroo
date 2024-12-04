@@ -4,6 +4,7 @@ const { Thread, threadRate, Users, Comment } = require("../models");
 const { Op } = require("sequelize");
 const sequelize = require("sequelize");
 
+//Create a new thread
 router.post("/create", async (req, res) => {
   try {
     const { threadTitle, threadContent, userID } = req.body;

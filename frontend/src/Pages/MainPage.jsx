@@ -71,7 +71,7 @@ const MainPage = () => {
   const postThread = (data, { resetForm }) => {
     axios
       .post(
-        "https://kangaroo.click:3002/thread/create",
+        "https://kangarooo.click:3002/thread/create",
         (data = {
           threadTitle: data.threadTitle,
           threadContent: data.threadContent,
@@ -79,19 +79,17 @@ const MainPage = () => {
         })
       )
       .then((data) => {
-        console.log("Thread created successfully:", data);
         resetForm();
         threadRefresh(activeLink);
       })
       .catch((error) => {
-        console.log(data);
         console.error("Error creating thread:", error);
       });
   };
 
   const authUser = async () => {
     const state = await axios
-      .get("https://kangaroo.click:3002/auth/", {
+      .get("https://kangarooo.click:3002/auth/", {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .catch((error) => {
@@ -106,7 +104,7 @@ const MainPage = () => {
 
   const getLeaderBoard = async () => {
     await axios
-      .get("https://kangaroo.click:3002/auth/leaderboard")
+      .get("https://kangarooo.click:3002/auth/leaderboard")
       .then((response) => {
         setLeaderboard(response.data);
       })
@@ -120,7 +118,7 @@ const MainPage = () => {
     if (userInfo === "no user") {
       try {
         const threadResponse = await axios.get(
-          "https://kangaroo.click:3002/thread/date"
+          "https://kangarooo.click:3002/thread/date"
         );
         const threads = threadResponse.data;
 
@@ -128,11 +126,11 @@ const MainPage = () => {
           threads.map(async (thread) => {
             try {
               const commentResponse = await axios.get(
-                `https://kangaroo.click:3002/comment/comms/${thread.threadID}`
+                `https://kangarooo.click:3002/comment/comms/${thread.threadID}`
               );
 
               const ratingResponse = await axios.get(
-                `https://kangaroo.click:3002/rate/threadrates/${thread.threadID}`
+                `https://kangarooo.click:3002/rate/threadrates/${thread.threadID}`
               );
 
               return {
@@ -154,17 +152,14 @@ const MainPage = () => {
           const replycountSortList = [...threadsWithReplies].sort(
             (a, b) => b.replyCount - a.replyCount
           );
-          console.log("reply count sorted:", replycountSortList);
           return setThreadList(replycountSortList);
         } else if (link === 2) {
           const ratingSortList = [...threadsWithReplies].sort(
             (a, b) => b.score - a.score
           );
-          console.log("rating sorted:", ratingSortList);
           return setThreadList(ratingSortList);
         } else {
           //Sorted by date desc.
-          console.log("date sorted:", threadsWithReplies);
           return setThreadList(threadsWithReplies);
         }
       } catch (error) {
@@ -173,7 +168,7 @@ const MainPage = () => {
     } else {
       try {
         const threadResponse = await axios.get(
-          "https://kangaroo.click:3002/thread/date"
+          "https://kangarooo.click:3002/thread/date"
         );
         const threads = threadResponse.data;
 
@@ -181,16 +176,16 @@ const MainPage = () => {
           threads.map(async (thread) => {
             try {
               const commentResponse = await axios.get(
-                `https://kangaroo.click:3002/comment/comms/${thread.threadID}`
+                `https://kangarooo.click:3002/comment/comms/${thread.threadID}`
               );
 
               const ratingResponse = await axios.get(
-                `https://kangaroo.click:3002/rate/threadrates/${thread.threadID}`
+                `https://kangarooo.click:3002/rate/threadrates/${thread.threadID}`
               );
 
               const rating = await axios
                 .get(
-                  `https://kangaroo.click:3002/auth/threadlikes/${userInfo.data.id}/${thread.threadID}`
+                  `https://kangarooo.click:3002/auth/threadlikes/${userInfo.data.id}/${thread.threadID}`
                 )
                 .catch((error) => {
                   if (error.status === 404) {
@@ -217,17 +212,14 @@ const MainPage = () => {
           const replycountSortList = [...threadsWithReplies].sort(
             (a, b) => b.replyCount - a.replyCount
           );
-          console.log("reply count sorted:", replycountSortList);
           return setThreadList(replycountSortList);
         } else if (link === 2) {
           const ratingSortList = [...threadsWithReplies].sort(
             (a, b) => b.score - a.score
           );
-          console.log("rating sorted:", ratingSortList);
           return setThreadList(ratingSortList);
         } else {
           //Sorted by date desc.
-          console.log("date sorted:", threadsWithReplies);
           return setThreadList(threadsWithReplies);
         }
       } catch (error) {
@@ -237,7 +229,6 @@ const MainPage = () => {
   };
 
   const threadRefresh = (link) => {
-    console.log("refreshing threads");
     getThreads(link);
   };
 

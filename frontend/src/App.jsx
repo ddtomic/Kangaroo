@@ -27,7 +27,7 @@ const App = () => {
 
   const getThreads = async () => {
     axios
-      .get("https://kangaroo.click:3002/thread/date")
+      .get("https://kangarooo.click:3002/thread/date")
       .then((response) => {
         setThreadList(response.data);
       })
@@ -36,7 +36,7 @@ const App = () => {
 
   const authUser = async () => {
     axios
-      .get("https://kangaroo.click:3002/auth/", {
+      .get("https://kangarooo.click:3002/auth/", {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then((response) => {
@@ -54,7 +54,7 @@ const App = () => {
 
   const getUserProfiles = async () => {
     await axios
-      .get("https://kangaroo.click:3002/auth/users")
+      .get("https://kangarooo.click:3002/auth/users")
       .then((response) => {
         setUserList(response.data);
       })

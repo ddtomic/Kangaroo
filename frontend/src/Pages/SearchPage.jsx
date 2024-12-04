@@ -21,9 +21,8 @@ const SearchPage = () => {
 
   const getResults = async () => {
     await axios
-      .get(`https://kangaroo.click:3002/thread/search/${query}`)
+      .get(`https://kangarooo.click:3002/thread/search/${query}`)
       .then((response) => {
-        console.log(response);
         return setResults(response.data);
       })
       .catch((error) => {

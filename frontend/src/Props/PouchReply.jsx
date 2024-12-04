@@ -25,17 +25,12 @@ function PouchReply(prop) {
 
   const rateComment = async (rating) => {
     axios
-      .post("https://kangaroo.click:3002/rate/comment", {
+      .post("https://kangarooo.click:3002/rate/comment", {
         userID: authState.id,
         commentID: prop.commentID,
         rating: rating,
       })
       .then((response) => {
-        if (rating === "l") {
-          console.log("Like:", response.data);
-        } else {
-          console.log("Dislike:", response.data);
-        }
         ratingRefresh();
         refreshComments();
       })
@@ -45,7 +40,7 @@ function PouchReply(prop) {
   };
   const getRatings = async () => {
     axios
-      .get(`https://kangaroo.click:3002/rate/commentrates/${prop.commentID}`)
+      .get(`https://kangarooo.click:3002/rate/commentrates/${prop.commentID}`)
       .then((response) => {
         return setCommentScore(response.data.score);
       })
@@ -55,12 +50,9 @@ function PouchReply(prop) {
   };
 
   const delComment = async () => {
-    console.log("hi");
     await axios
-      .delete(`https://kangaroo.click:3002/comment/comments/${prop.commentID}`)
-      .then((response) => {
-        console.log(response.data);
-      });
+      .delete(`https://kangarooo.click:3002/comment/comments/${prop.commentID}`)
+      .then((response) => {});
 
     refreshComments();
   };

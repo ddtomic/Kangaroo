@@ -30,17 +30,12 @@ function Pouch(prop) {
   const navTo = useNavigate();
   const rateThread = (rate) => {
     axios
-      .post("https://kangaroo.click:3002/rate/thread", {
+      .post("https://kangarooo.click:3002/rate/thread", {
         userID: authState.id,
         threadID: prop.threadID,
         rating: rate,
       })
       .then((response) => {
-        if (rate === "l") {
-          console.log("Like:", response.data);
-        } else {
-          console.log("Dislike:", response.data);
-        }
         refreshRating();
       })
       .catch((error) => {
@@ -49,12 +44,9 @@ function Pouch(prop) {
   };
 
   const delThread = async () => {
-    console.log("hi");
     await axios
-      .delete(`https://kangaroo.click:3002/thread/threads/${prop.threadID}`)
-      .then((response) => {
-        console.log(response.data);
-      });
+      .delete(`https://kangarooo.click:3002/thread/threads/${prop.threadID}`)
+      .then((response) => {});
     navTo("/home");
   };
 
@@ -92,7 +84,6 @@ function Pouch(prop) {
                     <button
                       onClick={() => {
                         rateThread("l");
-                        console.log(prop.likecount);
                       }}
                       className={`likePouch ${
                         prop.isLiked === "l" ? "liked" : ""
@@ -109,7 +100,6 @@ function Pouch(prop) {
                     <button
                       onClick={() => {
                         rateThread("d");
-                        console.log(prop.likecount);
                       }}
                       className={`dislikePouch ${
                         prop.isLiked === "d" ? "disliked" : ""

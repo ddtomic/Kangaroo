@@ -61,6 +61,7 @@ router.get("/comms/:threadID", async (req, res) => {
     return res.status(400).send("Could not get thread ratings");
   }
 });
+
 //Get all comments
 router.get("/comms", async (req, res) => {
   try {

@@ -54,7 +54,7 @@ const AuthPage = () => {
 
   const onSubmitSignUp = (data, { resetForm }) => {
     axios
-      .post("https://kangaroo.click:3002/auth/", data)
+      .post("https://kangarooo.click:3002/auth/", data)
       .then(() => {
         console.log("User created successfully");
         setIsActive(false);
@@ -68,7 +68,7 @@ const AuthPage = () => {
   const onSubmitSignIn = (data, { resetForm }) => {
     const userData = { username: data.username, password: data.password };
     axios
-      .post("https://kangaroo.click:3002/auth/signin", userData)
+      .post("https://kangarooo.click:3002/auth/signin", userData)
       .then((response) => {
         if (response.data.error) {
           alert(response.data.error);

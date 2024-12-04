@@ -13,7 +13,7 @@ const { validateToken } = require("../middleware/AuthMiddleware");
 const { sign } = require("jsonwebtoken");
 const sequelize = require("sequelize");
 
-//Creating an account
+//Create an account
 router.post("/", (req, res) => {
   try {
     const { username, email, password, bio } = req.body;

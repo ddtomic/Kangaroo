@@ -27,17 +27,12 @@ function ThreadBox(props) {
 
   const rateThread = (rate) => {
     axios
-      .post("https://kangaroo.click:3002/rate/thread", {
+      .post("https://kangarooo.click:3002/rate/thread", {
         userID: authState.id,
         threadID: props.threadID,
         rating: rate,
       })
       .then((response) => {
-        if (rate === "l") {
-          console.log("Like:", response.data);
-        } else {
-          console.log("Dislike:", response.data);
-        }
         refreshThread();
       })
       .catch((error) => {

@@ -24,6 +24,7 @@ body{
     width: 800px;
     max-width: 100%;
     min-height: 480px;
+    margin-top: 5.5vw;
 }
 
 .auth-container p{

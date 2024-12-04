@@ -40,9 +40,9 @@ const SearchPage = () => {
     <div className="search-container">
       <Navbar />
       <div className="main-container">
-        <div className="heading-container">
+        <div className="search-heading-container">
           <h2>Search Our Community!</h2>
-          <h4>Showing reusts for 'Hello'.</h4>
+          <h4>Showing results for "{query}".</h4>
         <div className="search-search">
           <img src={search} alt="search-img"></img>
           <Formik

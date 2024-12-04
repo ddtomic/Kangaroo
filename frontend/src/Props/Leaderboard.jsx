@@ -17,11 +17,11 @@ function Leaderbaord(prop) {
         <div className="leaderboard-items">
           <div className="user-picture">
             <img src={`/assets/${prop.pfp}.jpg`} alt="shuffle"></img>
-          </div>
-          <p className="counter">{prop.count}</p>
-          <a className="leaderboard-link" href={`/${prop.userID}/${prop.name}`}>
+            <a className="leaderboard-link" href={`/${prop.userID}/${prop.name}`}>
             {prop.name}
-          </a>
+            </a>
+          </div>
+          <div><p className="counter">{prop.count}</p></div>
         </div>
       </li>
     </div>

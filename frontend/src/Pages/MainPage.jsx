@@ -253,7 +253,8 @@ const MainPage = () => {
       <div className="main">
       <div className="upper-body">
         <img src={design} alt="background-image"></img>
-        <p>Welcome to Kangaroo!</p>
+        <p>Hi <span class="username-main">{authState.username}</span>,</p>
+        <p>welcome to Kangaroo!</p>
         <div className="upper-search">
           <img src={search} alt="search-img"></img>
           <Formik

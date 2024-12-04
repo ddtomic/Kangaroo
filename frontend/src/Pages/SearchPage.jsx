@@ -41,6 +41,8 @@ const SearchPage = () => {
       <Navbar />
       <div className="main-container">
         <div className="heading-container">
+          <h2>Search Our Community!</h2>
+          <h4>Showing reusts for 'Hello'.</h4>
         <div className="search-search">
           <img src={search} alt="search-img"></img>
           <Formik
@@ -59,8 +61,26 @@ const SearchPage = () => {
           </Formik>
           </div>
         </div>
-        <div className="post-header">
-          <p>Posts</p>
+
+        <div className="search-header">
+          <p>Results</p>
+        </div>
+        <div className="search-catagories">
+          <a
+
+          >
+            Most Recent
+          </a>
+          <a
+
+          >
+            Most Liked
+          </a>
+          <a
+
+          >
+            Most Commented
+          </a>
         </div>
         <div className="result-container">
           {results.map((value, key) => {

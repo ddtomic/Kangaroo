@@ -71,7 +71,7 @@ const MainPage = () => {
   const postThread = (data, { resetForm }) => {
     axios
       .post(
-        "https://kangaroo.click:3002/thread/create",
+        "http://localhost:3002/thread/create",
         (data = {
           threadTitle: data.threadTitle,
           threadContent: data.threadContent,
@@ -91,7 +91,7 @@ const MainPage = () => {
 
   const authUser = async () => {
     const state = await axios
-      .get("https://kangaroo.click:3002/auth/", {
+      .get("http://localhost:3002/auth/", {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .catch((error) => {
@@ -106,7 +106,7 @@ const MainPage = () => {
 
   const getLeaderBoard = async () => {
     await axios
-      .get("https://kangaroo.click:3002/auth/leaderboard")
+      .get("http://localhost:3002/auth/leaderboard")
       .then((response) => {
         setLeaderboard(response.data);
       })
@@ -120,7 +120,7 @@ const MainPage = () => {
     if (userInfo === "no user") {
       try {
         const threadResponse = await axios.get(
-          "https://kangaroo.click:3002/thread/date"
+          "http://localhost:3002/thread/date"
         );
         const threads = threadResponse.data;
 
@@ -128,11 +128,11 @@ const MainPage = () => {
           threads.map(async (thread) => {
             try {
               const commentResponse = await axios.get(
-                `https://kangaroo.click:3002/comment/comms/${thread.threadID}`
+                `http://localhost:3002/comment/comms/${thread.threadID}`
               );
 
               const ratingResponse = await axios.get(
-                `https://kangaroo.click:3002/rate/threadrates/${thread.threadID}`
+                `http://localhost:3002/rate/threadrates/${thread.threadID}`
               );
 
               return {
@@ -173,7 +173,7 @@ const MainPage = () => {
     } else {
       try {
         const threadResponse = await axios.get(
-          "https://kangaroo.click:3002/thread/date"
+          "http://localhost:3002/thread/date"
         );
         const threads = threadResponse.data;
 
@@ -181,16 +181,16 @@ const MainPage = () => {
           threads.map(async (thread) => {
             try {
               const commentResponse = await axios.get(
-                `https://kangaroo.click:3002/comment/comms/${thread.threadID}`
+                `http://localhost:3002/comment/comms/${thread.threadID}`
               );
 
               const ratingResponse = await axios.get(
-                `https://kangaroo.click:3002/rate/threadrates/${thread.threadID}`
+                `http://localhost:3002/rate/threadrates/${thread.threadID}`
               );
 
               const rating = await axios
                 .get(
-                  `https://kangaroo.click:3002/auth/threadlikes/${userInfo.data.id}/${thread.threadID}`
+                  `http://localhost:3002/auth/threadlikes/${userInfo.data.id}/${thread.threadID}`
                 )
                 .catch((error) => {
                   if (error.status === 404) {

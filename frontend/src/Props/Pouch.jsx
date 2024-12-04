@@ -30,7 +30,7 @@ function Pouch(prop) {
   const navTo = useNavigate();
   const rateThread = (rate) => {
     axios
-      .post("https://kangaroo.click:3002/rate/thread", {
+      .post("http://localhost:3002/rate/thread", {
         userID: authState.id,
         threadID: prop.threadID,
         rating: rate,
@@ -51,7 +51,7 @@ function Pouch(prop) {
   const delThread = async () => {
     console.log("hi");
     await axios
-      .delete(`https://kangaroo.click:3002/thread/threads/${prop.threadID}`)
+      .delete(`http://localhost:3002/thread/threads/${prop.threadID}`)
       .then((response) => {
         console.log(response.data);
       });

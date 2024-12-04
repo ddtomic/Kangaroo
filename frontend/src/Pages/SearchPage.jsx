@@ -54,7 +54,7 @@ const SearchPage = () => {
       <div className="main-container">
         <div className="search-heading-container">
           <h2>Search Our Community!</h2>
-          <h4>Showing reusts for "{query}".</h4>
+          <h4>Showing results for "{query}"</h4>
           <div className="search-search">
             <img src={search} alt="search-img"></img>
             <Formik
@@ -75,7 +75,7 @@ const SearchPage = () => {
         </div>
 
         <div className="search-header">
-          <p>Results</p>
+          <p>Found {results.length} result(s)</p>
         </div>
         <div className="search-catagories">
           <a>Most Recent</a>

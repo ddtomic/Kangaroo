@@ -26,8 +26,6 @@
     align-items: center;
     text-align: center;
     justify-content: center;
-    white-space: pre;
-    word-break:break-all;
 }
 
 .leaderboard-items{
@@ -35,8 +33,8 @@
     display: flex; 
     width: 100%;
     justify-content: space-between;
-    white-space: pre;
-    word-break:break-all;
+    text-overflow: ellipsis; /* Add an ellipsis (...) at the end of the text */
+    white-space: nowrap; 
 }
 
 .leaderboard-row:hover{
@@ -46,13 +44,14 @@
 }
 
 .leaderboard-link{
-    width: 100%;
+    width: 15vw;
     font-size: 2vh;
     font-weight: bold;
     color: black;
     cursor: pointer;
-    white-space: pre;
-    word-break:break-all;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add an ellipsis (...) at the end of the text */
+    white-space: nowrap; 
 }
 
 .counter{

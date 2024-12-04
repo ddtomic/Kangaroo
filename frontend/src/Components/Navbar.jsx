@@ -26,7 +26,11 @@ const Navbar = () => {
       </a>
       {authState.status ? (
         <nav className="navbar">
-          <a href={`/${authState.id}/${authState.username}`}>
+
+          <p>{authState.username}</p>
+
+          <a className="navbar-username" href={`/${authState.id}/${authState.username}`}>
+
             <img src={usericonwhite} alt="user-icon-white"></img>
           </a>
 

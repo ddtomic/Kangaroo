@@ -438,6 +438,16 @@ const MainPage = (props) => {
               </div>
             )}
           </div>
+          <div className="lower-body">
+            <div className="top-lower-body">
+              <p>About Us</p>
+              <h1>
+                We are computer engineering students making a forum website for users
+                to come and interact with one another. This project is for our CS
+                44200 class and we hope you enjoy!
+              </h1>
+            </div>
+          </div>
         </div>
         <Footer />
       </div>

@@ -181,3 +181,36 @@
 .left-container, .right-container{
   width: 20vw;
 }
+
+.lower-body{
+  background-color: #d5b9ff;
+  height:auto;
+  width: 50vw;
+  margin-bottom: 2.5vw;
+  border-radius: 5vh;
+  padding: 1vh;
+}
+
+.top-lower-body{
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5vh;
+  padding: 5vh;
+  background-color: #ba92f5;
+}
+
+.top-lower-body p{
+  font-size: 2.5vw;
+  font-weight: bold;
+  color: white;
+}
+
+.top-lower-body h1{
+  font-size: 1vw;
+  color: black;
+  text-align:center;
+  font-weight: normal;
+  color: white;
+}

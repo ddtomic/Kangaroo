@@ -232,7 +232,6 @@ const MainPage = (props) => {
   };
 
   const threadRefresh = (link) => {
-    console.log("refreshing thread");
     getThreads(link);
   };
 

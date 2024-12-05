@@ -78,11 +78,6 @@ const SearchPage = () => {
         <div className="search-header">
           <p>Found {results.length} result(s)</p>
         </div>
-        <div className="search-catagories">
-          <a>Most Recent</a>
-          <a>Most Liked</a>
-          <a>Most Commented</a>
-        </div>
         <div className="result-container">
           {results.map((value, key) => {
             return (

@@ -125,6 +125,7 @@ function ProfilePage(props) {
 
   useEffect(() => {
     getUserInfo();
+    window.scrollTo(0,0); 
   }, []);
 
   return (

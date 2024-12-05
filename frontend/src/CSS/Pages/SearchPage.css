@@ -1,4 +1,14 @@
-
+.search-container{
+  margin-top: 5vw;
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 
 .main-container{
   width: 100%; 
@@ -17,7 +27,6 @@
   padding: 5vh; 
   background-color: #ba92f5;
   height: auto;
-  margin-top: 2.5vw;
   margin-bottom: 2.5vw; 
 }
 

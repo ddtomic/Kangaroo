@@ -14,11 +14,13 @@ import { AuthContext } from "../helpers/AuthContext";
 import * as Yup from "yup";
 import Footer from "../Components/Footer";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-const MainPage = () => {
+const MainPage = (props) => {
   const [threadList, setThreadList] = useState([]);
   const [activeLink, setActiveLink] = useState(1);
   const [leaderboard, setLeaderboard] = useState([]);
+  const {refreshThread} = props; 
 
   const navTo = useNavigate();
 
@@ -81,6 +83,7 @@ const MainPage = () => {
       .then((data) => {
         resetForm();
         threadRefresh(activeLink);
+        refreshThread(); 
       })
       .catch((error) => {
         console.error("Error creating thread:", error);
@@ -229,6 +232,7 @@ const MainPage = () => {
   };
 
   const threadRefresh = (link) => {
+    console.log('refreshing thread')
     getThreads(link);
   };
 
@@ -236,6 +240,7 @@ const MainPage = () => {
     authUser();
     getThreads(1);
     getLeaderBoard();
+    window.scrollTo(0, 0);
   }, []);
 
   return (

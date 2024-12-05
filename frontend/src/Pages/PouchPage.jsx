@@ -190,6 +190,7 @@ function PouchPage(props) {
   useEffect(() => {
     getComments();
     getRatings();
+    window.scrollTo(0, 0);
   }, []);
 
   const formatDate = (dateString) => {

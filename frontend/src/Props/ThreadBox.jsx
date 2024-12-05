@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import "../CSS/Props/ThreadBox.css";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function ThreadBox(props) {
   const { refreshThread } = props;
@@ -53,7 +54,7 @@ function ThreadBox(props) {
   return (
     <div>
       <li className="row">
-        <a href={urlSetup(props.title)}>
+        <Link to={urlSetup(props.title)}>
           <div className="top">
             <div className="user-picture">
               <img src={`/assets/${props.pfp}.jpg`} alt="shuffle"></img>
@@ -72,7 +73,7 @@ function ThreadBox(props) {
               </div>
             </div>
           </div>
-        </a>
+        </Link>
         <div className="bottom">
           <div className="feedback">
             <div className="left-feedback">

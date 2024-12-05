@@ -7,6 +7,7 @@ import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
 import trash from "../assets/images/trash-bin.png";
 import shuffle from "../assets/images/shuffle-arrows.png";
+import { Link } from 'react-router-dom';
 
 PouchReply.propTypes = {
   name: propTypes.string,
@@ -73,9 +74,9 @@ function PouchReply(prop) {
         <div className="top-comment">
           <div className="top-comment-picture">
             <img src={`/assets/${prop.pfp}.jpg`} alt="shuffle-img"></img>
-            <a href={`/${prop.userID}/${prop.name}`} className="profile-route">
+            <Link to={`/${prop.userID}/${prop.name}`} className="profile-route">
               <h3 className="comment-username">{prop.name}</h3>
-            </a>
+            </Link>
           </div>
           <h4 className="date-comment">{prop.date}</h4>
         </div>

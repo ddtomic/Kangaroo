@@ -9,6 +9,7 @@ import { AuthContext } from "../helpers/AuthContext";
 import axios from "axios";
 import { Formik, Form, Field } from "formik";
 import Footer from "../Components/Footer";
+import { Link } from 'react-router-dom';
 
 function ProfilePage(props) {
   ProfilePage.propTypes = {
@@ -235,7 +236,7 @@ function ProfilePage(props) {
             {userComment.map((value, key) => {
               return (
                 <div className="comment-container" key={key}>
-                  <a href={urlSetup(value.threadComments)}>
+                  <Link to={urlSetup(value.threadComments)}>
                     <div className="left-pouch">
                       <div className="top-comment">
                         <div className="top-comment-picture">
@@ -259,7 +260,7 @@ function ProfilePage(props) {
                         <p>Score: {value.score}</p>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               );
             })}

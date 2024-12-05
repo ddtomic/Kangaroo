@@ -47,6 +47,7 @@ const SearchPage = () => {
 
   useEffect(() => {
     getResults(query);
+    window.scrollTo(0, 0);
   }, []);
   return (
     <div className="search-container">

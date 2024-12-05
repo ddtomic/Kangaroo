@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import "../CSS/Components/Dropdown.css";
-import CommentNotification from "../Props/CommentNotification";
 import LikeNotification from "../Props/LikeNotification";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
@@ -53,12 +52,28 @@ const Dropdown = () => {
               <LikeNotification
                 name={authState.username}
                 date={formatDate(values.updatedAt)}
-                user={values.userCommentRate.username}
-                threadurl={urlSetup(
-                  values.commentRating.threadComments.threadID,
-                  values.commentRating.threadComments.title
-                )}
-                threadName={values.commentRating.threadComments.title}
+                user={
+                  values.type === "c"
+                    ? values.userCommentRate.username
+                    : values.userThreadRate.username
+                }
+                threadurl={
+                  values.type === "c"
+                    ? urlSetup(
+                        values.commentRating.threadComments.threadID,
+                        values.commentRating.threadComments.title
+                      )
+                    : urlSetup(
+                        values.threadRatings.threadID,
+                        values.threadRatings.title
+                      )
+                }
+                threadName={
+                  values.type === "c"
+                    ? values.commentRating.threadComments.title
+                    : values.threadRatings.title
+                }
+                type={values.type}
                 key={key}
               />
             );

@@ -339,11 +339,12 @@ router.get("/leaderboard", async (req, res) => {
   }
 });
 
-//Get all notifications (thread likes + comments + comment likes)
+// Get all notifications (thread likes + comments + comment likes)
 router.get("/notifications/:userID", async (req, res) => {
   try {
     const { userID } = req.params;
 
+    // Comment notifications (likes on comments)
     const commentNotifs = await commentRate.findAll({
       attributes: ["updatedAt"],
       where: [{ rating: "l" }],
@@ -370,11 +371,55 @@ router.get("/notifications/:userID", async (req, res) => {
       ],
     });
 
-    return res.json(commentNotifs);
+    const commentNotifsWithType = commentNotifs.map((notif) => {
+      const notifJSON = notif.toJSON();
+      return {
+        ...notifJSON,
+        type: "c",
+      };
+    });
+
+    // Thread notifications (likes on threads)
+    const threadNotifs = await threadRate.findAll({
+      attributes: ["updatedAt"],
+      where: [{ rating: "l" }],
+      order: [["updatedAt", "DESC"]],
+      include: [
+        {
+          model: Thread,
+          attributes: ["threadID", "title"],
+          where: [{ userID: userID }],
+          as: "threadRatings",
+        },
+        {
+          model: Users,
+          attributes: ["pfp", "username", "userID"],
+          as: "userThreadRate",
+        },
+      ],
+    });
+
+    const threadNotifsWithType = threadNotifs.map((notif) => {
+      const notifJSON = notif.toJSON();
+      return {
+        ...notifJSON,
+        type: "t",
+      };
+    });
+
+    //Combine both notifications and sort by updatedAt in descending order
+    const notifications = [
+      ...commentNotifsWithType,
+      ...threadNotifsWithType,
+    ].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+
+    return res.json(notifications);
   } catch (error) {
+    console.error(error);
     return res.status(500).send("Could not get notifs!");
   }
 });
+
 //Verify login token
 router.get("/", validateToken, (req, res) => {
   return res.json(req.user);

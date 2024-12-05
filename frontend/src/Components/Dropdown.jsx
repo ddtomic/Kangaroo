@@ -47,37 +47,41 @@ const Dropdown = () => {
     <div className="notify">
       <div className="dropdown">
         <ul className="notify-list">
-          {notifications.map((values, key) => {
-            return (
-              <LikeNotification
-                name={authState.username}
-                date={formatDate(values.updatedAt)}
-                user={
-                  values.type === "c"
-                    ? values.userCommentRate.username
-                    : values.userThreadRate.username
-                }
-                threadurl={
-                  values.type === "c"
-                    ? urlSetup(
-                        values.commentRating.threadComments.threadID,
-                        values.commentRating.threadComments.title
-                      )
-                    : urlSetup(
-                        values.threadRatings.threadID,
-                        values.threadRatings.title
-                      )
-                }
-                threadName={
-                  values.type === "c"
-                    ? values.commentRating.threadComments.title
-                    : values.threadRatings.title
-                }
-                type={values.type}
-                key={key}
-              />
-            );
-          })}
+          {notifications.length === 0 ? (
+            <div>No notifications</div>
+          ) : (
+            notifications.map((values, key) => {
+              return (
+                <LikeNotification
+                  name={authState.username}
+                  date={formatDate(values.updatedAt)}
+                  user={
+                    values.type === "c"
+                      ? values.userCommentRate.username
+                      : values.userThreadRate.username
+                  }
+                  threadurl={
+                    values.type === "c"
+                      ? urlSetup(
+                          values.commentRating.threadComments.threadID,
+                          values.commentRating.threadComments.title
+                        )
+                      : urlSetup(
+                          values.threadRatings.threadID,
+                          values.threadRatings.title
+                        )
+                  }
+                  threadName={
+                    values.type === "c"
+                      ? values.commentRating.threadComments.title
+                      : values.threadRatings.title
+                  }
+                  type={values.type}
+                  key={key}
+                />
+              );
+            })
+          )}
         </ul>
       </div>
     </div>

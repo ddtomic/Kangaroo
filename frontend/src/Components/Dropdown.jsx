@@ -20,7 +20,7 @@ const Dropdown = () => {
 
   const getNotifs = async () => {
     await axios
-      .get(`http://localhost:3002/auth/notifications/${authState.id}`)
+      .get(`https://kangarooo.click:3002/auth/notifications/${authState.id}`)
       .then((response) => {
         setNotifications(response.data);
       })

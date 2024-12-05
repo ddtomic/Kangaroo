@@ -36,7 +36,7 @@ const SearchPage = () => {
 
   const getResults = async (q) => {
     await axios
-      .get(`http://localhost:3002/thread/search/${q}`)
+      .get(`https://kangarooo.click:3002/thread/search/${q}`)
       .then((response) => {
         return setResults(response.data);
       })

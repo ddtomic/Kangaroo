@@ -9,7 +9,7 @@ import { AuthContext } from "../helpers/AuthContext";
 
 const AuthPage = (props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const {refreshProfiles} = props; 
+  const { refreshProfiles } = props;
   const navTo = useNavigate();
   const { setAuthState } = useContext(AuthContext);
   const initialValuesSignUp = {
@@ -54,7 +54,7 @@ const AuthPage = (props) => {
 
   const onSubmitSignUp = (data, { resetForm }) => {
     axios
-      .post("http://localhost:3002/auth/", data)
+      .post("https://kangarooo.click:3002/auth/", data)
       .then(() => {
         console.log("User created successfully");
         setIsActive(false);
@@ -68,7 +68,7 @@ const AuthPage = (props) => {
   const onSubmitSignIn = (data, { resetForm }) => {
     const userData = { username: data.username, password: data.password };
     axios
-      .post("http://localhost:3002/auth/signin", userData)
+      .post("https://kangarooo.click:3002/auth/signin", userData)
       .then((response) => {
         if (response.data.error) {
           alert(response.data.error);
@@ -81,7 +81,7 @@ const AuthPage = (props) => {
             status: true,
           });
           navTo("/home");
-          refreshProfiles(); 
+          refreshProfiles();
           resetForm();
         }
       });

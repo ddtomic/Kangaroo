@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import "../CSS/Props/ThreadBox.css";
 import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function ThreadBox(props) {
   const { refreshThread } = props;
@@ -28,7 +28,7 @@ function ThreadBox(props) {
 
   const rateThread = (rate) => {
     axios
-      .post("http://localhost:3002/rate/thread", {
+      .post("https://kangarooo.click:3002/rate/thread", {
         userID: authState.id,
         threadID: props.threadID,
         rating: rate,

@@ -40,7 +40,7 @@ function PouchPage(props) {
 
   const authUser = async () => {
     const state = await axios
-      .get("http://localhost:3002/auth/", {
+      .get("https://kangarooo.click:3002/auth/", {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .catch((error) => {
@@ -59,7 +59,9 @@ function PouchPage(props) {
       console.log("Not signed in error!");
       try {
         const score = await axios
-          .get(`http://localhost:3002/rate/threadrates/${props.threadID}`)
+          .get(
+            `https://kangarooo.click:3002/rate/threadrates/${props.threadID}`
+          )
           .catch((error) => {
             return console.log("Could not get thread score:", error);
           });
@@ -75,14 +77,14 @@ function PouchPage(props) {
     }
     try {
       const score = await axios
-        .get(`http://localhost:3002/rate/threadrates/${props.threadID}`)
+        .get(`https://kangarooo.click:3002/rate/threadrates/${props.threadID}`)
         .catch((error) => {
           return console.log("Could not get thread score:", error);
         });
 
       const rating = await axios
         .get(
-          `http://localhost:3002/auth/threadlikes/${userInfo.data.id}/${props.threadID}`
+          `https://kangarooo.click:3002/auth/threadlikes/${userInfo.data.id}/${props.threadID}`
         )
         .catch((error) => {
           if (error.status === 404) {
@@ -109,7 +111,7 @@ function PouchPage(props) {
       console.log("Not signed in error!");
       try {
         const commsResponse = await axios
-          .get(`http://localhost:3002/comment/comms/${props.threadID}`)
+          .get(`https://kangarooo.click:3002/comment/comms/${props.threadID}`)
           .catch((error) => {
             console.log("Could not get comments:", error);
           });
@@ -133,7 +135,7 @@ function PouchPage(props) {
     }
     try {
       const commsResponse = await axios
-        .get(`http://localhost:3002/comment/comms/${props.threadID}`)
+        .get(`https://kangarooo.click:3002/comment/comms/${props.threadID}`)
         .catch((error) => {
           console.log("Could not get comments:", error);
         });
@@ -141,7 +143,7 @@ function PouchPage(props) {
 
       const ratingResponse = await axios
         .get(
-          `http://localhost:3002/auth/commentlikes/${userInfo.data.id}/${props.threadID}`
+          `https://kangarooo.click:3002/auth/commentlikes/${userInfo.data.id}/${props.threadID}`
         )
         .catch((error) => {
           if (error.status === 404) {
@@ -173,7 +175,7 @@ function PouchPage(props) {
   const onSubmit = (data, { resetForm }) => {
     axios
       .post(
-        "http://localhost:3002/comment/",
+        "https://kangarooo.click:3002/comment/",
         (data = {
           threadID: props.threadID,
           comment: data.replyfield,

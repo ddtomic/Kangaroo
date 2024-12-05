@@ -7,7 +7,7 @@ import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
 import trash from "../assets/images/trash-bin.png";
 import shuffle from "../assets/images/shuffle-arrows.png";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 PouchReply.propTypes = {
   name: propTypes.string,
@@ -26,7 +26,7 @@ function PouchReply(prop) {
 
   const rateComment = async (rating) => {
     axios
-      .post("http://localhost:3002/rate/comment", {
+      .post("https://kangarooo.click:3002/rate/comment", {
         userID: authState.id,
         commentID: prop.commentID,
         rating: rating,
@@ -41,7 +41,7 @@ function PouchReply(prop) {
   };
   const getRatings = async () => {
     axios
-      .get(`http://localhost:3002/rate/commentrates/${prop.commentID}`)
+      .get(`https://kangarooo.click:3002/rate/commentrates/${prop.commentID}`)
       .then((response) => {
         return setCommentScore(response.data.score);
       })
@@ -52,7 +52,7 @@ function PouchReply(prop) {
 
   const delComment = async () => {
     await axios
-      .delete(`http://localhost:3002/comment/comments/${prop.commentID}`)
+      .delete(`https://kangarooo.click:3002/comment/comments/${prop.commentID}`)
       .then((response) => {
         console.log(response.data);
       });

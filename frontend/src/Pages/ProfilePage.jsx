@@ -9,7 +9,7 @@ import { AuthContext } from "../helpers/AuthContext";
 import axios from "axios";
 import { Formik, Form, Field } from "formik";
 import Footer from "../Components/Footer";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function ProfilePage(props) {
   ProfilePage.propTypes = {
@@ -54,7 +54,7 @@ function ProfilePage(props) {
 
   const getUserInfo = async () => {
     const info = await axios
-      .get(`http://localhost:3002/auth/profile/${props.userID}`)
+      .get(`https://kangarooo.click:3002/auth/profile/${props.userID}`)
       .catch((error) => {
         console.error(error);
       });
@@ -66,7 +66,7 @@ function ProfilePage(props) {
   const postPFP = async (pfp) => {
     //updates users pfp value
     await axios
-      .post("http://localhost:3002/auth/pfp", {
+      .post("https://kangarooo.click:3002/auth/pfp", {
         userID: props.userID,
         pfp: pfp,
       })
@@ -79,7 +79,7 @@ function ProfilePage(props) {
 
   const postBio = async (bio) => {
     await axios
-      .post("http://localhost:3002/auth/bio", {
+      .post("https://kangarooo.click:3002/auth/bio", {
         userID: props.userID,
         bio: bio,
       })
@@ -125,7 +125,7 @@ function ProfilePage(props) {
 
   useEffect(() => {
     getUserInfo();
-    window.scrollTo(0,0); 
+    window.scrollTo(0, 0);
   }, []);
 
   return (

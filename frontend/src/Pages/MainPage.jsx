@@ -73,7 +73,7 @@ const MainPage = (props) => {
   const postThread = (data, { resetForm }) => {
     axios
       .post(
-        "http://localhost:3002/thread/create",
+        "https://kangarooo.click:3002/thread/create",
         (data = {
           threadTitle: data.threadTitle,
           threadContent: data.threadContent,
@@ -92,7 +92,7 @@ const MainPage = (props) => {
 
   const authUser = async () => {
     const state = await axios
-      .get("http://localhost:3002/auth/", {
+      .get("https://kangarooo.click:3002/auth/", {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .catch((error) => {
@@ -107,7 +107,7 @@ const MainPage = (props) => {
 
   const getLeaderBoard = async () => {
     await axios
-      .get("http://localhost:3002/auth/leaderboard")
+      .get("https://kangarooo.click:3002/auth/leaderboard")
       .then((response) => {
         setLeaderboard(response.data);
       })
@@ -121,7 +121,7 @@ const MainPage = (props) => {
     if (userInfo === "no user") {
       try {
         const threadResponse = await axios.get(
-          "http://localhost:3002/thread/date"
+          "https://kangarooo.click:3002/thread/date"
         );
         const threads = threadResponse.data;
 
@@ -129,11 +129,11 @@ const MainPage = (props) => {
           threads.map(async (thread) => {
             try {
               const commentResponse = await axios.get(
-                `http://localhost:3002/comment/comms/${thread.threadID}`
+                `https://kangarooo.click:3002/comment/comms/${thread.threadID}`
               );
 
               const ratingResponse = await axios.get(
-                `http://localhost:3002/rate/threadrates/${thread.threadID}`
+                `https://kangarooo.click:3002/rate/threadrates/${thread.threadID}`
               );
 
               return {
@@ -171,7 +171,7 @@ const MainPage = (props) => {
     } else {
       try {
         const threadResponse = await axios.get(
-          "http://localhost:3002/thread/date"
+          "https://kangarooo.click:3002/thread/date"
         );
         const threads = threadResponse.data;
 
@@ -179,16 +179,16 @@ const MainPage = (props) => {
           threads.map(async (thread) => {
             try {
               const commentResponse = await axios.get(
-                `http://localhost:3002/comment/comms/${thread.threadID}`
+                `https://kangarooo.click:3002/comment/comms/${thread.threadID}`
               );
 
               const ratingResponse = await axios.get(
-                `http://localhost:3002/rate/threadrates/${thread.threadID}`
+                `https://kangarooo.click:3002/rate/threadrates/${thread.threadID}`
               );
 
               const rating = await axios
                 .get(
-                  `http://localhost:3002/auth/threadlikes/${userInfo.data.id}/${thread.threadID}`
+                  `https://kangarooo.click:3002/auth/threadlikes/${userInfo.data.id}/${thread.threadID}`
                 )
                 .catch((error) => {
                   if (error.status === 404) {
@@ -442,9 +442,9 @@ const MainPage = (props) => {
             <div className="top-lower-body">
               <p>About Us</p>
               <h1>
-                We are computer engineering students making a forum website for users
-                to come and interact with one another. This project is for our CS
-                44200 class and we hope you enjoy!
+                We are computer engineering students making a forum website for
+                users to come and interact with one another. This project is for
+                our CS 44200 class and we hope you enjoy!
               </h1>
             </div>
           </div>

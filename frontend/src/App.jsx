@@ -56,6 +56,7 @@ const App = () => {
     await axios
       .get("http://localhost:3002/auth/users")
       .then((response) => {
+        console.log(response.data);
         setUserList(response.data);
       })
       .catch((error) => {

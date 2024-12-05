@@ -340,7 +340,41 @@ router.get("/leaderboard", async (req, res) => {
 });
 
 //Get all notifications (thread likes + comments + comment likes)
+router.get("/notifications/:userID", async (req, res) => {
+  try {
+    const { userID } = req.params;
 
+    const commentNotifs = await commentRate.findAll({
+      attributes: ["updatedAt"],
+      where: [{ rating: "l" }],
+      order: [["updatedAt", "DESC"]],
+      include: [
+        {
+          model: Comment,
+          attributes: ["commentID"],
+          where: [{ userID: userID }],
+          as: "commentRating",
+          include: [
+            {
+              model: Thread,
+              attributes: ["threadID", "title"],
+              as: "threadComments",
+            },
+          ],
+        },
+        {
+          model: Users,
+          attributes: ["pfp", "username", "userID"],
+          as: "userCommentRate",
+        },
+      ],
+    });
+
+    return res.json(commentNotifs);
+  } catch (error) {
+    return res.status(500).send("Could not get notifs!");
+  }
+});
 //Verify login token
 router.get("/", validateToken, (req, res) => {
   return res.json(req.user);

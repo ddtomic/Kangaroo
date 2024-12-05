@@ -7,8 +7,8 @@ import logout from "../assets/images/logout.png";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import addUser from "../assets/images/add-user.png";
-import kangaroo from '../assets/images/kgroo.png'
-import { Link } from 'react-router-dom';
+import kangaroo from "../assets/images/kgroo.png";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [DropDown, setDropDown] = useState(false);
@@ -21,18 +21,18 @@ const Navbar = () => {
   };
   return (
     <header className="header">
-
       <Link to="/home" className="logo">
-      <img src={ kangaroo }></img>
+        <img src={kangaroo}></img>
         Kangaroo
       </Link>
       {authState.status ? (
         <nav className="navbar">
-
           <p>{authState.username}</p>
 
-          <Link className="navbar-username" to={`/${authState.id}/${authState.username}`}>
-
+          <Link
+            className="navbar-username"
+            to={`/${authState.id}/${authState.username}`}
+          >
             <img src={usericonwhite} alt="user-icon-white"></img>
           </Link>
 

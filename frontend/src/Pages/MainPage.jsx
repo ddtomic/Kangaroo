@@ -14,13 +14,13 @@ import { AuthContext } from "../helpers/AuthContext";
 import * as Yup from "yup";
 import Footer from "../Components/Footer";
 import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const MainPage = (props) => {
   const [threadList, setThreadList] = useState([]);
   const [activeLink, setActiveLink] = useState(1);
   const [leaderboard, setLeaderboard] = useState([]);
-  const {refreshThread} = props; 
+  const { refreshThread } = props;
 
   const navTo = useNavigate();
 
@@ -83,7 +83,7 @@ const MainPage = (props) => {
       .then((data) => {
         resetForm();
         threadRefresh(activeLink);
-        refreshThread(); 
+        refreshThread();
       })
       .catch((error) => {
         console.error("Error creating thread:", error);
@@ -232,7 +232,7 @@ const MainPage = (props) => {
   };
 
   const threadRefresh = (link) => {
-    console.log('refreshing thread')
+    console.log("refreshing thread");
     getThreads(link);
   };
 
@@ -247,27 +247,27 @@ const MainPage = (props) => {
     <div>
       <Navbar />
       <div className="main">
-      <div className="upper-body">
-        <img src={design} alt="background-image"></img>
-        <p>Welcome to Kangaroo!</p>
-        <div className="upper-search">
-          <img src={search} alt="search-img"></img>
-          <Formik
-            initialValues={searchInitialValues}
-            validationSchema={searchValidationSchema}
-            onSubmit={submitSearch}
-          >
-            <Form>
-              <Field
-                autoComplete="off"
-                type="text"
-                placeholder="Search Roo..."
-                name="searchBar"
-              />
-            </Form>
-          </Formik>
+        <div className="upper-body">
+          <img src={design} alt="background-image"></img>
+          <p>Welcome to Kangaroo!</p>
+          <div className="upper-search">
+            <img src={search} alt="search-img"></img>
+            <Formik
+              initialValues={searchInitialValues}
+              validationSchema={searchValidationSchema}
+              onSubmit={submitSearch}
+            >
+              <Form>
+                <Field
+                  autoComplete="off"
+                  type="text"
+                  placeholder="Search Roo..."
+                  name="searchBar"
+                />
+              </Form>
+            </Formik>
+          </div>
         </div>
-      </div>
 
         <div className="middle-body">
           <p className="middle-p">

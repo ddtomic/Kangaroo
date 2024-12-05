@@ -79,6 +79,7 @@ router.get("/search/:query", async (req, res) => {
       where: {
         [Op.or]: [{ title: query }, { title: { [Op.like]: `%${query}%` } }],
       },
+      order: [["createdAt", "DESC"]],
       include: [
         {
           model: Users,

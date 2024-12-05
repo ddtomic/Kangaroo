@@ -14,26 +14,27 @@
     text-align: center;
     font-size: 2vh;
     font-weight: bold;
-
 }
 
 .leaderboard-row{
     cursor: pointer;
     border-width: thin;
     border-style: solid;
-    display: flex;
+    list-style: none;
     width: 100%;
     padding: 1vh;
     align-items: center;
-    justify-content: center;
     text-align: center;
+    justify-content: center;
 }
 
 .leaderboard-items{
     align-items: center;
     display: flex; 
-    width: 50%; 
+    width: 100%;
     justify-content: space-between;
+    text-overflow: ellipsis; /* Add an ellipsis (...) at the end of the text */
+    white-space: nowrap; 
 }
 
 .leaderboard-row:hover{
@@ -43,11 +44,14 @@
 }
 
 .leaderboard-link{
-    width: 100%;
+    width: 15vw;
     font-size: 2vh;
     font-weight: bold;
     color: black;
     cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add an ellipsis (...) at the end of the text */
+    white-space: nowrap; 
 }
 
 .counter{
@@ -55,5 +59,7 @@
     font-weight: bold;
     color: black;
     text-decoration: none;
-
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1vh;
 }

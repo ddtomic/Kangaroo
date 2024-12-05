@@ -10,9 +10,15 @@
 }
 
 .profile-page{
+  margin-top: 5vw;
+  position: absolute;
   display: flex;
+  top: 0;
+  left: 0;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .profile-overview {
@@ -63,6 +69,8 @@
   box-shadow: 28px 32px 51px -24px rgba(0, 0, 0, 0.57);
   margin-bottom: 20vh;
   width: 70vw;
+  height: auto;
+  min-height: 20vh;
 }
 
 .heading-container {
@@ -76,6 +84,7 @@
 .bio {
   color: darkgray;
 }
+
 select {
   font-size: 20px;
   border: none;
@@ -153,8 +162,24 @@ select {
 }
 
 .bio-container p {
+  margin-top: 2vh; 
+  width: 40vh; 
+  border-radius: 2vh;
+  background-color:#ceb6f1;
+  padding: 2vh;
   color: black;
   margin-bottom: 3vh;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-all;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  max-height: 15vh;
+  text-align: center;
 }
 
 .edit-container button {
@@ -259,6 +284,18 @@ select {
 
 .comment-container:hover{
   background-color: rgb(238, 236, 236);
+}
+
+.empty-comment{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20vh;
+}
+
+.empty-comment p{
+  font-size: 5vh;
+  color:#ceb6f1;
 }
 
 

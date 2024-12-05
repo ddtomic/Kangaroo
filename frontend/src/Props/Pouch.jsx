@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import trash from "../assets/images/trash-bin.png";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 Pouch.propTypes = {
   name: propTypes.string,
@@ -30,17 +31,12 @@ function Pouch(prop) {
   const navTo = useNavigate();
   const rateThread = (rate) => {
     axios
-      .post("http://18.119.120.175:3002/rate/thread", {
+      .post("http://localhost:3002/rate/thread", {
         userID: authState.id,
         threadID: prop.threadID,
         rating: rate,
       })
       .then((response) => {
-        if (rate === "l") {
-          console.log("Like:", response.data);
-        } else {
-          console.log("Dislike:", response.data);
-        }
         refreshRating();
       })
       .catch((error) => {
@@ -49,9 +45,8 @@ function Pouch(prop) {
   };
 
   const delThread = async () => {
-    console.log("hi");
     await axios
-      .delete(`http://18.119.120.175:3002/thread/threads/${prop.threadID}`)
+      .delete(`http://localhost:3002/thread/threads/${prop.threadID}`)
       .then((response) => {
         console.log(response.data);
       });
@@ -70,12 +65,12 @@ function Pouch(prop) {
                   src={`/assets/${prop.pfp}.jpg`}
                   alt="shuffle-img"
                 ></img>
-                <a
-                  href={`/${prop.userID}/${prop.name}`}
+                <Link
+                  to={`/${prop.userID}/${prop.name}`}
                   className="profile-route"
                 >
                   <h3 className="pouch-username">{prop.name}</h3>
-                </a>
+                </Link>
               </div>
               <h2 className="pouch-title">{prop.title}</h2>
             </div>
@@ -92,7 +87,6 @@ function Pouch(prop) {
                     <button
                       onClick={() => {
                         rateThread("l");
-                        console.log(prop.likecount);
                       }}
                       className={`likePouch ${
                         prop.isLiked === "l" ? "liked" : ""
@@ -109,7 +103,6 @@ function Pouch(prop) {
                     <button
                       onClick={() => {
                         rateThread("d");
-                        console.log(prop.likecount);
                       }}
                       className={`dislikePouch ${
                         prop.isLiked === "d" ? "disliked" : ""

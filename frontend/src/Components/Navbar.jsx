@@ -7,7 +7,8 @@ import logout from "../assets/images/logout.png";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import addUser from "../assets/images/add-user.png";
-import kangaroo from '../assets/images/kgroo.png'
+import kangaroo from "../assets/images/kgroo.png";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [DropDown, setDropDown] = useState(false);
@@ -19,36 +20,41 @@ const Navbar = () => {
     setAuthState({ username: "", id: 0, status: false });
   };
   return (
-    <header className="header">
-      <a href="/home" className="logo">
-      <img src={ kangaroo }></img>
+    <header className="header" >
+      <Link to="/home" className="logo">
+        <img src={kangaroo}></img>
         Kangaroo
-      </a>
+      </Link>
       {authState.status ? (
         <nav className="navbar">
-          <a href={`/${authState.id}/${authState.username}`}>
-            <img src={usericonwhite} alt="user-icon-white"></img>
-          </a>
+          <p>{authState.username}</p>
 
-          <a
+          <Link
+            className="navbar-username"
+            to={`/${authState.id}/${authState.username}`}
+          >
+            <img src={usericonwhite} alt="user-icon-white"></img>
+          </Link>
+
+          <Link
             className="notification"
             onClick={() => setDropDown((prev) => !prev)}
           >
             <img src={bell} alt="notification-bell"></img>
-          </a>
-          <a className="log-out" href="/signup">
+          </Link>
+          <Link className="log-out" to="/signup">
             <img
               src={logout}
               alt="logout-image"
               onClick={() => signOut()}
             ></img>
-          </a>
+          </Link>
         </nav>
       ) : (
         <div className="signUpBtn">
-          <a href="/signup">
+          <Link to="/signup">
             <img src={addUser} alt="add-user"></img>
-          </a>
+          </Link>
         </div>
       )}
 

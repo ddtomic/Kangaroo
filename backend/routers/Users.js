@@ -13,7 +13,7 @@ const { validateToken } = require("../middleware/AuthMiddleware");
 const { sign } = require("jsonwebtoken");
 const sequelize = require("sequelize");
 
-//Creating an account
+//Create an account
 router.post("/", (req, res) => {
   try {
     const { username, email, password, bio } = req.body;
@@ -336,6 +336,87 @@ router.get("/leaderboard", async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).send("Could not get leaderboard!");
+  }
+});
+
+// Get all notifications (thread likes + comments + comment likes)
+router.get("/notifications/:userID", async (req, res) => {
+  try {
+    const { userID } = req.params;
+
+    // Comment notifications (likes on comments)
+    const commentNotifs = await commentRate.findAll({
+      attributes: ["updatedAt"],
+      where: [{ rating: "l" }],
+      order: [["updatedAt", "DESC"]],
+      include: [
+        {
+          model: Comment,
+          attributes: ["commentID"],
+          where: [{ userID: userID }],
+          as: "commentRating",
+          include: [
+            {
+              model: Thread,
+              attributes: ["threadID", "title"],
+              as: "threadComments",
+            },
+          ],
+        },
+        {
+          model: Users,
+          attributes: ["pfp", "username", "userID"],
+          as: "userCommentRate",
+        },
+      ],
+    });
+
+    const commentNotifsWithType = commentNotifs.map((notif) => {
+      const notifJSON = notif.toJSON();
+      return {
+        ...notifJSON,
+        type: "c",
+      };
+    });
+
+    // Thread notifications (likes on threads)
+    const threadNotifs = await threadRate.findAll({
+      attributes: ["updatedAt"],
+      where: [{ rating: "l" }],
+      order: [["updatedAt", "DESC"]],
+      include: [
+        {
+          model: Thread,
+          attributes: ["threadID", "title"],
+          where: [{ userID: userID }],
+          as: "threadRatings",
+        },
+        {
+          model: Users,
+          attributes: ["pfp", "username", "userID"],
+          as: "userThreadRate",
+        },
+      ],
+    });
+
+    const threadNotifsWithType = threadNotifs.map((notif) => {
+      const notifJSON = notif.toJSON();
+      return {
+        ...notifJSON,
+        type: "t",
+      };
+    });
+
+    //Combine both notifications and sort by updatedAt in descending order
+    const notifications = [
+      ...commentNotifsWithType,
+      ...threadNotifsWithType,
+    ].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+
+    return res.json(notifications);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Could not get notifs!");
   }
 });
 

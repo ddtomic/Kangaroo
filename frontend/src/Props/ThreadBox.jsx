@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import "../CSS/Props/ThreadBox.css";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function ThreadBox(props) {
   const { refreshThread } = props;
@@ -24,21 +25,15 @@ function ThreadBox(props) {
     main: propTypes.bool,
   };
   const { authState } = useContext(AuthContext);
-  const navTo = useNavigate();
 
   const rateThread = (rate) => {
     axios
-      .post("http://18.119.120.175:3002/rate/thread", {
+      .post("http://localhost:3002/rate/thread", {
         userID: authState.id,
         threadID: props.threadID,
         rating: rate,
       })
       .then((response) => {
-        if (rate === "l") {
-          console.log("Like:", response.data);
-        } else {
-          console.log("Dislike:", response.data);
-        }
         refreshThread();
       })
       .catch((error) => {
@@ -59,7 +54,7 @@ function ThreadBox(props) {
   return (
     <div>
       <li className="row">
-        <a href={urlSetup(props.title)}>
+        <Link to={urlSetup(props.title)}>
           <div className="top">
             <div className="user-picture">
               <img src={`/assets/${props.pfp}.jpg`} alt="shuffle"></img>
@@ -78,7 +73,7 @@ function ThreadBox(props) {
               </div>
             </div>
           </div>
-        </a>
+        </Link>
         <div className="bottom">
           <div className="feedback">
             <div className="left-feedback">

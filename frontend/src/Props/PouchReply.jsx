@@ -7,6 +7,7 @@ import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
 import trash from "../assets/images/trash-bin.png";
 import shuffle from "../assets/images/shuffle-arrows.png";
+import { Link } from 'react-router-dom';
 
 PouchReply.propTypes = {
   name: propTypes.string,
@@ -25,17 +26,12 @@ function PouchReply(prop) {
 
   const rateComment = async (rating) => {
     axios
-      .post("http://18.119.120.175:3002/rate/comment", {
+      .post("http://localhost:3002/rate/comment", {
         userID: authState.id,
         commentID: prop.commentID,
         rating: rating,
       })
       .then((response) => {
-        if (rating === "l") {
-          console.log("Like:", response.data);
-        } else {
-          console.log("Dislike:", response.data);
-        }
         ratingRefresh();
         refreshComments();
       })
@@ -45,7 +41,7 @@ function PouchReply(prop) {
   };
   const getRatings = async () => {
     axios
-      .get(`http://18.119.120.175:3002/rate/commentrates/${prop.commentID}`)
+      .get(`http://localhost:3002/rate/commentrates/${prop.commentID}`)
       .then((response) => {
         return setCommentScore(response.data.score);
       })
@@ -55,9 +51,8 @@ function PouchReply(prop) {
   };
 
   const delComment = async () => {
-    console.log("hi");
     await axios
-      .delete(`http://18.119.120.175:3002/comment/comments/${prop.commentID}`)
+      .delete(`http://localhost:3002/comment/comments/${prop.commentID}`)
       .then((response) => {
         console.log(response.data);
       });
@@ -79,9 +74,9 @@ function PouchReply(prop) {
         <div className="top-comment">
           <div className="top-comment-picture">
             <img src={`/assets/${prop.pfp}.jpg`} alt="shuffle-img"></img>
-            <a href={`/${prop.userID}/${prop.name}`} className="profile-route">
+            <Link to={`/${prop.userID}/${prop.name}`} className="profile-route">
               <h3 className="comment-username">{prop.name}</h3>
-            </a>
+            </Link>
           </div>
           <h4 className="date-comment">{prop.date}</h4>
         </div>

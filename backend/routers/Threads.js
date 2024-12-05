@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const { Thread, threadRate, Users, Comment } = require("../models");
+const { Op } = require("sequelize");
+const sequelize = require("sequelize");
 
+//Create a new thread
 router.post("/create", async (req, res) => {
   try {
     const { threadTitle, threadContent, userID } = req.body;
@@ -61,6 +64,76 @@ router.get("/date", async (req, res) => {
     return res.json(threadListDates);
   } catch (error) {
     return res.status(500).send("Failed to get threads:", error);
+  }
+});
+
+/*
+Get all threads with strings similar to or exactly matching inputted query + 
+thread scores and reply count + user who created thread username, pfp, userID 
+*/
+router.get("/search/:query", async (req, res) => {
+  try {
+    const { query } = req.params;
+
+    const results = await Thread.findAll({
+      where: {
+        [Op.or]: [{ title: query }, { title: { [Op.like]: `%${query}%` } }],
+      },
+      order: [["createdAt", "DESC"]],
+      include: [
+        {
+          model: Users,
+          as: "userThread",
+          attributes: ["username", "pfp", "userID"],
+        },
+      ],
+      attributes: {
+        include: [
+          [
+            sequelize.literal(`
+              (
+                SELECT 
+                  COALESCE(SUM(
+                    CASE WHEN threadRates.rating = 'l' THEN 1 
+                         WHEN threadRates.rating = 'd' THEN -1 
+                         ELSE 0 END
+                  ), 0)
+                FROM threadRates
+                WHERE threadRates.threadID = Thread.threadID
+              ) +
+              (
+                SELECT 
+                  COALESCE(SUM(
+                    CASE WHEN commentRates.rating = 'l' THEN 1 
+                         WHEN commentRates.rating = 'd' THEN -1 
+                         ELSE 0 END
+                  ), 0)
+                FROM commentRates
+                JOIN Comments ON Comments.commentID = commentRates.commentID
+                WHERE Comments.threadID = Thread.threadID
+              )
+            `),
+            "score",
+          ],
+
+          [
+            sequelize.literal(`
+              (
+                SELECT COUNT(*)
+                FROM Comments
+                WHERE Comments.threadID = Thread.threadID
+              )
+            `),
+            "replyCount",
+          ],
+        ],
+      },
+    });
+
+    return res.json(results);
+  } catch (error) {
+    console.error("Error in search route:", error);
+    return res.status(500).send("Failed to search");
   }
 });
 

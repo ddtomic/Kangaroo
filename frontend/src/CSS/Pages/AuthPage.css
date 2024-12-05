@@ -6,8 +6,8 @@
 }
 
 body{
-    margin-top: 20vh;
-    background-color: #d5bafc; 
+    margin-top: 2.5vw;
+    background-color:#d5b9ff; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -24,6 +24,7 @@ body{
     width: 800px;
     max-width: 100%;
     min-height: 480px;
+    margin-top: 5.5vw;
 }
 
 .auth-container p{

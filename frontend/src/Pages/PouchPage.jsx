@@ -30,6 +30,8 @@ function PouchPage(props) {
     replyfield: "",
   };
 
+  const { refreshThread } = props;
+
   const validationSchema = Yup.object().shape({
     replyfield: Yup.string()
       .min(1, "Comment needs at least 1 character!")
@@ -38,7 +40,7 @@ function PouchPage(props) {
 
   const authUser = async () => {
     const state = await axios
-      .get("http://18.119.120.175:3002/auth/", {
+      .get("http://localhost:3002/auth/", {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .catch((error) => {
@@ -57,7 +59,7 @@ function PouchPage(props) {
       console.log("Not signed in error!");
       try {
         const score = await axios
-          .get(`http://18.119.120.175:3002/rate/threadrates/${props.threadID}`)
+          .get(`http://localhost:3002/rate/threadrates/${props.threadID}`)
           .catch((error) => {
             return console.log("Could not get thread score:", error);
           });
@@ -73,14 +75,14 @@ function PouchPage(props) {
     }
     try {
       const score = await axios
-        .get(`http://18.119.120.175:3002/rate/threadrates/${props.threadID}`)
+        .get(`http://localhost:3002/rate/threadrates/${props.threadID}`)
         .catch((error) => {
           return console.log("Could not get thread score:", error);
         });
 
       const rating = await axios
         .get(
-          `http://18.119.120.175:3002/auth/threadlikes/${userInfo.data.id}/${props.threadID}`
+          `http://localhost:3002/auth/threadlikes/${userInfo.data.id}/${props.threadID}`
         )
         .catch((error) => {
           if (error.status === 404) {
@@ -107,7 +109,7 @@ function PouchPage(props) {
       console.log("Not signed in error!");
       try {
         const commsResponse = await axios
-          .get(`http://18.119.120.175:3002/comment/comms/${props.threadID}`)
+          .get(`http://localhost:3002/comment/comms/${props.threadID}`)
           .catch((error) => {
             console.log("Could not get comments:", error);
           });
@@ -131,7 +133,7 @@ function PouchPage(props) {
     }
     try {
       const commsResponse = await axios
-        .get(`http://18.119.120.175:3002/comment/comms/${props.threadID}`)
+        .get(`http://localhost:3002/comment/comms/${props.threadID}`)
         .catch((error) => {
           console.log("Could not get comments:", error);
         });
@@ -139,7 +141,7 @@ function PouchPage(props) {
 
       const ratingResponse = await axios
         .get(
-          `http://18.119.120.175:3002/auth/commentlikes/${userInfo.data.id}/${props.threadID}`
+          `http://localhost:3002/auth/commentlikes/${userInfo.data.id}/${props.threadID}`
         )
         .catch((error) => {
           if (error.status === 404) {
@@ -171,7 +173,7 @@ function PouchPage(props) {
   const onSubmit = (data, { resetForm }) => {
     axios
       .post(
-        "http://18.119.120.175:3002/comment/",
+        "http://localhost:3002/comment/",
         (data = {
           threadID: props.threadID,
           comment: data.replyfield,
@@ -179,7 +181,6 @@ function PouchPage(props) {
         })
       )
       .then((response) => {
-        console.log(response.data);
         resetForm();
         commentRefresh();
       })
@@ -189,8 +190,10 @@ function PouchPage(props) {
   };
 
   useEffect(() => {
+    refreshThread();
     getComments();
     getRatings();
+    window.scrollTo(0, 0);
   }, []);
 
   const formatDate = (dateString) => {
@@ -270,21 +273,27 @@ function PouchPage(props) {
       )}
 
       <div className="comment-box">
-        {threadReplies.map((value, key) => {
-          return (
-            <PouchReply
-              name={value.userComment.username}
-              comment={value.content}
-              date={formatDate(value.createdAt)}
-              commentID={value.commentID}
-              rating={value.isLiked}
-              refreshComments={() => commentRefresh()}
-              pfp={value.userComment.pfp}
-              userID={value.userID}
-              key={key}
-            />
-          );
-        })}
+        {threadReplies.length === 0 ? (
+          <div className="empty-comment">
+            <p>No Comments</p>
+          </div>
+        ) : (
+          threadReplies.map((value, key) => {
+            return (
+              <PouchReply
+                name={value.userComment.username}
+                comment={value.content}
+                date={formatDate(value.createdAt)}
+                commentID={value.commentID}
+                rating={value.isLiked}
+                refreshComments={() => commentRefresh()}
+                pfp={value.userComment.pfp}
+                userID={value.userID}
+                key={key}
+              />
+            );
+          })
+        )}
       </div>
 
       <Footer />

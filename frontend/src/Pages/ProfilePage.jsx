@@ -9,7 +9,7 @@ import { AuthContext } from "../helpers/AuthContext";
 import axios from "axios";
 import { Formik, Form, Field } from "formik";
 import Footer from "../Components/Footer";
-
+import { Link } from 'react-router-dom';
 
 function ProfilePage(props) {
   ProfilePage.propTypes = {
@@ -54,7 +54,7 @@ function ProfilePage(props) {
 
   const getUserInfo = async () => {
     const info = await axios
-      .get(`http://18.119.120.175:3002/auth/profile/${props.userID}`)
+      .get(`http://localhost:3002/auth/profile/${props.userID}`)
       .catch((error) => {
         console.error(error);
       });
@@ -66,13 +66,11 @@ function ProfilePage(props) {
   const postPFP = async (pfp) => {
     //updates users pfp value
     await axios
-      .post("http://18.119.120.175:3002/auth/pfp", {
+      .post("http://localhost:3002/auth/pfp", {
         userID: props.userID,
         pfp: pfp,
       })
-      .then((response) => {
-        console.log(response);
-      })
+      .then((response) => {})
       .catch((error) => {
         console.error(error);
       });
@@ -81,12 +79,11 @@ function ProfilePage(props) {
 
   const postBio = async (bio) => {
     await axios
-      .post("http://18.119.120.175:3002/auth/bio", {
+      .post("http://localhost:3002/auth/bio", {
         userID: props.userID,
         bio: bio,
       })
       .then((response) => {
-        console.log(response.data);
         return;
       })
       .catch((error) => {
@@ -128,6 +125,7 @@ function ProfilePage(props) {
 
   useEffect(() => {
     getUserInfo();
+    window.scrollTo(0,0); 
   }, []);
 
   return (
@@ -149,7 +147,7 @@ function ProfilePage(props) {
           <p>Score: {props.likes}</p>
           {/* Bio */}
           <div className="bio-container">
-            <p className="bio">Bio: {props.bio}</p>
+            <p className="bio">{props.bio}</p>
           </div>
           <div className="edit-container">
             <button onClick={handleButtonClick}>Edit bio</button>
@@ -238,32 +236,32 @@ function ProfilePage(props) {
           <>
             {userComment.map((value, key) => {
               return (
-                <div className='comment-container' key={key}>
-                  <a href={urlSetup(value.threadComments)}>
-                  <div className="left-pouch">
-                    <div className="top-comment">
-                      <div className="top-comment-picture">
-                        <img
-                          src={`/assets/${props.pfp}.jpg`}
-                          alt="shuffle-img"
-                        ></img>
-                        <h3 className="comment-username">{props.name}</h3>
-                      </div>
+                <div className="comment-container" key={key}>
+                  <Link to={urlSetup(value.threadComments)}>
+                    <div className="left-pouch">
+                      <div className="top-comment">
+                        <div className="top-comment-picture">
+                          <img
+                            src={`/assets/${props.pfp}.jpg`}
+                            alt="shuffle-img"
+                          ></img>
+                          <h3 className="comment-username">{props.name}</h3>
+                        </div>
 
-                      <h4 className="date-comment">
-                        {formatDate(value.createdAt)}
-                      </h4>
+                        <h4 className="date-comment">
+                          {formatDate(value.createdAt)}
+                        </h4>
+                      </div>
+                      <div className="bottom-comment">
+                        <h3 className="comment-comment">{value.content}</h3>
+                      </div>
                     </div>
-                    <div className="bottom-comment">
-                      <h3 className="comment-comment">{value.content}</h3>
+                    <div className="right-pouch">
+                      <div>
+                        <p>Score: {value.score}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="right-pouch">
-                    <div>
-                      <p>Score: {value.score}</p>
-                    </div>
-                  </div>
-                  </a>
+                  </Link>
                 </div>
               );
             })}
@@ -320,9 +318,8 @@ function ProfilePage(props) {
           </div>
         </div>
       )}
-      
 
-      <Footer/>
+      <Footer />
     </div>
   );
 }

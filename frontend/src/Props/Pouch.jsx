@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import trash from "../assets/images/trash-bin.png";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 Pouch.propTypes = {
   name: propTypes.string,
@@ -64,12 +65,12 @@ function Pouch(prop) {
                   src={`/assets/${prop.pfp}.jpg`}
                   alt="shuffle-img"
                 ></img>
-                <a
-                  href={`/${prop.userID}/${prop.name}`}
+                <Link
+                  to={`/${prop.userID}/${prop.name}`}
                   className="profile-route"
                 >
                   <h3 className="pouch-username">{prop.name}</h3>
-                </a>
+                </Link>
               </div>
               <h2 className="pouch-title">{prop.title}</h2>
             </div>

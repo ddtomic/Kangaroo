@@ -7,9 +7,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 
-const AuthPage = () => {
+const AuthPage = (props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-
+  const {refreshProfiles} = props; 
   const navTo = useNavigate();
   const { setAuthState } = useContext(AuthContext);
   const initialValuesSignUp = {
@@ -81,6 +81,7 @@ const AuthPage = () => {
             status: true,
           });
           navTo("/home");
+          refreshProfiles(); 
           resetForm();
         }
       });

@@ -56,7 +56,6 @@ const App = () => {
     await axios
       .get("http://localhost:3002/auth/users")
       .then((response) => {
-        console.log(response.data);
         setUserList(response.data);
       })
       .catch((error) => {
@@ -78,7 +77,10 @@ const App = () => {
     <AuthContext.Provider value={{ authState, setAuthState }}>
       <Routes>
         <Route path="/search/:query" element={<SearchPage />} />
-        <Route path="/home" element={<MainPage />} />
+        <Route
+          path="/home"
+          element={<MainPage refreshThread={() => getThreads()} />}
+        />
         {threadList.map((value, key) => {
           return (
             <Route
@@ -120,7 +122,10 @@ const App = () => {
           );
         })}
         ;
-        <Route path="/signup" element={<AuthPage />} />
+        <Route
+          path="/signup"
+          element={<AuthPage refreshProfiles={() => getUserProfiles()} />}
+        />
       </Routes>
     </AuthContext.Provider>
   );

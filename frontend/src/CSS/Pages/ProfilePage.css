@@ -10,10 +10,15 @@
 }
 
 .profile-page{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin-top: 5vw;
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .profile-overview {

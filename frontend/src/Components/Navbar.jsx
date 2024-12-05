@@ -20,7 +20,7 @@ const Navbar = () => {
     setAuthState({ username: "", id: 0, status: false });
   };
   return (
-    <header className="header">
+    <header className="header" >
       <Link to="/home" className="logo">
         <img src={kangaroo}></img>
         Kangaroo
@@ -36,12 +36,12 @@ const Navbar = () => {
             <img src={usericonwhite} alt="user-icon-white"></img>
           </Link>
 
-          <a
+          <Link
             className="notification"
             onClick={() => setDropDown((prev) => !prev)}
           >
             <img src={bell} alt="notification-bell"></img>
-          </a>
+          </Link>
           <Link className="log-out" to="/signup">
             <img
               src={logout}

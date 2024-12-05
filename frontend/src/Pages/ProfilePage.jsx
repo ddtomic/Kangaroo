@@ -147,7 +147,7 @@ function ProfilePage(props) {
           <p>Score: {props.likes}</p>
           {/* Bio */}
           <div className="bio-container">
-            <p className="bio">Bio: {props.bio}</p>
+            <p className="bio">{props.bio}</p>
           </div>
           <div className="edit-container">
             <button onClick={handleButtonClick}>Edit bio</button>

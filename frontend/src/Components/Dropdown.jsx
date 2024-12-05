@@ -50,7 +50,7 @@ const Dropdown = () => {
           {notifications.map((values, key) => {
             return (
               <LikeNotification
-                name={authState.username}
+                pfp={values.type==="c"?(values.userCommentRate.pfp):(values.userThreadRate.pfp)}
                 date={formatDate(values.updatedAt)}
                 user={
                   values.type === "c"

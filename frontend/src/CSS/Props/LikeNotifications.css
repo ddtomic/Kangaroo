@@ -1,4 +1,25 @@
-.liked-top {
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.liked-top, .liked-bottom {
   white-space: none;
   word-break: break-all;
+}
+
+.liked-bottom img{
+  margin-right: 1vh;
+  width: 3vh;
+  height: 3vh;
+  border-radius: 50%;
+}
+
+.liked-bottom img:hover{
+  margin-right: 1vh;
+  width: 3vh;
+  height: 3vh;
+  border-radius: 50%;
 }

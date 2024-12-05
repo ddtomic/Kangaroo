@@ -78,7 +78,7 @@ const App = () => {
       <Routes>
         <Route path="/search/:query" element={<SearchPage />} />
         <Route
-          path="/home"
+          path="*"
           element={<MainPage refreshThread={() => getThreads()} />}
         />
         {threadList.map((value, key) => {

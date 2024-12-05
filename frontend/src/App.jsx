@@ -88,6 +88,7 @@ const App = () => {
               path={urlSetup(value)}
               element={
                 <PouchPage
+                  refreshThread={() => getThreads()}
                   threadID={value.threadID}
                   name={value.userThread.username}
                   userID={value.userID}

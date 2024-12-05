@@ -30,6 +30,8 @@ function PouchPage(props) {
     replyfield: "",
   };
 
+  const { refreshThread } = props;
+
   const validationSchema = Yup.object().shape({
     replyfield: Yup.string()
       .min(1, "Comment needs at least 1 character!")
@@ -188,6 +190,7 @@ function PouchPage(props) {
   };
 
   useEffect(() => {
+    refreshThread();
     getComments();
     getRatings();
     window.scrollTo(0, 0);
@@ -270,22 +273,27 @@ function PouchPage(props) {
       )}
 
       <div className="comment-box">
-        {threadReplies.length===0?(<div className="empty-comment"><p>No Comments</p></div>):(threadReplies.map((value, key) => {
-          return (
-            <PouchReply
-              name={value.userComment.username}
-              comment={value.content}
-              date={formatDate(value.createdAt)}
-              commentID={value.commentID}
-              rating={value.isLiked}
-              refreshComments={() => commentRefresh()}
-              pfp={value.userComment.pfp}
-              userID={value.userID}
-              key={key}
-            />
-          );
-        }))}
-        
+        {threadReplies.length === 0 ? (
+          <div className="empty-comment">
+            <p>No Comments</p>
+          </div>
+        ) : (
+          threadReplies.map((value, key) => {
+            return (
+              <PouchReply
+                name={value.userComment.username}
+                comment={value.content}
+                date={formatDate(value.createdAt)}
+                commentID={value.commentID}
+                rating={value.isLiked}
+                refreshComments={() => commentRefresh()}
+                pfp={value.userComment.pfp}
+                userID={value.userID}
+                key={key}
+              />
+            );
+          })
+        )}
       </div>
 
       <Footer />

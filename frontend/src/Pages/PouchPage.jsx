@@ -270,7 +270,7 @@ function PouchPage(props) {
       )}
 
       <div className="comment-box">
-        {threadReplies.map((value, key) => {
+        {threadReplies.length===0?(<div className="empty-comment"><p>No Comments</p></div>):(threadReplies.map((value, key) => {
           return (
             <PouchReply
               name={value.userComment.username}
@@ -284,7 +284,8 @@ function PouchPage(props) {
               key={key}
             />
           );
-        })}
+        }))}
+        
       </div>
 
       <Footer />
